@@ -696,8 +696,8 @@
               <div id="m_martyrdom_selector"></div>
             </div>
             <div>
-              <label class="block text-[15px] font-bold text-[#111827] mb-1">العمر (يُحسب تلقائياً)</label>
-              <input type="text" id="m_age_preview" readonly placeholder="سيظهر العمر تلقائياً" class="w-full px-3 py-2 border border-gray-200 rounded-[12px] text-sm bg-[#F8F9FA] text-[#111827] font-bold">
+              <label class="block text-[15px] font-bold text-[#111827] mb-1">العمر (يُحسب تلقائياً أو يُدخل يدوياً)</label>
+              <input type="text" id="m_age_preview" placeholder="سيظهر تلقائياً أو اكتب العمر" class="w-full px-3 py-2 border border-gray-300 rounded-[12px] text-sm bg-white text-[#111827] font-bold focus:outline-none focus:border-[#10B981]">
             </div>
             <div>
               <label class="block text-[15px] font-bold text-[#111827] mb-1">المدينة / المنطقة *</label>
@@ -857,10 +857,6 @@
           <button type="button" onclick="adminLogout()" class="btn-ui border border-red-200 bg-red-50 text-[14px] text-red-600 hover:bg-red-100 transition font-bold">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
             <span>تسجيل الخروج</span>
-          </button>
-          <button type="button" onclick="closeAdminModal()" class="btn-ui border border-gray-300 bg-white text-[14px] text-[#111827] hover:bg-gray-100 transition">
-            <span>إغلاق</span>
-            <span class="text-sm leading-none">✕</span>
           </button>
         </div>
       </div>
@@ -1415,19 +1411,35 @@
     return formatDateDMY(dateStr);
   }
 
+  function parseFlexibleDate(str) {
+    if (!str) return null;
+    const clean = toEnglishDigits(String(str).trim());
+    const dmy = clean.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})$/);
+    if (dmy) {
+      const d = new Date(Number(dmy[3]), Number(dmy[2]) - 1, Number(dmy[1]));
+      return isNaN(d.getTime()) ? null : d;
+    }
+    const ymd = clean.match(/^(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})/);
+    if (ymd) {
+      const d = new Date(Number(ymd[1]), Number(ymd[2]) - 1, Number(ymd[3]));
+      return isNaN(d.getTime()) ? null : d;
+    }
+    const fallback = new Date(clean);
+    return isNaN(fallback.getTime()) ? null : fallback;
+  }
+
   function calculateAge(birthStr, martyrdomStr) {
     if (!birthStr || !martyrdomStr) return '';
-    const b = new Date(birthStr);
-    const m = new Date(martyrdomStr);
-    if (isNaN(b.getTime()) || isNaN(m.getTime()) || m < b) return '';
+    const b = parseFlexibleDate(birthStr);
+    const m = parseFlexibleDate(martyrdomStr);
+    if (!b || !m || m < b) return '';
     let years = m.getFullYear() - b.getFullYear();
     const monthDiff = m.getMonth() - b.getMonth();
     if (monthDiff < 0 || (monthDiff === 0 && m.getDate() < b.getDate())) {
       years--;
     }
-    if (years === 0) {
-      const months = (m.getFullYear() - b.getFullYear()) * 12 + (m.getMonth() - b.getMonth());
-      return months <= 1 ? 'أقل من شهر' : toEnglishDigits(`${months} شهر`);
+    if (years <= 0) {
+      return 'أقل من سنة';
     }
     return toEnglishDigits(`${years} سنة`);
   }
@@ -2640,31 +2652,94 @@
   // ==========================================================
   function compressImage(file) {
     return new Promise((resolve, reject) => {
-      if (!file || !file.type.startsWith('image/')) {
+      if (!file) {
+        reject(new Error('لم يتم اختيار ملف صورة'));
+        return;
+      }
+      const isImg = (file.type && file.type.startsWith('image/')) || /\.(jpe?g|png|webp|gif|bmp|heic|heif|avif)$/i.test(file.name || '') || !file.type;
+      if (!isImg) {
         reject(new Error('الملف المختار ليس صورة صالحة'));
         return;
       }
-      const reader = new FileReader();
-      reader.onerror = () => reject(new Error('تعذر قراءة ملف الصورة'));
-      reader.onload = (e) => {
-        const img = new Image();
-        img.onerror = () => reject(new Error('صيغة الصورة غير مدعومة في المتصفح'));
-        img.onload = () => {
+
+      const processImageObj = (img, cleanupFn) => {
+        try {
           const canvas = document.createElement('canvas');
-          const maxW = 500;
-          const scale = Math.min(1, maxW / img.width);
-          canvas.width = Math.round(img.width * scale);
-          canvas.height = Math.round(img.height * scale);
+          const maxDim = 800;
+          const maxSide = Math.max(img.width || 1, img.height || 1);
+          const scale = Math.min(1, maxDim / maxSide);
+          canvas.width = Math.max(1, Math.round((img.width || 800) * scale));
+          canvas.height = Math.max(1, Math.round((img.height || 800) * scale));
           const ctx = canvas.getContext('2d');
+          if (!ctx) {
+            cleanupFn();
+            resolve(file);
+            return;
+          }
+          ctx.fillStyle = '#FFFFFF';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
           ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-          canvas.toBlob((blob) => {
-            if (blob) resolve(blob);
-            else reject(new Error('فشل ضغط الصورة إلى WebP'));
-          }, 'image/webp', 0.75);
-        };
-        img.src = e.target.result;
+
+          const finishWithJpeg = () => {
+            canvas.toBlob((jpegBlob) => {
+              cleanupFn();
+              if (jpegBlob) {
+                resolve(jpegBlob);
+              } else {
+                resolve(file);
+              }
+            }, 'image/jpeg', 0.8);
+          };
+
+          canvas.toBlob((webpBlob) => {
+            if (webpBlob && webpBlob.type === 'image/webp') {
+              cleanupFn();
+              resolve(webpBlob);
+            } else {
+              finishWithJpeg();
+            }
+          }, 'image/webp', 0.8);
+        } catch (_) {
+          cleanupFn();
+          resolve(file);
+        }
       };
-      reader.readAsDataURL(file);
+
+      const loadViaFileReader = () => {
+        const reader = new FileReader();
+        reader.onerror = () => resolve(file);
+        reader.onload = (e) => {
+          const img = new Image();
+          img.onerror = () => resolve(file);
+          img.onload = () => processImageObj(img, () => {});
+          img.src = e.target.result;
+        };
+        try {
+          reader.readAsDataURL(file);
+        } catch (_) {
+          resolve(file);
+        }
+      };
+
+      if (typeof URL !== 'undefined' && URL.createObjectURL) {
+        let objUrl = '';
+        try {
+          objUrl = URL.createObjectURL(file);
+          const img = new Image();
+          img.onerror = () => {
+            try { URL.revokeObjectURL(objUrl); } catch (_) {}
+            loadViaFileReader();
+          };
+          img.onload = () => processImageObj(img, () => {
+            try { URL.revokeObjectURL(objUrl); } catch (_) {}
+          });
+          img.src = objUrl;
+          return;
+        } catch (_) {
+          if (objUrl) { try { URL.revokeObjectURL(objUrl); } catch (__) {} }
+        }
+      }
+      loadViaFileReader();
     });
   }
 
@@ -2686,14 +2761,17 @@
       const nameEn = document.getElementById('m_name_en').value.trim() || null;
       const area = document.getElementById('m_area').value.trim() || null;
       const bio = document.getElementById('m_bio').value.trim() || null;
-      const photoFile = document.getElementById('m_photo').files[0];
+      const photoInput = document.getElementById('m_photo');
+      const photoFile = (photoInput && photoInput.files && photoInput.files[0]) ? photoInput.files[0] : null;
 
       let imageUrl = null;
       if (photoFile) {
         const compressed = await compressImage(photoFile);
+        const mime = compressed.type || 'image/jpeg';
+        const ext = mime.includes('webp') ? 'webp' : (mime.includes('png') ? 'png' : 'jpg');
         if (IS_CONFIGURED) {
-          const fileName = `${Date.now()}_${Math.random().toString(36).slice(2, 8)}.webp`;
-          const { error: upErr } = await db.storage.from('photos').upload(fileName, compressed, { contentType: 'image/webp' });
+          const fileName = `${Date.now()}_${Math.random().toString(36).slice(2, 8)}.${ext}`;
+          const { error: upErr } = await db.storage.from('photos').upload(fileName, compressed, { contentType: mime });
           if (upErr) throw upErr;
           const { data: pubData } = db.storage.from('photos').getPublicUrl(fileName);
           imageUrl = pubData.publicUrl;
@@ -3064,6 +3142,7 @@
     }
 
     adminSessionActive = true;
+    try { localStorage.setItem('khalidin_admin_authenticated', 'true'); } catch (_) {}
     if (!IS_CONFIGURED) demoStore.loggedIn = true;
     closeAdminAuthModal();
     showAdminModalView();
@@ -3199,6 +3278,7 @@
 
   async function adminLogout() {
     adminSessionActive = false;
+    try { localStorage.removeItem('khalidin_admin_authenticated'); } catch (_) {}
     if (!IS_CONFIGURED) {
       demoStore.loggedIn = false;
       saveDemoStoreToStorage();
@@ -4449,6 +4529,13 @@
     initSmartBackNavigation();
     loadAboutCmsFromCloud();
     loadHome();
+    try {
+      if (localStorage.getItem('khalidin_admin_authenticated') === 'true') {
+        adminSessionActive = true;
+        if (!IS_CONFIGURED) demoStore.loggedIn = true;
+        showAdminModalView();
+      }
+    } catch (_) {}
   }
 
   if (document.readyState === 'loading') {
