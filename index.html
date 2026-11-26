@@ -415,8 +415,8 @@
         </div>
       </div>
 
-      <!-- شريط التنقل الأفقي العلوي -->
-      <nav aria-label="التنقل الرئيسي" class="border-t border-black/[0.06] py-2 flex items-center gap-1.5 overflow-x-auto whitespace-nowrap">
+      <!-- شريط التنقل الأفقي العلوي (للحواسيب) -->
+      <nav aria-label="التنقل الرئيسي" class="hidden md:flex border-t border-black/[0.06] py-2 items-center gap-1.5 overflow-x-auto whitespace-nowrap">
         <button type="button" onclick="switchTab('home')" data-top-nav="home" class="top-nav-tab px-3.5 py-1.5 rounded-[10px] text-[14px] border bg-[#10B981]/[0.14] border-[#10B981]/35 text-[#111827] font-extrabold transition">الرئيسية</button>
         <button type="button" onclick="switchTab('martyrs')" data-top-nav="martyrs" class="top-nav-tab px-3.5 py-1.5 rounded-[10px] text-[14px] border border-transparent text-[#111827]/80 hover:bg-gray-100 font-bold transition">سجل الشهداء</button>
         <button type="button" onclick="switchTab('about')" data-top-nav="about" class="top-nav-tab px-3.5 py-1.5 rounded-[10px] text-[14px] border border-transparent text-[#111827]/80 hover:bg-gray-100 font-bold transition">مدينتي في الذاكرة</button>
@@ -428,7 +428,7 @@
   </header>
 
   <!-- المحتوى الرئيسي -->
-  <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-6">
+  <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 pt-6 pb-24 md:pb-8">
 
     <!-- 1. الشاشة الرئيسية -->
     <section id="sec-home" class="space-y-6 animate-fade-up">
@@ -449,7 +449,7 @@
         <!-- الصف الأول: بطاقتان عريضتان -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-[20px]">
           <!-- 1. سجل الشهداء -->
-          <div onclick="switchTab('martyrs')" class="bg-white rounded-[16px] border border-black/[0.08] p-6 shadow-[0_2px_10px_rgba(0,0,0,0.04)] hover:-translate-y-0.5 hover:border-[#10B981] hover:shadow-md transition-all duration-200 cursor-pointer space-y-3.5 flex flex-col justify-between">
+          <div onclick="switchTab('martyrs')" class="bg-gradient-to-br from-[#ECFDF5] via-[#FBFDFC] to-[#FEFCE8] rounded-[16px] border border-emerald-200/60 p-6 shadow-[0_2px_10px_rgba(0,0,0,0.04)] hover:-translate-y-0.5 hover:border-emerald-300/80 hover:shadow-md transition-all duration-200 cursor-pointer space-y-3.5 flex flex-col justify-between">
             <div class="space-y-2.5">
               <div class="flex items-center justify-between gap-3">
                 <span class="w-11 h-11 rounded-[12px] bg-[#10B981]/[0.14] border border-[#10B981]/35 flex items-center justify-center text-[#111827] shrink-0">
@@ -463,7 +463,7 @@
           </div>
 
           <!-- 2. دفتر الرثاء والملاحظات -->
-          <div onclick="switchTab('tributes')" class="bg-white rounded-[16px] border border-black/[0.08] p-6 shadow-[0_2px_10px_rgba(0,0,0,0.04)] hover:-translate-y-0.5 hover:border-[#10B981] hover:shadow-md transition-all duration-200 cursor-pointer space-y-3.5 flex flex-col justify-between">
+          <div onclick="switchTab('tributes')" class="bg-gradient-to-br from-[#ECFDF5] via-[#FBFDFC] to-[#FEFCE8] rounded-[16px] border border-emerald-200/60 p-6 shadow-[0_2px_10px_rgba(0,0,0,0.04)] hover:-translate-y-0.5 hover:border-emerald-300/80 hover:shadow-md transition-all duration-200 cursor-pointer space-y-3.5 flex flex-col justify-between">
             <div class="space-y-2.5">
               <div class="flex items-center justify-between gap-3">
                 <span class="w-11 h-11 rounded-[12px] bg-[#10B981]/[0.14] border border-[#10B981]/35 flex items-center justify-center text-[#111827] shrink-0">
@@ -480,7 +480,7 @@
         <!-- الصف الثاني: ثلاث بطاقات متساوية -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-[20px]">
           <!-- 3. مدينتي في الذاكرة -->
-          <div onclick="switchTab('about')" class="bg-white rounded-[16px] border border-black/[0.08] p-5 shadow-[0_2px_10px_rgba(0,0,0,0.04)] hover:-translate-y-0.5 hover:border-[#10B981] hover:shadow-md transition-all duration-200 cursor-pointer space-y-3 flex flex-col justify-between">
+          <div onclick="switchTab('about')" class="bg-gradient-to-br from-[#ECFDF5] via-[#FBFDFC] to-[#FEFCE8] rounded-[16px] border border-emerald-200/60 p-5 shadow-[0_2px_10px_rgba(0,0,0,0.04)] hover:-translate-y-0.5 hover:border-emerald-300/80 hover:shadow-md transition-all duration-200 cursor-pointer space-y-3 flex flex-col justify-between">
             <div class="space-y-2">
               <div class="flex items-center justify-between gap-2">
                 <span class="w-10 h-10 rounded-[12px] bg-[#10B981]/[0.14] border border-[#10B981]/35 flex items-center justify-center text-[#111827] shrink-0">
@@ -494,7 +494,7 @@
           </div>
 
           <!-- 4. مفكرون وأكاديميون -->
-          <div onclick="switchTab('scholars')" class="bg-white rounded-[16px] border border-black/[0.08] p-5 shadow-[0_2px_10px_rgba(0,0,0,0.04)] hover:-translate-y-0.5 hover:border-[#10B981] hover:shadow-md transition-all duration-200 cursor-pointer space-y-3 flex flex-col justify-between">
+          <div onclick="switchTab('scholars')" class="bg-gradient-to-br from-[#ECFDF5] via-[#FBFDFC] to-[#FEFCE8] rounded-[16px] border border-emerald-200/60 p-5 shadow-[0_2px_10px_rgba(0,0,0,0.04)] hover:-translate-y-0.5 hover:border-emerald-300/80 hover:shadow-md transition-all duration-200 cursor-pointer space-y-3 flex flex-col justify-between">
             <div class="space-y-2">
               <div class="flex items-center justify-between gap-2">
                 <span class="w-10 h-10 rounded-[12px] bg-[#10B981]/[0.14] border border-[#10B981]/35 flex items-center justify-center text-[#111827] shrink-0">
@@ -508,7 +508,7 @@
           </div>
 
           <!-- 5. مقالات -->
-          <div onclick="switchTab('articles')" class="bg-white rounded-[16px] border border-black/[0.08] p-5 shadow-[0_2px_10px_rgba(0,0,0,0.04)] hover:-translate-y-0.5 hover:border-[#10B981] hover:shadow-md transition-all duration-200 cursor-pointer space-y-3 flex flex-col justify-between">
+          <div onclick="switchTab('articles')" class="bg-gradient-to-br from-[#ECFDF5] via-[#FBFDFC] to-[#FEFCE8] rounded-[16px] border border-emerald-200/60 p-5 shadow-[0_2px_10px_rgba(0,0,0,0.04)] hover:-translate-y-0.5 hover:border-emerald-300/80 hover:shadow-md transition-all duration-200 cursor-pointer space-y-3 flex flex-col justify-between">
             <div class="space-y-2">
               <div class="flex items-center justify-between gap-2">
                 <span class="w-10 h-10 rounded-[12px] bg-[#10B981]/[0.14] border border-[#10B981]/35 flex items-center justify-center text-[#111827] shrink-0">
@@ -602,7 +602,7 @@
       <div id="martyrs-pagination" class="flex flex-wrap justify-center items-center gap-1.5 pt-2"></div>
     </section>
 
-    <!-- 3. صفحة نبذة تاريخية عن بيت حانون -->
+    <!-- 3. صفحة مدينتي في الذاكرة (دليل المدن والبلدات) -->
     <section id="view-about" class="hidden space-y-6 animate-fade-up">
       <div class="flex items-center">
         <button type="button" onclick="switchTab('home')" class="btn-ui apple-btn-secondary mr-auto h-[40px] rounded-[12px] text-[15px] text-[#111827]">
@@ -610,10 +610,34 @@
           <span>رجوع</span>
         </button>
       </div>
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        <article id="about-main-card" class="lg:col-span-8 card-surface p-6 md:p-8 space-y-5 leading-relaxed"></article>
-        <aside id="about-photos-stack" class="lg:col-span-4 lg:mt-10 flex flex-col items-center"></aside>
+
+      <div class="card-surface p-4 sm:p-5 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-gray-100">
+          <div>
+            <h2 class="text-[22px] font-extrabold text-[#111827]">مدينتي في الذاكرة</h2>
+            <p class="text-[15px] text-[#111827]">دليل المدن والبلدات الفلسطينية — ابحث أو صفّ حسب المنطقة</p>
+          </div>
+          <span id="cities-count-badge" class="px-3.5 py-1.5 rounded-full memorial-badge text-[14px] font-bold self-start sm:self-auto num-std">0 مدينة</span>
+        </div>
+
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+          <div class="relative flex-1">
+            <input type="text" id="citySearchInput" oninput="renderCitiesDirectory(1)" placeholder="ابحث عن مدينة أو بلدة..."
+              style="height: 44px; box-sizing: border-box;"
+              class="w-full px-4 rounded-[12px] border border-gray-300 bg-white text-[#111827] focus:outline-none focus:border-[#10B981] text-sm">
+          </div>
+          <div class="flex flex-wrap items-center gap-1.5">
+            <button type="button" onclick="setCityRegionFilter('الكل')" data-city-region="الكل" class="city-region-pill px-3.5 py-2 rounded-[10px] text-[13px] font-extrabold border bg-[#10B981]/[0.14] border-[#10B981]/35 text-[#111827] transition">الكل</button>
+            <button type="button" onclick="setCityRegionFilter('قطاع غزة')" data-city-region="قطاع غزة" class="city-region-pill px-3.5 py-2 rounded-[10px] text-[13px] font-bold border border-gray-200 bg-white text-[#111827] hover:bg-gray-50 transition">قطاع غزة</button>
+            <button type="button" onclick="setCityRegionFilter('الضفة الغربية')" data-city-region="الضفة الغربية" class="city-region-pill px-3.5 py-2 rounded-[10px] text-[13px] font-bold border border-gray-200 bg-white text-[#111827] hover:bg-gray-50 transition">الضفة الغربية</button>
+            <button type="button" onclick="setCityRegionFilter('القدس')" data-city-region="القدس" class="city-region-pill px-3.5 py-2 rounded-[10px] text-[13px] font-bold border border-gray-200 bg-white text-[#111827] hover:bg-gray-50 transition">القدس</button>
+            <button type="button" onclick="setCityRegionFilter('الداخل')" data-city-region="الداخل" class="city-region-pill px-3.5 py-2 rounded-[10px] text-[13px] font-bold border border-gray-200 bg-white text-[#111827] hover:bg-gray-50 transition">الداخل</button>
+          </div>
+        </div>
       </div>
+
+      <div id="cities-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+      <div id="cities-pagination" class="flex flex-wrap justify-center items-center gap-2 pt-2"></div>
     </section>
 
     <!-- 4. صفحة مفكرون وأكاديميون وأعلام من بيت حانون -->
@@ -625,12 +649,15 @@
           </button>
         </div>
 
-        <div class="bg-white border border-black/[0.08] rounded-[16px] px-6 py-5 shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div>
-            <h2 class="text-[22px] font-extrabold text-[#111827]">مفكرون وأكاديميون وأعلام</h2>
-            <p class="text-[15px] text-[#111827]">(تُعرض <span class="num-std">9</span> بطاقات في الصفحة — اختر الصفحة من القائمة أدناه)</p>
+        <div class="bg-white border border-black/[0.08] rounded-3xl shadow-sm relative overflow-hidden">
+          <div class="h-1.5 w-full flex"><span class="w-2 bg-red-600 shrink-0"></span><span class="flex-1 bg-neutral-900"></span><span class="flex-1 bg-white"></span><span class="flex-1 bg-emerald-600"></span><span class="w-2 bg-red-600 shrink-0"></span></div>
+          <div class="px-6 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <h2 class="text-[22px] font-extrabold text-[#111827]">مفكرون وأكاديميون وأعلام</h2>
+              <p class="text-[15px] text-[#111827]">(تُعرض <span class="num-std">9</span> بطاقات في الصفحة — اختر الصفحة من القائمة أدناه)</p>
+            </div>
+            <span id="academics-count-badge" class="px-3.5 py-1.5 rounded-full memorial-badge text-[14px] font-bold self-start sm:self-auto"></span>
           </div>
-          <span id="academics-count-badge" class="px-3.5 py-1.5 rounded-full memorial-badge text-[14px] font-bold self-start sm:self-auto"></span>
         </div>
 
         <div id="academics-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
@@ -646,12 +673,15 @@
           </button>
         </div>
 
-        <div class="bg-white border border-black/[0.08] rounded-[16px] px-6 py-5 shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div>
-            <h2 class="text-[22px] font-extrabold text-[#111827]">مقالات ودراسات مختارة</h2>
-            <p class="text-[15px] text-[#111827]">(تُعرض <span class="num-std">9</span> بطاقات في الصفحة — اختر الصفحة من القائمة أدناه)</p>
+        <div class="bg-white border border-black/[0.08] rounded-3xl shadow-sm relative overflow-hidden">
+          <div class="h-1.5 w-full flex"><span class="w-2 bg-red-600 shrink-0"></span><span class="flex-1 bg-neutral-900"></span><span class="flex-1 bg-white"></span><span class="flex-1 bg-emerald-600"></span><span class="w-2 bg-red-600 shrink-0"></span></div>
+          <div class="px-6 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <h2 class="text-[22px] font-extrabold text-[#111827]">مقالات ودراسات مختارة</h2>
+              <p class="text-[15px] text-[#111827]">(تُعرض <span class="num-std">9</span> بطاقات في الصفحة — اختر الصفحة من القائمة أدناه)</p>
+            </div>
+            <span id="articles-count-badge" class="px-3.5 py-1.5 rounded-full memorial-badge text-[14px] font-bold self-start sm:self-auto"></span>
           </div>
-          <span id="articles-count-badge" class="px-3.5 py-1.5 rounded-full memorial-badge text-[14px] font-bold self-start sm:self-auto"></span>
         </div>
 
         <div id="about-articles-row" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
@@ -667,14 +697,17 @@
           </button>
         </div>
 
-        <div class="bg-white border border-black/[0.08] rounded-[16px] px-6 py-5 shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div>
-            <h2 class="text-[22px] font-extrabold text-[#111827]">دفتر الرثاء والملاحظات</h2>
-            <p class="text-[15px] text-[#111827]">(تُعرض <span class="num-std">9</span> بطاقات في الصفحة — اختر الصفحة من القائمة أدناه)</p>
+        <div class="bg-white border border-black/[0.08] rounded-3xl shadow-sm relative overflow-hidden">
+          <div class="h-1.5 w-full flex"><span class="w-2 bg-red-600 shrink-0"></span><span class="flex-1 bg-neutral-900"></span><span class="flex-1 bg-white"></span><span class="flex-1 bg-emerald-600"></span><span class="w-2 bg-red-600 shrink-0"></span></div>
+          <div class="px-6 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <h2 class="text-[22px] font-extrabold text-[#111827]">دفتر الرثاء والملاحظات</h2>
+              <p class="text-[15px] text-[#111827]">(تُعرض <span class="num-std">9</span> بطاقات في الصفحة — اختر الصفحة من القائمة أدناه)</p>
+            </div>
+            <button type="button" onclick="openSubmitModal('tribute')" class="btn-ui btn-primary text-[15px] shrink-0">
+              + اكتب رثاءً أو ملاحظة
+            </button>
           </div>
-          <button type="button" onclick="openSubmitModal('tribute')" class="btn-ui btn-primary text-[15px] shrink-0">
-            + اكتب رثاءً أو ملاحظة
-          </button>
         </div>
 
         <div id="tributes-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
@@ -964,6 +997,62 @@
         <div class="flex items-center justify-end gap-2.5 pt-2">
           <button type="button" onclick="closeChangePasswordModal()" class="btn-ui bg-gray-200 hover:bg-gray-300 text-[#111827] text-[14px]">إلغاء</button>
           <button type="submit" class="btn-ui btn-primary text-[14px] px-5 font-bold">حفظ كلمة المرور</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- نافذة تفاصيل المدينة (Split-Screen) -->
+  <div id="modal-city-details" onclick="closeCityDetailsModal(event)" class="fixed inset-0 bg-[#1A1D20]/60 backdrop-blur-sm hidden items-center justify-center overflow-y-auto z-50 p-3 sm:p-5">
+    <div class="max-w-5xl w-[95vw] bg-white rounded-3xl overflow-hidden shadow-2xl relative my-auto border border-black/[0.08] animate-fade-up">
+      <button type="button" onclick="closeCityDetailsModal()" aria-label="إغلاق" class="no-print absolute top-4 left-4 z-20 px-3 py-1.5 rounded-full bg-white/95 hover:bg-gray-100 border border-black/[0.08] shadow-sm text-[#111827] font-bold text-[14px] transition">إغلاق</button>
+      <div id="city-details-body"></div>
+    </div>
+  </div>
+
+  <!-- نافذة إضافة / تعديل مدينة للمدير -->
+  <div id="modal-city-edit" class="fixed inset-0 bg-[#1A1D20]/60 backdrop-blur-sm hidden items-start justify-center overflow-y-auto z-[72] p-4 sm:p-6">
+    <div class="bg-white rounded-[14px] max-w-xl w-full my-auto shadow-2xl flex flex-col border border-gray-200 animate-fade-up">
+      <div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between bg-[#F8F9FA] rounded-t-[14px]">
+        <h3 id="city-edit-title" class="font-bold text-[#111827]">إضافة / تعديل مدينة</h3>
+        <button type="button" onclick="closeCityEditModal()" aria-label="إغلاق" class="w-8 h-8 rounded-lg flex items-center justify-center text-[#111827] hover:bg-gray-200/70 transition text-lg leading-none">✕</button>
+      </div>
+      <form id="city-edit-form" onsubmit="saveCityForm(event)" class="p-6 space-y-3.5 text-right">
+        <input type="hidden" id="ce_id" value="">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-[14px] font-bold text-[#111827] mb-1">اسم المدينة / البلدة *</label>
+            <input type="text" id="ce_name" required class="w-full px-3 py-2 border border-gray-300 rounded-[10px] text-sm">
+          </div>
+          <div>
+            <label class="block text-[14px] font-bold text-[#111827] mb-1">المنطقة *</label>
+            <select id="ce_region" required class="w-full px-3 py-2 border border-gray-300 rounded-[10px] text-sm bg-white">
+              <option value="قطاع غزة">قطاع غزة</option>
+              <option value="الضفة الغربية">الضفة الغربية</option>
+              <option value="القدس">القدس</option>
+              <option value="الداخل">الداخل</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="block text-[14px] font-bold text-[#111827] mb-1">ملخص تعريفي قصير *</label>
+          <input type="text" id="ce_summary" required class="w-full px-3 py-2 border border-gray-300 rounded-[10px] text-sm">
+        </div>
+        <div>
+          <label class="block text-[14px] font-bold text-[#111827] mb-1">أبرز المعالم والأحياء</label>
+          <input type="text" id="ce_landmarks" placeholder="مثال: البلدة القديمة، المسجد العمري..." class="w-full px-3 py-2 border border-gray-300 rounded-[10px] text-sm">
+        </div>
+        <div>
+          <label class="block text-[14px] font-bold text-[#111827] mb-1">النبذة التاريخية الكاملة *</label>
+          <textarea id="ce_history" rows="4" required class="w-full px-3 py-2 border border-gray-300 rounded-[10px] text-sm leading-relaxed"></textarea>
+        </div>
+        <div>
+          <label class="block text-[14px] font-bold text-[#111827] mb-1">صورة المدينة (اختياري)</label>
+          <input type="file" id="ce_photo" accept="image/*" class="w-full text-sm">
+        </div>
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" onclick="closeCityEditModal()" class="btn-ui bg-gray-200 text-[#111827] text-[14px]">إلغاء</button>
+          <button type="submit" id="btn-save-city" class="btn-ui btn-primary text-[14px] px-5">حفظ المدينة</button>
         </div>
       </form>
     </div>
@@ -1651,6 +1740,13 @@
         : 'top-nav-tab px-3.5 py-1.5 rounded-[10px] text-[14px] border border-transparent text-[#111827]/80 hover:bg-gray-100 font-bold transition';
     });
 
+    document.querySelectorAll('.bottom-nav-tab').forEach(btn => {
+      const isActive = btn.dataset.bottomNav === tab;
+      btn.className = isActive
+        ? 'bottom-nav-tab flex flex-col items-center justify-center gap-1 py-1.5 rounded-xl bg-[#10B981]/10 text-[#10B981] font-extrabold transition'
+        : 'bottom-nav-tab flex flex-col items-center justify-center gap-1 py-1.5 rounded-xl text-[#111827]/70 hover:text-[#111827] font-medium transition';
+    });
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
     if (tab === 'home') loadHome();
@@ -1782,56 +1878,233 @@
   // ==========================================================
   // عرض صفحة النبذة التاريخية + 3 صور + 4 بطاقات مع ترقيم
   // ==========================================================
+  const CITIES_STORAGE_KEY = 'khalidin_cities_v1';
+  let citiesListCache = [];
+  let activeCityRegion = 'الكل';
+  let citiesPage = 1;
+
+  function getDefaultCitiesSeed() {
+    const cover0 = (aboutCms && aboutCms.photos && aboutCms.photos[0] && aboutCms.photos[0].src) ? aboutCms.photos[0].src : PLACEHOLDER_IMG;
+    const raw = [
+      ['بيت حانون', 'قطاع غزة', 'البوابة الشمالية لقطاع غزة ومدينة بساتين الحمضيات وتلة أم النصر التاريخية.', 'مسجد أم النصر، تلة أم النصر، وادي بيت حانون، حي العزبة، شارع السكة', 'تقع مدينة بيت حانون في أقصى الطرف الشمالي الشرقي لقطاع غزة، واشتهرت بخصوبة أراضيها الزراعية ومعركة 637 هـ / 1239 م التي خلدها مسجد النصر الأيوبي.'],
+      ['غزة', 'قطاع غزة', 'عروس البحر وقلب القطاع التاريخي والتجاري الممتد عبر آلاف السنين.', 'المسجد العمري الكبير، قصر الباشا، حي الشجاعية، حي الزيتون، ميناء غزة', 'تُعد مدينة غزة من أقدم مدن العالم المأهولة، وكانت محطة رئيسية على طريق القوافل والتجارة بين بلاد الشام ومصر، وتضم إرثاً معمارياً وثقافياً غنياً.'],
+      ['جباليا', 'قطاع غزة', 'مدينة تاريخية شمال غزة تشتهر بآثارها البيزنطية ومخيمها الصامد.', 'الكنيسة البيزنطية، تل الزعتر، مخيم جباليا، السوق الشعبي', 'تقع جباليا شمال مدينة غزة وتعود جذورها إلى العصور القديمة، وقد احتضنت معالم أثرية بيزنطية وإسلامية إلى جانب كثافة سكانية ومجتمعية عريقة.'],
+      ['بيت لاهيا', 'قطاع غزة', 'بلدة التلال الخضراء والفراولة شمال القطاع وبجوار البحر.', 'الساحل الشمالي، تلال بيت لاهيا، مسجد الشيخ سعد', 'تقع بيت لاهيا شمال غرب قطاع غزة، وتشتهر بكثبانها الرملية وأراضيها الزراعية الخصبة وإنتاج الفراولة والزهور والحمضيات.'],
+      ['خانيونس', 'قطاع غزة', 'ثاني كبرى مدن قطاع غزة ومركز الجنوب الإداري والتاريخي.', 'قلعة برقوق، خان يونس الأثري، حي الأمل، القرارة، بني سهيلا', 'تأسست حول الخان المملوكي الذي بناه الأمير يونس النوروزي عام 1387م، وتُعد مركزاً حضرياً وزراعياً محورياً في جنوب القطاع.'],
+      ['رفح', 'قطاع غزة', 'البوابة الجنوبية لفلسطين على الحدود المصرية ومدينة التاريخ العريق.', 'تل زعرب، بوابة صلاح الدين، حي تل السلطان، الشابورة', 'تقع رفح في أقصى جنوب قطاع غزة، وارتبط اسمها عبر التاريخ ببوابة فلسطين الجنوبية وطرق التجارة العابرة لسيناء.'],
+      ['دير البلح', 'قطاع غزة', 'مدينة النخيل والبحر في قلب المحافظة الوسطى بقطاع غزة.', 'مقام الخضر، شاطئ دير البلح، بساتين النخيل، الزوايدة', 'تتميز دير البلح بموقعها الساحلي الأوسط وبساتين النخيل الكثيفة، وتضم آثاراً تعود إلى العصر البرونزي المتأخر والعهد البيزنطي.'],
+      ['النصيرات', 'قطاع غزة', 'المدينة النابضة في المحافظة الوسطى على ضفاف وادي غزة.', 'وادي غزة، السوق المركزي، مخيم النصيرات، جسر وادي غزة', 'نشأت النصيرات في المحافظة الوسطى بجوار وادي غزة، وتُعد حلقة وصل حيوية بين شمال القطاع وجنوبه.'],
+      ['القدس', 'القدس', 'زهرة المدائن ومسرى النبي ومهبط الرسالات السماوية.', 'المسجد الأقصى، قبة الصخرة، كنيسة القيامة، البلدة القديمة، باب العامود', 'مدينة القدس هي القلب الروحي والتاريخي لفلسطين، وتحتضن أقدس المعالم الدينية والتراثية والحضارية عبر العصور.'],
+      ['أبوديس', 'القدس', 'بلدة مقدسية شرق القدس تحتضن جامعة القدس وتطل على البحر الميت.', 'جامعة القدس، جبل الزيتون الشرقي، المسجد القديم', 'تقع أبوديس شرق القدس الشريف، وتشكل امتداداً علمياً واجتماعياً مهماً للمدينة المقدسة.'],
+      ['العيزرية', 'القدس', 'بلدة تاريخية شرق جبل الزيتون ارتبط اسمها بالتراث المقدسي القديم.', 'مقام اللعازر، الطريق الشرقي للقدس، التلال المطلة', 'تقع العيزرية على السفوح الشرقية لجبل الزيتون في محافظة القدس، وتحتفظ بتاريخ طويل من الارتباط بالمدينة المقدسة.'],
+      ['نابلس', 'الضفة الغربية', 'جبل النار ومدينة الكنافة والصابون والبلدة القديمة العريقة.', 'البلدة القديمة، خان التجار، جبل جرزيم، جبل عيبال، سبسطية', 'تقع نابلس بين جبلَي جرزيم وعيبال شمال الضفة الغربية، وتشتهر بصناعاتها التقليدية العريقة وأسواقها المسقوفة ومساجدها التاريخية.'],
+      ['الخليل', 'الضفة الغربية', 'مدينة خليل الرحمن ذات التاريخ الضارب في القدم والحرف الأصيلة.', 'الحرم الإبراهيمي الشريف، البلدة القديمة، مصانع الزجاج والخزف', 'تُعد الخليل من أقدم المدن التاريخية في فلسطين، وتشتهر بحرفها اليدوية الأصيلة كالزجاج والخزف والجلود والعنب الخليلي.'],
+      ['جنين', 'الضفة الغربية', 'بوابة مرج ابن عامر الخضراء وعاصمة الشمال الزراعية.', 'مرج ابن عامر، الجامع الكبير، مخيم جنين، سهل عرابة', 'تقع جنين في أقصى شمال الضفة الغربية وتطل على سهل مرج ابن عامر الخصب، وتُعرف بعطائها الزراعي وتاريخها النضالي.'],
+      ['طولكرم', 'الضفة الغربية', 'مدينة السهل الساحلي والجبال المتصلة غرب شمال الضفة.', 'جامعة فلسطين التقنية خضوري، البلدة القديمة، دير الغصون، عنبتا', 'تقع طولكرم على الحافة الغربية لشمال الضفة الغربية، واشتهرت بالزراعة والتعليم العالي عبر كلية خضوري العريقة.'],
+      ['رام الله', 'الضفة الغربية', 'المدينة الجبلية الحديثة ومركز الثقافة والفنون والمؤسسات.', 'دوار المنارة، متحف محمود درويش، رام الله التحتا، البيرة', 'تتربع رام الله على تلال وسط الضفة الغربية، وتجمع بين حاراتها الحجرية القديمة ومراكزها الثقافية والفنية المعاصرة.'],
+      ['بيت لحم', 'الضفة الغربية', 'مدينة السلام والمهد وجبال التراث الإنساني.', 'كنيسة المهد، ساحة المهد، برك سليمان، بيت جالا، بيت ساحور', 'تقع بيت لحم جنوب القدس، وتشتهر عالمياً بكنيسة المهد وتراثها المعماري الحجري وصناعة خشب الزيتون والصدف.'],
+      ['قلقيلية', 'الضفة الغربية', 'مدينة البيارات الخضراء في غرب الضفة الغربية.', 'حديقة الحيوانات الوطنية، بيارات الحمضيات، عزون، حبلة', 'تتميز قلقيلية بمناخها الدافئ وتربتها الخصبة وبساتين الحمضيات والجوافة التي تحيط بها.'],
+      ['أريحا', 'الضفة الغربية', 'أقدم مدينة مأهولة في التاريخ وعروس الأغوار.', 'تل السلطان، قصر هشام، جبل قرنطل، عين السلطان', 'تقع أريحا في غور الأردن وتُعرف بأنها أخفض وأقدم مدينة مأهولة في التاريخ البشري.'],
+      ['طوباس', 'الضفة الغربية', 'مدينة التلال والأغوار الشمالية الخصبة.', 'وادي الفارعة، طمون، عقابا، الأغوار الشمالية', 'تقع طوباس شمال شرق نابلس، وتجمع بين المرتفعات الجبلية وسهول الأغوار الشمالية الزراعية.'],
+      ['سلفيت', 'الضفة الغربية', 'مدينة الزيتون والينابيع في قلب الضفة الغربية.', 'وادي قانا، دير استيا، كفل حارس، بساتين الزيتون', 'تشتهر سلفيت بكثافة أشجار الزيتون ووديانها الخضراء وعلى رأسها محمية وادي قانا.'],
+      ['يافا', 'الداخل', 'عروس البحر الأبيض المتوسط وبوابة فلسطين البحرية التاريخية.', 'برج الساعة، ميناء يافا، حي العجمي، مسجد حسن بك، بيارات البرتقال', 'مدينة ساحلية عريقة ارتبط اسمها بالبرتقال اليافاوي والميناء التاريخي والمسرح والصحافة الفلسطينية المبكرة.'],
+      ['حيفا', 'الداخل', 'مدينة الكرمل والبحر والميناء الكبير.', 'جبل الكرمل، وادي النسناس، الحدائق البهائية، ساحة الخمرة', 'تحتضن حيفا سفوح جبل الكرمل المطلة على البحر المتوسط، وتشتهر بأحيائها العربية العريقة كوادي النسناس والحليصة.'],
+      ['عكا', 'الداخل', 'مدينة الأسوار الشامخة التي صمدت عبر التاريخ.', 'الأسوار البحرية، جامع الجزار، خان العمدان، البلدة القديمة', 'تقع عكا على رأس خليج حيفا وتُعد من أعرق المدن الساحلية المحصنة بأسوارها وخاناتها ومساجدها المملوكية والعثمانية.'],
+      ['الناصرة', 'الداخل', 'عاصمة الجليل ومدينة التاريخ والعمارة الحجرية.', 'كنيسة البشارة، السوق القديم، المسجد الأبيض، عين العذراء', 'تقع الناصرة في منطقة الجليل وتُعد أكبر مدينة عربية في الداخل ومركزاً ثقافياً وتاريخياً بارزاً.'],
+      ['اللد', 'الداخل', 'مدينة السهل الأوسط ومفترق الطرق التاريخي.', 'المسجد العمري، كنيسة القديس جاورجيوس، خان الحلو، محطة اللد', 'تقع اللد في السهل الساحلي الأوسط واشتهرت عبر العصور بأسواقها وموقعها الجغرافي المركزي.'],
+      ['الرملة', 'الداخل', 'المدينة الأموية التاريخية وبرجها الأبيض الشامخ.', 'الجامع الأبيض، البرج الأبيض، بركة العنزية، السوق القديم', 'أسسها الخليفة سليمان بن عبد الملك في العصر الأموي لتكون حاضرة جند فلسطين وتضم آثاراً إسلامية نادرة.']
+    ];
+    return raw.map((r, i) => ({
+      id: 'city-seed-' + (i + 1),
+      name: r[0],
+      region: r[1],
+      summary: r[2],
+      landmarks: r[3],
+      history: r[4],
+      image_url: r[0] === 'بيت حانون' ? cover0 : null,
+      is_pinned: r[0] === 'بيت حانون',
+      created_at: new Date(Date.now() - i * 3600000).toISOString()
+    }));
+  }
+
+  function sortCitiesList(list) {
+    return [...(list || [])].sort((a, b) => {
+      const pa = a && a.is_pinned ? 1 : 0;
+      const pb = b && b.is_pinned ? 1 : 0;
+      if (pa !== pb) return pb - pa;
+      return new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime();
+    });
+  }
+
+  function getCityCoverSrc(city) {
+    const url = (city && (city.image_url || city.photo_url)) || '';
+    return (url && url !== PLACEHOLDER_IMG) ? url : '';
+  }
+
+  function renderCityTypographicCoverHtml(city, heightClass = 'h-44') {
+    return `
+      <div class="w-full ${heightClass} bg-gradient-to-br from-[#10B981]/15 via-[#F8F9FA] to-[#B8860B]/15 border-b border-black/[0.06] flex flex-col items-center justify-center p-5 text-center select-none">
+        <span class="px-3 py-1 rounded-full memorial-badge text-[12px] font-bold mb-2">${escapeHtml(city.region || 'فلسطين')}</span>
+        <h4 class="text-2xl font-extrabold text-[#111827] leading-snug">${escapeHtml(city.name || '')}</h4>
+      </div>
+    `;
+  }
+
+  function loadLocalCities() {
+    try {
+      const raw = localStorage.getItem(CITIES_STORAGE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed) && parsed.length) return sortCitiesList(parsed);
+      }
+    } catch (_) {}
+    const seed = sortCitiesList(getDefaultCitiesSeed());
+    try { localStorage.setItem(CITIES_STORAGE_KEY, JSON.stringify(seed)); } catch (_) {}
+    return seed;
+  }
+
+  function saveLocalCities(list) {
+    try { localStorage.setItem(CITIES_STORAGE_KEY, JSON.stringify(list)); } catch (_) {}
+  }
+
+  async function loadCitiesFromCloud() {
+    citiesListCache = loadLocalCities();
+    if (!IS_CONFIGURED || !db) return;
+    try {
+      const { data, error } = await db.from('khalidin_cities').select('*').order('created_at', { ascending: false });
+      if (!error && Array.isArray(data) && data.length > 0) {
+        citiesListCache = sortCitiesList(data);
+        saveLocalCities(citiesListCache);
+        if (currentTab === 'about') renderCitiesDirectory(citiesPage);
+        if (currentTab === 'home') loadHome();
+        if (document.getElementById('cms-cities-list')) renderAdminCitiesList();
+      }
+    } catch (_) {}
+  }
+
+  function setCityRegionFilter(region) {
+    activeCityRegion = region || 'الكل';
+    document.querySelectorAll('.city-region-pill').forEach(btn => {
+      const active = btn.dataset.cityRegion === activeCityRegion;
+      btn.className = active
+        ? 'city-region-pill px-3.5 py-2 rounded-[10px] text-[13px] font-extrabold border bg-[#10B981]/[0.14] border-[#10B981]/35 text-[#111827] transition'
+        : 'city-region-pill px-3.5 py-2 rounded-[10px] text-[13px] font-bold border border-gray-200 bg-white text-[#111827] hover:bg-gray-50 transition';
+    });
+    renderCitiesDirectory(1);
+  }
+
   function renderAboutSection() {
-    const paragraphs = (aboutCms.mainBody || '')
-      .split(/\n\s*\n/)
-      .filter(Boolean)
-      .map(p => `<p>${escapeHtml(p)}</p>`)
-      .join('');
+    if (!citiesListCache.length) citiesListCache = loadLocalCities();
+    renderCitiesDirectory(citiesPage);
+  }
 
-    document.getElementById('about-main-card').innerHTML = `
-      <div class="border-b border-gray-200 pb-4">
-        <span class="inline-block text-[15px] font-bold px-3 py-1 rounded-full memorial-badge mb-2">الذاكرة التاريخية والجغرافية</span>
-        <h2 class="text-2xl sm:text-3xl font-bold text-[#111827]">${escapeHtml(aboutCms.mainTitle)}</h2>
-        <p class="text-[15px] text-[#111827] mt-1">${escapeHtml(aboutCms.mainSubtitle)}</p>
+  function renderCitiesDirectory(page = 1) {
+    if (!citiesListCache.length) citiesListCache = loadLocalCities();
+    const q = normalizeArabic(document.getElementById('citySearchInput')?.value || '');
+    let list = sortCitiesList(citiesListCache);
+    if (activeCityRegion !== 'الكل') {
+      list = list.filter(c => c.region === activeCityRegion);
+    }
+    if (q) {
+      list = list.filter(c =>
+        normalizeArabic(c.name).includes(q) ||
+        normalizeArabic(c.summary || '').includes(q) ||
+        normalizeArabic(c.landmarks || '').includes(q)
+      );
+    }
+
+    const pageSize = 9;
+    const totalPages = Math.max(1, Math.ceil(list.length / pageSize));
+    citiesPage = Math.min(Math.max(1, page), totalPages);
+    const slice = list.slice((citiesPage - 1) * pageSize, citiesPage * pageSize);
+
+    const badge = document.getElementById('cities-count-badge');
+    if (badge) badge.textContent = `${toEnglishDigits(list.length)} مدينة`;
+
+    const grid = document.getElementById('cities-grid');
+    if (!grid) return;
+    grid.innerHTML = slice.length
+      ? slice.map(c => {
+        const coverSrc = getCityCoverSrc(c);
+        const coverHtml = coverSrc
+          ? `<img src="${escapeHtml(coverSrc)}" alt="${escapeHtml(c.name)}" loading="lazy" onerror="this.onerror=null;this.src='${PLACEHOLDER_IMG}'" class="w-full h-44 object-cover bg-slate-100">`
+          : renderCityTypographicCoverHtml(c, 'h-44');
+        return `
+          <article onclick="openCityDetailsModal('${escapeHtml(c.id)}')" class="bg-gradient-to-br from-[#ECFDF5] via-[#FBFDFC] to-[#FEFCE8] rounded-[16px] border border-emerald-200/60 shadow-[0_2px_10px_rgba(0,0,0,0.03)] overflow-hidden hover:border-emerald-300/80 hover:shadow-md cursor-pointer transition flex flex-col justify-between">
+            <div>
+              ${coverHtml}
+              <div class="p-5 space-y-2">
+                <div class="flex items-center justify-between gap-2">
+                  <h3 class="font-extrabold text-[#111827] text-[20px]">${c.is_pinned ? '★ ' : ''}${escapeHtml(c.name)}</h3>
+                  <span class="px-2.5 py-0.5 rounded-full memorial-badge text-[12px] font-bold shrink-0">${escapeHtml(c.region || 'فلسطين')}</span>
+                </div>
+                <p class="text-[15px] text-[#111827] leading-relaxed line-clamp-2">${escapeHtml(c.summary || '')}</p>
+              </div>
+            </div>
+            <div class="px-5 pb-5 pt-2">
+              <button type="button" onclick="event.stopPropagation(); openCityDetailsModal('${escapeHtml(c.id)}')" class="btn-ui btn-primary w-full text-[14px]">قراءة المزيد</button>
+            </div>
+          </article>
+        `;
+      }).join('')
+      : '<div class="col-span-full bg-white rounded-[16px] border border-black/[0.06] p-8 text-[15px] text-[#111827] text-center">لا توجد مدن مطابقة للبحث.</div>';
+
+    renderDropdownPagination('cities-pagination', list.length, pageSize, citiesPage, 'renderCitiesDirectory');
+  }
+
+  function openCityDetailsModal(id) {
+    const city = citiesListCache.find(c => String(c.id) === String(id));
+    if (!city) return;
+    const coverSrc = getCityCoverSrc(city);
+    const mediaHtml = coverSrc
+      ? `<div class="md:col-span-5 relative bg-slate-100 min-h-[280px] md:min-h-[440px] cursor-zoom-in" onclick="openLightbox('${escapeHtml(coverSrc)}', '${escapeHtml(city.name)}')">
+           <img src="${escapeHtml(coverSrc)}" alt="${escapeHtml(city.name)}" onerror="this.onerror=null;this.src='${PLACEHOLDER_IMG}'" class="w-full h-72 md:h-full object-cover bg-slate-100">
+           <span class="no-print absolute bottom-3 right-3 px-3 py-1 rounded-full bg-[#1A1D20]/80 text-white text-[13px] font-bold">تكبير الصورة</span>
+         </div>`
+      : `<div class="md:col-span-5 min-h-[280px] md:min-h-[440px] flex">${renderCityTypographicCoverHtml(city, 'w-full h-full min-h-[280px] md:min-h-[440px]')}</div>`;
+
+    document.getElementById('city-details-body').innerHTML = `
+      <div class="grid grid-cols-1 md:grid-cols-12">
+        ${mediaHtml}
+        <div class="md:col-span-7 p-6 sm:p-8 flex flex-col justify-between text-right">
+          <div>
+            <span class="inline-block px-3 py-0.5 rounded-full memorial-badge text-[13px] font-bold mb-2">${escapeHtml(city.region || 'فلسطين')}</span>
+            <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-900">${escapeHtml(city.name)}</h3>
+            ${city.landmarks ? `<p class="text-[14px] font-bold text-[#111827] bg-[#F8F9FA] border border-black/[0.06] rounded-[10px] p-3 mt-3">أبرز المعالم والأحياء: ${escapeHtml(city.landmarks)}</p>` : ''}
+            <div class="leading-relaxed text-slate-700 text-base my-4 max-h-[38vh] overflow-y-auto whitespace-pre-line">${escapeHtml(city.history || city.summary || '')}</div>
+          </div>
+          <div class="pt-4 border-t border-gray-100 flex flex-wrap gap-2.5">
+            <button type="button" onclick="viewCityMartyrs('${escapeHtml(city.name)}')" class="btn-ui btn-primary text-[15px] flex-1">عرض شهداء المدينة</button>
+          </div>
+        </div>
       </div>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-center">
-        <div class="bg-[#F8F9FA] border border-gray-200 rounded-[12px] p-3.5">
-          <p class="text-[15px] text-[#111827]">الموقع الجغرافي</p>
-          <p class="text-sm font-bold text-[#111827] mt-1">${escapeHtml(aboutCms.stat1)}</p>
-        </div>
-        <div class="bg-[#F8F9FA] border border-gray-200 rounded-[12px] p-3.5">
-          <p class="text-[15px] text-[#111827]">الارتفاع عن سطح البحر</p>
-          <p class="text-sm font-bold text-[#111827] mt-1 num-std">${escapeHtml(aboutCms.stat2)}</p>
-        </div>
-        <div class="bg-[#F8F9FA] border border-gray-200 rounded-[12px] p-3.5">
-          <p class="text-[15px] text-[#111827]">معركة بيت حانون</p>
-          <p class="text-sm font-bold text-[#111827] mt-1 num-std">${escapeHtml(aboutCms.stat3)}</p>
-        </div>
-      </div>
-      <div class="space-y-4 text-sm sm:text-base text-[#111827] leading-relaxed">${paragraphs}</div>
     `;
+    const modal = document.getElementById('modal-city-details');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    document.body.classList.add('overflow-hidden');
+  }
 
-    const photos = aboutCms.photos || [];
-    document.getElementById('about-photos-stack').innerHTML = `
-      <div class="w-full max-w-sm space-y-0">
-        ${photos.map((ph, idx) => {
-          const offsetClass = idx % 2 === 0 ? 'w-11/12 mr-auto' : 'w-11/12 ml-auto';
-          const zClass = idx === 0 ? 'z-10' : idx === 1 ? 'z-20 -mt-5' : 'z-30 -mt-5';
-          const src = escapeHtml(ph.src || PLACEHOLDER_IMG);
-          const cap = escapeHtml(ph.caption || '');
-          return `
-            <figure onclick="openAboutPhotoLightbox(${idx})" class="relative ${zClass} ${offsetClass} bg-white p-1.5 rounded-[12px] border border-[#B8860B]/30 shadow-lg cursor-zoom-in hover:z-40 hover:scale-[1.02] transition">
-              <img src="${src}" alt="${cap}" onerror="this.onerror=null;this.src='${PLACEHOLDER_IMG}'" class="w-full h-36 object-cover rounded-[8px]">
-              <figcaption class="text-[15px] font-bold text-[#111827] px-2 py-1.5 truncate">${cap}</figcaption>
-            </figure>
-          `;
-        }).join('')}
-      </div>
-    `;
+  function closeCityDetailsModal(e) {
+    if (e && e.target && e.target.id !== 'modal-city-details') return;
+    const modal = document.getElementById('modal-city-details');
+    if (modal) {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+    document.body.classList.remove('overflow-hidden');
+  }
 
-    renderArticlesPage(articlesPage);
-    renderAcademicsPage(academicsPage);
+  function viewCityMartyrs(cityName) {
+    closeCityDetailsModal();
+    switchTab('martyrs');
+    const searchEl = document.getElementById('searchInput');
+    if (searchEl) {
+      searchEl.value = cityName || '';
+      const clr = document.getElementById('clearSearchBtn');
+      if (clr) clr.classList.toggle('hidden', !searchEl.value);
+    }
+    loadMartyrs(1);
   }
 
   function getCombinedArticlesList() {
@@ -1909,21 +2182,22 @@
     document.getElementById('articles-count-badge').innerHTML = `<span class="num-std">${toEnglishDigits(list.length)}</span> مقال`;
     document.getElementById('about-articles-row').innerHTML = slice.length
       ? slice.map(art => `
-        <article onclick="openArticleModal('article', '${escapeHtml(art.id)}')" class="w-full bg-white rounded-[16px] border border-black/[0.06] shadow-[0_2px_10px_rgba(0,0,0,0.03)] p-5 hover:border-[#10B981] cursor-pointer transition flex flex-col justify-between gap-4">
-          <div class="space-y-2.5">
+        <article onclick="openArticleModal('article', '${escapeHtml(art.id)}')" class="flex flex-col justify-between h-full p-6 bg-gradient-to-br from-[#ECFDF5] via-[#FBFDFC] to-[#FEFCE8] rounded-3xl border border-emerald-200/60 shadow-sm relative overflow-hidden hover:border-emerald-300/80 hover:shadow-md cursor-pointer transition">
+          <div class="absolute top-0 inset-x-0 h-1.5 w-full flex"><span class="w-1.5 bg-red-600 shrink-0"></span><span class="flex-1 bg-neutral-900"></span><span class="flex-1 bg-white"></span><span class="flex-1 bg-emerald-600"></span><span class="w-1.5 bg-red-600 shrink-0"></span></div>
+          <div class="flex-1 space-y-2.5 pt-2">
             <div>
-              <span class="inline-block text-[14px] font-bold px-3 py-0.5 rounded-full memorial-badge">${escapeHtml(art.tag)}</span>
+              <span class="inline-block text-[13px] font-bold px-3 py-0.5 rounded-full memorial-badge">${escapeHtml(art.tag)}</span>
             </div>
             <h4 class="font-extrabold text-[#111827] text-[19px] leading-snug">${escapeHtml(art.title)}</h4>
             <p class="text-[15px] text-[#111827] leading-[1.7] line-clamp-3">${escapeHtml(art.summary)}</p>
           </div>
-          <div class="pt-3 border-t border-black/[0.06] flex flex-wrap items-center justify-between gap-3 text-[14px] font-bold text-[#111827]">
-            <span>${art._source === 'martyr' ? 'توثيق سيرة شهيد' : 'مقال ودراسة'}</span>
-            <button type="button" onclick="event.stopPropagation(); openArticleModal('article', '${escapeHtml(art.id)}')" class="btn-ui btn-primary text-[14px]">قراءة المزيد ←</button>
+          <div class="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between gap-3 text-[14px] font-bold text-[#111827]">
+            <span class="inline-flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-red-600 shrink-0"></span><span>${art._source === 'martyr' ? 'توثيق سيرة شهيد' : 'مقال ودراسة'}</span></span>
+            <button type="button" onclick="event.stopPropagation(); openArticleModal('article', '${escapeHtml(art.id)}')" class="btn-ui btn-primary text-[14px] shrink-0">قراءة المزيد ←</button>
           </div>
         </article>
       `).join('')
-      : '<div class="col-span-full bg-white rounded-[16px] border border-black/[0.06] p-8 text-[15px] text-[#111827] text-center">لا توجد مقالات مضافة بعد.</div>';
+      : '<div class="col-span-full bg-white rounded-3xl border border-black/[0.06] p-8 text-[15px] text-[#111827] text-center">لا توجد مقالات مضافة بعد.</div>';
 
     renderDropdownPagination('articles-pagination', list.length, pageSize, articlesPage, 'renderArticlesPage');
   }
@@ -1935,24 +2209,26 @@
     academicsPage = Math.min(Math.max(1, page), totalPages);
     const slice = list.slice((academicsPage - 1) * pageSize, academicsPage * pageSize);
 
-    document.getElementById('academics-count-badge').innerHTML = `<span class="num-std">${toEnglishDigits(list.length)}</span> شخصية`;
+    document.getElementById('academics-count-badge').innerHTML = `<span class="num-std">${toEnglishDigits(list.length)}</span> أعلام ومراجع`;
     document.getElementById('academics-grid').innerHTML = slice.length
       ? slice.map(ac => `
-        <article onclick="openArticleModal('academic', '${escapeHtml(ac.id)}')" class="w-full bg-white rounded-[16px] border border-black/[0.06] shadow-[0_2px_10px_rgba(0,0,0,0.03)] p-5 hover:border-[#10B981] cursor-pointer transition flex flex-col justify-between gap-4">
-          <div class="space-y-2.5">
+        <article onclick="openArticleModal('academic', '${escapeHtml(ac.id)}')" class="flex flex-col justify-between h-full p-6 bg-gradient-to-br from-[#ECFDF5] via-[#FBFDFC] to-[#FEFCE8] rounded-3xl border border-emerald-200/60 shadow-sm relative overflow-hidden hover:border-emerald-300/80 hover:shadow-md cursor-pointer transition">
+          <div class="absolute top-0 inset-x-0 h-1.5 w-full flex"><span class="w-1.5 bg-red-600 shrink-0"></span><span class="flex-1 bg-neutral-900"></span><span class="flex-1 bg-white"></span><span class="flex-1 bg-emerald-600"></span><span class="w-1.5 bg-red-600 shrink-0"></span></div>
+          <div class="flex-1 space-y-2.5 pt-2">
             <div>
-              <span class="inline-block text-[14px] font-bold px-3 py-0.5 rounded-full memorial-badge">${escapeHtml(ac.badge || 'مفكر / أكاديمي')}</span>
+              <span class="inline-block text-[13px] font-bold px-3 py-0.5 rounded-full memorial-badge">${escapeHtml(ac.badge || 'مفكر / أكاديمي')}</span>
             </div>
             <h4 class="font-extrabold text-[#111827] text-[19px] leading-snug">${escapeHtml(ac.name)}</h4>
+            <p class="text-[14px] font-bold text-[#111827] pr-2.5 border-r-2 border-red-600">${escapeHtml(ac.role || '')}</p>
             <p class="text-[15px] text-[#111827] leading-[1.7] line-clamp-3">${escapeHtml(ac.summary)}</p>
           </div>
-          <div class="pt-3 border-t border-black/[0.06] flex flex-wrap items-center justify-between gap-3 text-[14px] font-bold text-[#111827]">
-            <span>${escapeHtml(ac.role)}</span>
-            <button type="button" onclick="event.stopPropagation(); openArticleModal('academic', '${escapeHtml(ac.id)}')" class="btn-ui btn-primary text-[14px]">قراءة المزيد ←</button>
+          <div class="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between gap-3 text-[14px] font-bold text-[#111827]">
+            <span class="inline-flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-red-600 shrink-0"></span><span>سيرة وتوثيق</span></span>
+            <button type="button" onclick="event.stopPropagation(); openArticleModal('academic', '${escapeHtml(ac.id)}')" class="btn-ui btn-primary text-[14px] shrink-0">قراءة المزيد ←</button>
           </div>
         </article>
       `).join('')
-      : '<div class="col-span-full bg-white rounded-[16px] border border-black/[0.06] p-8 text-[15px] text-[#111827] text-center">لا توجد شخصيات مضافة بعد.</div>';
+      : '<div class="col-span-full bg-white rounded-3xl border border-black/[0.06] p-8 text-[15px] text-[#111827] text-center">لا توجد شخصيات مضافة بعد.</div>';
 
     renderDropdownPagination('academics-pagination', list.length, pageSize, academicsPage, 'renderAcademicsPage');
   }
@@ -2044,7 +2320,7 @@
          </div>`;
 
     return `
-      <article onclick="openMartyrModal('${escapeHtml(item.id)}')" class="card-surface overflow-hidden cursor-pointer hover:border-[#10B981] transition flex flex-col group">
+      <article onclick="openMartyrModal('${escapeHtml(item.id)}')" class="bg-gradient-to-br from-[#ECFDF5] via-[#FBFDFC] to-[#FEFCE8] rounded-[16px] border border-emerald-200/60 shadow-[0_2px_10px_rgba(0,0,0,0.03)] overflow-hidden cursor-pointer hover:border-emerald-300/80 hover:shadow-md transition flex flex-col group">
         <div class="p-2.5 pb-0">
           <div class="h-48 rounded-[10px] bg-[#F8F9FA] p-2 overflow-hidden border-2 border-[#B8860B]/30 flex items-center justify-center">
             ${portraitHtml}
@@ -2114,14 +2390,16 @@
             </div>
           </div>
 
-          <div class="no-print pt-5 border-t border-gray-100 flex flex-wrap items-center justify-between gap-2.5">
-            <button type="button" onclick="addTributeForCurrentMartyr()" class="btn-ui btn-primary text-[15px]">
-              إضافة كلمة رثاء للشهيد
+          <div class="no-print pt-5 border-t border-gray-100 grid grid-cols-3 gap-2">
+            <button type="button" onclick="addTributeForCurrentMartyr()" class="btn-ui btn-primary py-2.5 px-2 text-xs sm:text-sm whitespace-nowrap justify-center">
+              إضافة رثاء
             </button>
-            <div class="flex flex-wrap items-center gap-2">
-              <button type="button" onclick="requestMartyrObjection()" class="btn-ui border border-gray-300 bg-white text-[#111827] hover:bg-gray-50 text-[14px]">طلب تصحيح بيانات</button>
-              <button type="button" onclick="printMemorialCard()" class="btn-ui border border-[#10B981] bg-white text-[#111827] hover:bg-[#10B981]/5 text-[14px]">طباعة</button>
-            </div>
+            <button type="button" onclick="requestMartyrObjection()" class="btn-ui border border-gray-300 bg-white text-[#111827] hover:bg-gray-50 py-2.5 px-2 text-xs sm:text-sm whitespace-nowrap justify-center">
+              تصحيح
+            </button>
+            <button type="button" onclick="printMemorialCard()" class="btn-ui border border-[#10B981] bg-white text-[#111827] hover:bg-[#10B981]/5 py-2.5 px-2 text-xs sm:text-sm whitespace-nowrap justify-center">
+              طباعة
+            </button>
           </div>
         </div>
       </div>
@@ -2251,9 +2529,9 @@
         const dateStr = item.martyrdom_date ? formatDateStd(item.martyrdom_date) : 'غير محدد';
         const areaStr = item.city_area ? ` — ${escapeHtml(item.city_area)}` : '';
         mPreviewEl.innerHTML = `
-          <div class="flex items-start gap-4">
-            <img src="${img}" onerror="handleImageFallback(this, '${img}')" alt="${escapeHtml(item.full_name_ar)}" class="w-[96px] h-[96px] rounded-[12px] object-contain bg-white border border-black/[0.06] shrink-0">
-            <div class="flex-1 space-y-1.5">
+          <div>
+            <img src="${img}" onerror="handleImageFallback(this, '${img}')" alt="${escapeHtml(item.full_name_ar)}" class="w-full h-48 sm:h-52 object-cover rounded-2xl mb-3 bg-white border border-black/[0.06]">
+            <div class="space-y-1.5">
               <p class="text-[19px] font-extrabold text-[#111827] leading-snug">${pinned ? '★ مختار: ' : 'أحدث إضافة: '}${escapeHtml(item.full_name_ar)}</p>
               <p class="text-[16px] font-medium text-[#111827] leading-[1.7] num-std">${escapeHtml(dateStr)}${areaStr}</p>
               ${item.bio ? `<p class="text-[16px] font-medium text-[#111827] leading-[1.7]">${escapeHtml(item.bio)}</p>` : ''}
@@ -2724,13 +3002,14 @@
     }
 
     list.innerHTML = data.map(t => `
-      <article class="bg-white rounded-[16px] border border-black/[0.08] shadow-[0_2px_10px_rgba(0,0,0,0.03)] px-6 py-[22px] flex flex-col justify-between gap-4">
-        <div class="space-y-2.5">
-          <span class="inline-block text-[14px] font-bold px-3 py-0.5 rounded-full memorial-badge">رثاء</span>
+      <article class="flex flex-col justify-between h-full p-6 bg-gradient-to-br from-[#ECFDF5] via-[#FBFDFC] to-[#FEFCE8] rounded-3xl border border-emerald-200/60 shadow-sm relative overflow-hidden hover:border-emerald-300/80 hover:shadow-md transition">
+        <div class="absolute top-0 inset-x-0 h-1.5 w-full flex"><span class="w-1.5 bg-red-600 shrink-0"></span><span class="flex-1 bg-neutral-900"></span><span class="flex-1 bg-white"></span><span class="flex-1 bg-emerald-600"></span><span class="w-1.5 bg-red-600 shrink-0"></span></div>
+        <div class="flex-1 space-y-2.5 pt-2">
+          <span class="inline-block text-[13px] font-bold px-3 py-0.5 rounded-full memorial-badge">رثاء</span>
           <p class="text-[#111827] text-base sm:text-[17px] leading-[1.8] whitespace-pre-line">${escapeHtml(t.content)}</p>
         </div>
-        <div class="pt-3 border-t border-black/[0.06] flex items-center justify-between gap-2 text-[14px] font-bold text-[#111827]">
-          <span>بقلم: ${escapeHtml(t.author_name)}</span>
+        <div class="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between gap-2 text-[14px] font-bold text-[#111827]">
+          <span class="inline-flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-red-600 shrink-0"></span><span>بقلم: ${escapeHtml(t.author_name)}</span></span>
           <span class="num-std">${escapeHtml(formatDateDMY(t.created_at))}</span>
         </div>
       </article>
@@ -3059,6 +3338,9 @@
           <button type="button" onclick="switchAdminTab('approved-tributes')" id="adtab-approved-tributes" class="apple-segment-tab flex-1 min-w-max">
             الرثاء المنشور
           </button>
+          <button type="button" onclick="switchAdminTab('cities')" id="adtab-cities" class="apple-segment-tab flex-1 min-w-max">
+            إدارة المدن
+          </button>
           <button type="button" onclick="switchAdminTab('about-cms')" id="adtab-about-cms" class="apple-segment-tab flex-1 min-w-max">
             النبذة والصور
           </button>
@@ -3116,6 +3398,19 @@
           </div>
           <h3 class="font-bold text-[#111827] border-b border-gray-200 pb-2">إدارة رسائل الرثاء المنشورة</h3>
           <div id="approved-tributes-list" class="space-y-3"></div>
+        </div>
+
+        <div id="admin-pane-cities" class="hidden space-y-5">
+          <div class="card-surface p-5 space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-gray-200 pb-3">
+              <h3 class="font-bold text-[#111827]">إدارة المدن والبلدات (<span id="cms-cities-count" class="num-std">0</span>)</h3>
+              <div class="flex flex-wrap gap-2">
+                <button type="button" onclick="seedCitiesToSupabase()" class="btn-ui apple-btn-secondary text-[14px]">زرع المدن الافتراضية (27)</button>
+                <button type="button" onclick="openCityEditModal()" class="btn-primary px-3.5 py-1.5 text-[15px] font-bold">+ إضافة مدينة جديدة</button>
+              </div>
+            </div>
+            <div id="cms-cities-list" class="space-y-2.5"></div>
+          </div>
         </div>
 
         <div id="admin-pane-about-cms" class="hidden space-y-5">
@@ -3441,7 +3736,7 @@
   }
 
   function switchAdminTab(tabName) {
-    ['pending', 'approved-martyrs', 'approved-tributes', 'about-cms', 'articles', 'academics'].forEach(t => {
+    ['pending', 'approved-martyrs', 'approved-tributes', 'cities', 'about-cms', 'articles', 'academics'].forEach(t => {
       const pane = document.getElementById('admin-pane-' + t);
       const btn = document.getElementById('adtab-' + t);
       if (pane) pane.classList.toggle('hidden', t !== tabName);
@@ -3451,7 +3746,173 @@
           : 'apple-segment-tab flex-1 min-w-max';
       }
     });
+    if (tabName === 'cities') renderAdminCitiesList();
     if (tabName === 'about-cms' || tabName === 'articles' || tabName === 'academics') renderAdminAboutCms();
+  }
+
+  function renderAdminCitiesList() {
+    if (!citiesListCache.length) citiesListCache = loadLocalCities();
+    const sorted = sortCitiesList(citiesListCache);
+    const countEl = document.getElementById('cms-cities-count');
+    const listEl = document.getElementById('cms-cities-list');
+    if (countEl) countEl.textContent = sorted.length;
+    if (!listEl) return;
+    listEl.innerHTML = sorted.length
+      ? sorted.map(c => {
+        const pinned = Boolean(c.is_pinned);
+        const pinCls = pinned
+          ? 'px-3 py-1 rounded-[8px] bg-[#10B981]/20 border border-[#10B981]/50 text-[#111827] text-[13px] font-bold'
+          : 'px-3 py-1 rounded-[8px] bg-[#10B981]/10 border border-[#10B981]/30 text-[#111827] text-[13px] font-bold hover:bg-[#10B981]/18';
+        return `
+        <div class="border ${pinned ? 'border-[#10B981]/50 bg-[#10B981]/[0.04]' : 'border-gray-200 bg-[#F8F9FA]'} rounded-[12px] p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div class="text-[15px] space-y-0.5">
+            <div class="flex flex-wrap items-center gap-1.5">
+              <span class="inline-block px-2 py-0.5 rounded-full memorial-badge font-bold text-[13px]">${escapeHtml(c.region || 'فلسطين')}</span>
+              ${pinned ? '<span class="inline-block px-2 py-0.5 rounded-full bg-[#10B981]/20 text-[#111827] font-bold text-[12px]">★ مثبتة في المقدمة</span>' : ''}
+            </div>
+            <p class="font-bold text-[#111827] text-sm">${escapeHtml(c.name)}</p>
+          </div>
+          <div class="flex flex-wrap gap-1.5 shrink-0">
+            <button type="button" onclick="toggleCityPin('${escapeHtml(c.id)}')" class="${pinCls}">${pinned ? '★ مثبتة في المقدمة' : '☆ تثبيت في المقدمة'}</button>
+            <button type="button" onclick="openCityEditModal('${escapeHtml(c.id)}')" class="px-3 py-1 rounded-[8px] bg-[#1A1D20] text-white text-[14px] font-bold">تعديل</button>
+            <button type="button" onclick="deleteCityItem('${escapeHtml(c.id)}')" class="px-3 py-1 rounded-[8px] bg-red-600 text-white text-[14px] font-bold">حذف</button>
+          </div>
+        </div>
+      `;
+      }).join('')
+      : '<p class="text-[15px] text-[#111827]">لا توجد مدن.</p>';
+  }
+
+  async function toggleCityPin(id) {
+    const idx = citiesListCache.findIndex(c => String(c.id) === String(id));
+    if (idx === -1) return;
+    const nextPinned = !citiesListCache[idx].is_pinned;
+    citiesListCache[idx].is_pinned = nextPinned;
+    citiesListCache = sortCitiesList(citiesListCache);
+    saveLocalCities(citiesListCache);
+    if (IS_CONFIGURED && db) {
+      try {
+        await db.from('khalidin_cities').update({ is_pinned: nextPinned }).eq('id', id);
+      } catch (_) {}
+    }
+    renderAdminCitiesList();
+    if (currentTab === 'about') renderCitiesDirectory(1);
+    showToast(nextPinned ? 'تم تثبيت المدينة في المقدمة' : 'تم إلغاء تثبيت المدينة', 'success');
+  }
+
+  function openCityEditModal(id = null) {
+    const city = id ? citiesListCache.find(c => String(c.id) === String(id)) : null;
+    document.getElementById('city-edit-title').textContent = city ? `تعديل مدينة: ${city.name}` : 'إضافة مدينة جديدة';
+    document.getElementById('ce_id').value = city ? city.id : '';
+    document.getElementById('ce_name').value = city ? (city.name || '') : '';
+    document.getElementById('ce_region').value = city ? (city.region || 'قطاع غزة') : 'قطاع غزة';
+    document.getElementById('ce_summary').value = city ? (city.summary || '') : '';
+    document.getElementById('ce_landmarks').value = city ? (city.landmarks || '') : '';
+    document.getElementById('ce_history').value = city ? (city.history || '') : '';
+    const photoEl = document.getElementById('ce_photo');
+    if (photoEl) photoEl.value = '';
+    const modal = document.getElementById('modal-city-edit');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+
+  function closeCityEditModal() {
+    const modal = document.getElementById('modal-city-edit');
+    if (modal) {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+  }
+
+  async function saveCityForm(e) {
+    e.preventDefault();
+    const btn = document.getElementById('btn-save-city');
+    btn.disabled = true;
+    try {
+      const id = document.getElementById('ce_id').value.trim();
+      const existing = id ? citiesListCache.find(c => String(c.id) === String(id)) : null;
+      let imageUrl = existing ? existing.image_url : ((aboutCms.photos && aboutCms.photos[0] && aboutCms.photos[0].src) || PLACEHOLDER_IMG);
+      const photoFile = document.getElementById('ce_photo')?.files?.[0];
+      if (photoFile) {
+        const compressed = await compressImage(photoFile);
+        const mime = compressed.type || 'image/jpeg';
+        const ext = mime.includes('webp') ? 'webp' : 'jpg';
+        if (IS_CONFIGURED && db) {
+          const fn = `city_${Date.now()}.${ext}`;
+          const { error: upErr } = await db.storage.from('photos').upload(fn, compressed, { contentType: mime });
+          if (!upErr) {
+            const { data: pubData } = db.storage.from('photos').getPublicUrl(fn);
+            imageUrl = pubData.publicUrl;
+          } else {
+            imageUrl = await blobToDataUrl(compressed);
+          }
+        } else {
+          imageUrl = await blobToDataUrl(compressed);
+        }
+      }
+      const payload = {
+        id: id || ('city-' + Date.now()),
+        name: document.getElementById('ce_name').value.trim(),
+        region: document.getElementById('ce_region').value,
+        summary: document.getElementById('ce_summary').value.trim(),
+        landmarks: document.getElementById('ce_landmarks').value.trim(),
+        history: document.getElementById('ce_history').value.trim(),
+        image_url: imageUrl,
+        created_at: existing ? existing.created_at : new Date().toISOString()
+      };
+      if (IS_CONFIGURED && db) {
+        const { error } = await db.from('khalidin_cities').upsert([payload], { onConflict: 'id' });
+        if (error) throw error;
+      }
+      if (existing) {
+        citiesListCache = citiesListCache.map(c => String(c.id) === String(id) ? payload : c);
+      } else {
+        citiesListCache.unshift(payload);
+      }
+      saveLocalCities(citiesListCache);
+      renderAdminCitiesList();
+      if (currentTab === 'about') renderCitiesDirectory(1);
+      if (currentTab === 'home') loadHome();
+      closeCityEditModal();
+      showToast('تم حفظ بيانات المدينة بنجاح', 'success');
+    } catch (err) {
+      showToast('تعذر حفظ المدينة: ' + err.message, 'error');
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
+  async function deleteCityItem(id) {
+    try {
+      if (IS_CONFIGURED && db) {
+        const { error } = await db.from('khalidin_cities').delete().eq('id', id);
+        if (error) throw error;
+      }
+      citiesListCache = citiesListCache.filter(c => String(c.id) !== String(id));
+      saveLocalCities(citiesListCache);
+      renderAdminCitiesList();
+      if (currentTab === 'about') renderCitiesDirectory(1);
+      showToast('تم حذف المدينة', 'info');
+    } catch (err) {
+      showToast('تعذر الحذف: ' + err.message, 'error');
+    }
+  }
+
+  async function seedCitiesToSupabase() {
+    const seed = getDefaultCitiesSeed();
+    citiesListCache = seed;
+    saveLocalCities(seed);
+    if (IS_CONFIGURED && db) {
+      try {
+        const { error } = await db.from('khalidin_cities').upsert(seed, { onConflict: 'id' });
+        if (error) throw error;
+      } catch (err) {
+        showToast('تعذر المزامنة السحابية: ' + err.message, 'error');
+      }
+    }
+    renderAdminCitiesList();
+    if (currentTab === 'about') renderCitiesDirectory(1);
+    showToast('تمت تهيئة المدن الافتراضية بنجاح', 'success');
   }
 
   async function loadAdminData() {
@@ -4676,6 +5137,7 @@
     initPwaApp();
     initSmartBackNavigation();
     loadAboutCmsFromCloud();
+    loadCitiesFromCloud();
     loadHome();
     try {
       if (localStorage.getItem('khalidin_admin_authenticated') === 'true') {
@@ -4699,8 +5161,38 @@
     <p class="text-[15px] font-semibold text-[#111827] mt-1">سجل التوثيق الرقمي والوفاء للشهداء</p>
   </div>
 
+  <!-- شريط التنقل السفلي الثابت للهواتف (Bottom Tab Bar) -->
+  <nav id="mobile-bottom-nav" aria-label="التنقل السفلي" style="padding-bottom: env(safe-area-inset-bottom, 0px);" class="fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200/80 shadow-[0_-4px_20px_rgba(0,0,0,0.04)] md:hidden">
+    <div class="grid grid-cols-6 gap-1 py-2 px-1 text-center">
+      <button type="button" onclick="switchTab('home')" data-bottom-nav="home" class="bottom-nav-tab flex flex-col items-center justify-center gap-1 py-1.5 rounded-xl bg-[#10B981]/10 text-[#10B981] font-extrabold transition">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        <span class="text-[10px] leading-none">الرئيسية</span>
+      </button>
+      <button type="button" onclick="switchTab('martyrs')" data-bottom-nav="martyrs" class="bottom-nav-tab flex flex-col items-center justify-center gap-1 py-1.5 rounded-xl text-[#111827]/70 hover:text-[#111827] font-medium transition">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        <span class="text-[10px] leading-none">الشهداء</span>
+      </button>
+      <button type="button" onclick="switchTab('about')" data-bottom-nav="about" class="bottom-nav-tab flex flex-col items-center justify-center gap-1 py-1.5 rounded-xl text-[#111827]/70 hover:text-[#111827] font-medium transition">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11m16-11v11M8 14v3m4-3v3m4-3v3"/></svg>
+        <span class="text-[10px] leading-none">مدينتي</span>
+      </button>
+      <button type="button" onclick="switchTab('scholars')" data-bottom-nav="scholars" class="bottom-nav-tab flex flex-col items-center justify-center gap-1 py-1.5 rounded-xl text-[#111827]/70 hover:text-[#111827] font-medium transition">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+        <span class="text-[10px] leading-none">مفكرون</span>
+      </button>
+      <button type="button" onclick="switchTab('articles')" data-bottom-nav="articles" class="bottom-nav-tab flex flex-col items-center justify-center gap-1 py-1.5 rounded-xl text-[#111827]/70 hover:text-[#111827] font-medium transition">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        <span class="text-[10px] leading-none">مقالات</span>
+      </button>
+      <button type="button" onclick="switchTab('tributes')" data-bottom-nav="tributes" class="bottom-nav-tab flex flex-col items-center justify-center gap-1 py-1.5 rounded-xl text-[#111827]/70 hover:text-[#111827] font-medium transition">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+        <span class="text-[10px] leading-none">الرثاء</span>
+      </button>
+    </div>
+  </nav>
+
   <!-- شريط تثبيت التطبيق (PWA) -->
-  <div id="pwa-install-banner" class="hidden fixed bottom-4 left-1/2 -translate-x-1/2 w-[94%] max-w-[560px] z-[45] bg-white border border-black/[0.08] rounded-[16px] shadow-xl p-4 flex items-center justify-between gap-3 animate-fade-up">
+  <div id="pwa-install-banner" class="hidden fixed bottom-20 md:bottom-4 left-1/2 -translate-x-1/2 w-[94%] max-w-[560px] z-[45] bg-white border border-black/[0.08] rounded-[16px] shadow-xl p-4 flex items-center justify-between gap-3 animate-fade-up">
     <div class="flex items-center gap-3 min-w-0">
       <img id="pwa-banner-icon" src="./icon-192.png" alt="شعار التطبيق" class="w-11 h-11 rounded-full shrink-0 object-contain">
       <div class="min-w-0">
