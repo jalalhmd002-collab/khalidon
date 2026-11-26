@@ -11,7 +11,7 @@
   <link id="apple-touch-icon-link" rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
   <link id="favicon-link" rel="icon" href="./favicon.ico">
   <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
-  <title>الخالدون في الذاكرة | سجل التوثيق الرقمي والوفاء — بيت حانون</title>
+  <title>الخالدون في الذاكرة — سجل الشهداء</title>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.1/dist/umd/supabase.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -366,7 +366,7 @@
             <img src="./icon-192.png" alt="شعار الخالدون في الذاكرة" class="w-11 h-11 rounded-full object-contain shrink-0 cursor-pointer select-none shadow-sm transition-transform duration-200 hover:scale-105 group-hover:scale-105">
             <div>
               <h1 id="secretAdminLogo" onclick="handleSecretAdminLogoClick(event)" class="text-lg sm:text-xl font-extrabold text-[#111827] leading-tight select-none">الخالدون في الذاكرة</h1>
-              <p class="text-[15px] text-[#111827] leading-tight">سجل التوثيق الرقمي والوفاء — بيت حانون</p>
+              <p class="text-[15px] text-[#111827] leading-tight">سجل التوثيق الرقمي والوفاء للشهداء</p>
             </div>
           </button>
 
@@ -379,7 +379,7 @@
               <span>سجل الشهداء</span>
             </button>
             <button type="button" onclick="switchTab('about'); toggleMainDropdown(false)" data-nav="about" class="dropdown-nav-item w-full text-right px-4 py-3 text-base font-semibold text-[#111827] flex items-center justify-between hover:bg-gray-50 transition">
-              <span>نبذة عن بيت حانون</span>
+              <span>مدينتي في الذاكرة</span>
             </button>
             <button type="button" onclick="switchTab('scholars'); toggleMainDropdown(false)" data-nav="scholars" class="dropdown-nav-item w-full text-right px-4 py-3 text-base font-semibold text-[#111827] flex items-center justify-between hover:bg-gray-50 transition">
               <span>مفكرون وأكاديميون</span>
@@ -414,6 +414,16 @@
           </nav>
         </div>
       </div>
+
+      <!-- شريط التنقل الأفقي العلوي -->
+      <nav aria-label="التنقل الرئيسي" class="border-t border-black/[0.06] py-2 flex items-center gap-1.5 overflow-x-auto whitespace-nowrap">
+        <button type="button" onclick="switchTab('home')" data-top-nav="home" class="top-nav-tab px-3.5 py-1.5 rounded-[10px] text-[14px] border bg-[#10B981]/[0.14] border-[#10B981]/35 text-[#111827] font-extrabold transition">الرئيسية</button>
+        <button type="button" onclick="switchTab('martyrs')" data-top-nav="martyrs" class="top-nav-tab px-3.5 py-1.5 rounded-[10px] text-[14px] border border-transparent text-[#111827]/80 hover:bg-gray-100 font-bold transition">سجل الشهداء</button>
+        <button type="button" onclick="switchTab('about')" data-top-nav="about" class="top-nav-tab px-3.5 py-1.5 rounded-[10px] text-[14px] border border-transparent text-[#111827]/80 hover:bg-gray-100 font-bold transition">مدينتي في الذاكرة</button>
+        <button type="button" onclick="switchTab('scholars')" data-top-nav="scholars" class="top-nav-tab px-3.5 py-1.5 rounded-[10px] text-[14px] border border-transparent text-[#111827]/80 hover:bg-gray-100 font-bold transition">مفكرون وأكاديميون</button>
+        <button type="button" onclick="switchTab('articles')" data-top-nav="articles" class="top-nav-tab px-3.5 py-1.5 rounded-[10px] text-[14px] border border-transparent text-[#111827]/80 hover:bg-gray-100 font-bold transition">مقالات</button>
+        <button type="button" onclick="switchTab('tributes')" data-top-nav="tributes" class="top-nav-tab px-3.5 py-1.5 rounded-[10px] text-[14px] border border-transparent text-[#111827]/80 hover:bg-gray-100 font-bold transition">دفتر الرثاء</button>
+      </nav>
     </div>
   </header>
 
@@ -425,8 +435,8 @@
       <!-- ترويسة رئيسية نظيفة بدون إطار -->
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pt-2 pb-1">
         <div class="space-y-2 max-w-2xl">
-          <span class="inline-block text-[13px] font-bold px-3 py-1 rounded-full memorial-badge">منصة توثيقية مجتمعية — بيت حانون</span>
-          <h2 class="text-[28px] font-extrabold text-[#111827] leading-tight">أرشيف الذاكرة والوفاء لشهداء بيت حانون</h2>
+          <span class="inline-block text-[13px] font-bold px-3 py-1 rounded-full memorial-badge">منصة توثيقية مجتمعية للشهداء</span>
+          <h2 class="text-[28px] font-extrabold text-[#111827] leading-tight">أرشيف الذاكرة والوفاء للشهداء</h2>
           <p class="text-[16px] text-[#111827] leading-relaxed">سجل رقمي موثق لحفظ الأسماء والسير الذاتية والخواطر تخليداً لذكراهم.</p>
         </div>
         <div class="shrink-0">
@@ -469,7 +479,7 @@
 
         <!-- الصف الثاني: ثلاث بطاقات متساوية -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-[20px]">
-          <!-- 3. نبذة عن بيت حانون -->
+          <!-- 3. مدينتي في الذاكرة -->
           <div onclick="switchTab('about')" class="bg-white rounded-[16px] border border-black/[0.08] p-5 shadow-[0_2px_10px_rgba(0,0,0,0.04)] hover:-translate-y-0.5 hover:border-[#10B981] hover:shadow-md transition-all duration-200 cursor-pointer space-y-3 flex flex-col justify-between">
             <div class="space-y-2">
               <div class="flex items-center justify-between gap-2">
@@ -478,7 +488,7 @@
                 </span>
                 <span class="px-3 py-0.5 rounded-full memorial-badge text-[14px] font-bold">تاريخ ومعالم</span>
               </div>
-              <h3 class="text-lg font-extrabold text-[#111827]">نبذة عن بيت حانون</h3>
+              <h3 class="text-lg font-extrabold text-[#111827]">مدينتي في الذاكرة</h3>
             </div>
             <div id="home-preview-about" class="bg-[#F8F9FA] rounded-[12px] border border-black/[0.05] w-full min-h-[140px] px-[20px] py-[18px]"></div>
           </div>
@@ -617,7 +627,7 @@
 
         <div class="bg-white border border-black/[0.08] rounded-[16px] px-6 py-5 shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
-            <h2 class="text-[22px] font-extrabold text-[#111827]">مفكرون وأكاديميون وأعلام من بيت حانون</h2>
+            <h2 class="text-[22px] font-extrabold text-[#111827]">مفكرون وأكاديميون وأعلام</h2>
             <p class="text-[15px] text-[#111827]">(تُعرض <span class="num-std">9</span> بطاقات في الصفحة — اختر الصفحة من القائمة أدناه)</p>
           </div>
           <span id="academics-count-badge" class="px-3.5 py-1.5 rounded-full memorial-badge text-[14px] font-bold self-start sm:self-auto"></span>
@@ -638,7 +648,7 @@
 
         <div class="bg-white border border-black/[0.08] rounded-[16px] px-6 py-5 shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
-            <h2 class="text-[22px] font-extrabold text-[#111827]">مقالات ودراسات مختارة عن بيت حانون</h2>
+            <h2 class="text-[22px] font-extrabold text-[#111827]">مقالات ودراسات مختارة</h2>
             <p class="text-[15px] text-[#111827]">(تُعرض <span class="num-std">9</span> بطاقات في الصفحة — اختر الصفحة من القائمة أدناه)</p>
           </div>
           <span id="articles-count-badge" class="px-3.5 py-1.5 rounded-full memorial-badge text-[14px] font-bold self-start sm:self-auto"></span>
@@ -874,7 +884,7 @@
       <div class="px-6 py-4 border-b border-gray-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#F8F9FA] rounded-t-[14px]">
         <div class="text-right">
           <h3 class="text-base sm:text-lg font-bold text-[#111827]">بوابة الإدارة والاعتماد</h3>
-          <p class="text-[14px] text-[#111827]">إدارة طلبات الشهداء والرثاء ومحتوى بيت حانون</p>
+          <p class="text-[14px] text-[#111827]">إدارة طلبات الشهداء والرثاء والمحتوى</p>
         </div>
         <div class="flex flex-wrap items-center gap-2">
           <button type="button" onclick="openBackupModal()" class="btn-ui border border-gray-300 bg-white text-[14px] text-[#111827] hover:bg-gray-100 transition">
@@ -1632,6 +1642,13 @@
       btn.classList.toggle('font-bold', isActive);
       btn.classList.toggle('bg-[#10B981]/10', isActive);
       btn.classList.toggle('font-semibold', !isActive);
+    });
+
+    document.querySelectorAll('.top-nav-tab').forEach(btn => {
+      const isActive = btn.dataset.topNav === tab;
+      btn.className = isActive
+        ? 'top-nav-tab px-3.5 py-1.5 rounded-[10px] text-[14px] border bg-[#10B981]/[0.14] border-[#10B981]/35 text-[#111827] font-extrabold transition'
+        : 'top-nav-tab px-3.5 py-1.5 rounded-[10px] text-[14px] border border-transparent text-[#111827]/80 hover:bg-gray-100 font-bold transition';
     });
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -4679,7 +4696,7 @@
   <div id="pwa-splash-screen" class="hidden fixed inset-0 z-[100] bg-[#F8F9FA] flex flex-col items-center justify-center p-6 text-center transition-opacity duration-500">
     <img src="./icon-192.png" alt="الخالدون في الذاكرة" class="w-28 h-28 rounded-full shadow-xl mb-4 animate-fade-up object-contain">
     <h2 class="text-2xl font-extrabold text-[#111827]">الخالدون في الذاكرة</h2>
-    <p class="text-[15px] font-semibold text-[#111827] mt-1">سجل التوثيق الرقمي والوفاء — بيت حانون</p>
+    <p class="text-[15px] font-semibold text-[#111827] mt-1">سجل التوثيق الرقمي والوفاء للشهداء</p>
   </div>
 
   <!-- شريط تثبيت التطبيق (PWA) -->
