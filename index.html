@@ -2,8 +2,10 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta id="meta-theme-color" name="theme-color" content="#FFFFFF">
   <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta id="meta-apple-status-bar" name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="الخالدون في الذاكرة">
   <link id="pwa-manifest-link" rel="manifest" href="./manifest.json">
   <link id="apple-touch-icon-link" rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
@@ -658,6 +660,8 @@
     html, body {
       background-color: var(--bg-page) !important;
       min-height: 100dvh;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
     }
     [data-theme="dark"] #admin-notify-banner > div {
       background-color: #1E1E1E !important;
@@ -6347,6 +6351,11 @@
     const isDark = mode === 'dark';
     document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
     document.documentElement.classList.toggle('dark', isDark);
+    document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';
+    const metaTheme = document.getElementById('meta-theme-color');
+    if (metaTheme) metaTheme.setAttribute('content', isDark ? '#121212' : '#FFFFFF');
+    const appleStatus = document.getElementById('meta-apple-status-bar');
+    if (appleStatus) appleStatus.setAttribute('content', isDark ? 'black-translucent' : 'default');
     const cb = document.getElementById('dropdown-theme-toggle');
     if (cb) cb.checked = isDark;
   }
