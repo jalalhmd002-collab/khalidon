@@ -21,21 +21,34 @@
     :root {
       --bg-page: #F8F9FA;
       --bg-surface: #FFFFFF;
-      --text-heading: #1D1D1F;
-      --text-body: #424245;
-      --brand-primary: #10B981;
-      --brand-primary-hover: #059669;
-      --brand-gold: #B58938;
-      --border-subtle: #E2E8F0;
+      --bg-surface-2: #F3F4F6;
+      --text-heading: #111827;
+      --text-body: #374151;
+      --brand-green: #007A3D;
+      --brand-red: #CE1126;
+      --brand-black: #0D0D0D;
+      --brand-primary: #007A3D;
+      --brand-primary-hover: #006231;
+      --brand-gold: #CE1126;
+      --border-subtle: rgba(13, 13, 13, 0.12);
       --radius-card: 12px;
       --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    [data-theme="dark"] {
+      --bg-page: #121212;
+      --bg-surface: #1E1E1E;
+      --bg-surface-2: #262626;
+      --text-heading: #F3F4F6;
+      --text-body: #D1D5DB;
+      --border-subtle: rgba(255, 255, 255, 0.12);
+      --shadow-soft: 0 4px 16px rgba(0, 0, 0, 0.35);
     }
     .martyr-card-hover {
       transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
     }
     .martyr-card-hover:hover {
-      border-color: rgba(181, 137, 56, 0.35) !important;
-      box-shadow: 0 4px 16px rgba(181, 137, 56, 0.12) !important;
+      border-color: rgba(206, 17, 38, 0.42) !important;
+      box-shadow: 0 4px 16px rgba(206, 17, 38, 0.12) !important;
     }
     *, *::before, *::after,
     html, body, input, select, textarea, button,
@@ -270,19 +283,19 @@
       box-shadow: var(--shadow-soft);
     }
     .btn-primary {
-      background-color: #FFFFFF !important;
-      color: #111827 !important;
+      background-color: var(--bg-surface) !important;
+      color: #007A3D !important;
       border-radius: 10px;
       height: 42px;
-      border: 1px solid rgba(0, 0, 0, 0.12) !important;
+      border: 1px solid rgba(0, 122, 61, 0.42) !important;
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
       font-weight: 700;
       transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
     .btn-primary:hover {
-      background-color: rgba(0, 0, 0, 0.04) !important;
-      color: #111827 !important;
-      border-color: rgba(0, 0, 0, 0.18) !important;
+      background-color: #007A3D !important;
+      color: #FFFFFF !important;
+      border-color: #007A3D !important;
     }
     .btn-primary:active {
       background-color: rgba(0, 0, 0, 0.07) !important;
@@ -299,9 +312,9 @@
       background-color: rgba(0, 0, 0, 0.04) !important;
     }
     .memorial-badge {
-      border: 1px solid rgba(0, 0, 0, 0.12) !important;
-      background-color: #FFFFFF !important;
-      color: #111827 !important;
+      border: 1px solid rgba(0, 122, 61, 0.35) !important;
+      background-color: var(--bg-surface) !important;
+      color: #007A3D !important;
     }
     .gold-border {
       border-color: rgba(184, 134, 11, 0.4);
@@ -328,20 +341,58 @@
       animation: fadeUp 0.2s ease-out;
     }
     @keyframes kenBurnsSlow {
-      0% { transform: scale(1); }
-      100% { transform: scale(1.08); }
+      0% { transform: scale(1) translate3d(0, 0, 0); }
+      100% { transform: scale(1.12) translate3d(-1.5%, -1.5%, 0); }
     }
     .ken-burns-photo {
-      animation: kenBurnsSlow 15s ease-in-out infinite alternate;
+      animation: kenBurnsSlow 7.5s ease-in-out infinite alternate;
       will-change: transform;
+    }
+    @keyframes frameBreathe {
+      0%, 100% {
+        box-shadow: 0 0 0 1px rgba(181, 137, 56, 0.10), 0 2px 10px rgba(181, 137, 56, 0.08);
+      }
+      50% {
+        box-shadow: 0 0 0 1.5px rgba(181, 137, 56, 0.30), 0 4px 18px rgba(181, 137, 56, 0.25);
+      }
+    }
+    @keyframes motdShimmer {
+      0%, 62% { transform: translateX(140%) skewX(-20deg); opacity: 0; }
+      72% { opacity: 0.75; }
+      92%, 100% { transform: translateX(-160%) skewX(-20deg); opacity: 0; }
+    }
+    .motd-photo-frame {
+      position: relative;
+      animation: frameBreathe 4.5s ease-in-out infinite;
+    }
+    .motd-photo-frame::after,
+    .motd-badge-shimmer::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      width: 55%;
+      background: linear-gradient(90deg, transparent, rgba(181, 137, 56, 0.22), transparent);
+      pointer-events: none;
+      animation: motdShimmer 5s ease-in-out infinite;
+    }
+    .motd-badge-shimmer {
+      position: relative;
+      overflow: hidden;
+      display: inline-block;
+      padding: 1px 4px;
+      border-radius: 6px;
     }
     @keyframes slideFadeUp {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    .motion-enter-1 { animation: slideFadeUp 0.5s ease-out 0.05s both; }
-    .motion-enter-2 { animation: slideFadeUp 0.5s ease-out 0.15s both; }
-    .motion-enter-3 { animation: slideFadeUp 0.5s ease-out 0.25s both; }
+    @keyframes slideInRtl {
+      from { opacity: 0; transform: translateX(14px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    .motion-enter-1 { animation: slideFadeUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both; }
+    .motion-enter-2 { animation: slideInRtl 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.25s both; }
+    .motion-enter-3 { animation: slideFadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both; }
     @keyframes floatSpark {
       0% { transform: translateY(14px) scale(0.85); opacity: 0; }
       35% { opacity: 0.45; }
@@ -356,7 +407,10 @@
       animation: floatSpark 9s ease-in-out infinite;
     }
     .motd-paused .ken-burns-photo,
-    .motd-paused .motd-spark {
+    .motd-paused .motd-spark,
+    .motd-paused .motd-photo-frame,
+    .motd-paused .motd-photo-frame::after,
+    .motd-paused .motd-badge-shimmer::after {
       animation-play-state: paused !important;
     }
     .hp-field {
@@ -367,6 +421,193 @@
       opacity: 0 !important;
       pointer-events: none !important;
       overflow: hidden !important;
+    }
+    /* شريط تقدم القراءة العلوي بألوان العلم الفلسطيني */
+    #reading-progress-bar {
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 3px;
+      width: 0%;
+      z-index: 95;
+      background: linear-gradient(90deg, #0D0D0D 0%, #007A3D 55%, #CE1126 100%);
+      transition: width 0.1s linear;
+      pointer-events: none;
+    }
+    /* حركات الظهور عند التمرير */
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1), transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .scroll-reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .scroll-reveal { opacity: 1; transform: none; transition: none; }
+    }
+    /* أزرار الإجراءات السريعة على البطاقات */
+    .card-quick-actions {
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+    .group:hover .card-quick-actions,
+    .group:focus-within .card-quick-actions {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (hover: none) {
+      .card-quick-actions { opacity: 1; transform: none; }
+    }
+    /* إصلاح الوضع الليلي الشامل عبر [data-theme="dark"] */
+    [data-theme="dark"] body {
+      background-color: var(--bg-page) !important;
+      color: var(--text-body) !important;
+    }
+    [data-theme="dark"] header {
+      background-color: rgba(18, 18, 18, 0.86) !important;
+      border-color: var(--border-subtle) !important;
+    }
+    [data-theme="dark"] footer,
+    [data-theme="dark"] #mobile-bottom-nav,
+    [data-theme="dark"] .card-surface,
+    [data-theme="dark"] #mainDropdownMenu,
+    [data-theme="dark"] #pwa-install-banner,
+    [data-theme="dark"] #home-remembrance-spotlight,
+    [data-theme="dark"] #home-anniversary-strip,
+    [data-theme="dark"] #home-martyr-of-the-day,
+    [data-theme="dark"] [id^="modal-"] > div,
+    [data-theme="dark"] .bg-white,
+    [data-theme="dark"] .bg-\[\#F8F9FA\],
+    [data-theme="dark"] .bg-slate-100,
+    [data-theme="dark"] .bg-gradient-to-br,
+    [data-theme="dark"] article {
+      background-color: var(--bg-surface) !important;
+      background-image: none !important;
+      border-color: var(--border-subtle) !important;
+      color: var(--text-body) !important;
+    }
+    [data-theme="dark"] [id^="home-preview-"],
+    [data-theme="dark"] .bg-\[\#F8F9FA\]\/80 {
+      background-color: var(--bg-surface-2) !important;
+      background-image: none !important;
+      border-color: rgba(255, 255, 255, 0.08) !important;
+    }
+    [data-theme="dark"] h1, [data-theme="dark"] h2, [data-theme="dark"] h3, [data-theme="dark"] h4,
+    [data-theme="dark"] .text-\[\#111827\],
+    [data-theme="dark"] .text-\[\#1D1D1F\],
+    [data-theme="dark"] .text-slate-900 {
+      color: #F3F4F6 !important;
+    }
+    [data-theme="dark"] p, [data-theme="dark"] .text-\[\#424245\], [data-theme="dark"] .text-slate-700, [data-theme="dark"] .text-slate-600 {
+      color: #D1D5DB !important;
+    }
+    [data-theme="dark"] label {
+      color: #F3F4F6 !important;
+    }
+    [data-theme="dark"] input, [data-theme="dark"] select, [data-theme="dark"] textarea {
+      background-color: var(--bg-surface-2) !important;
+      color: #F3F4F6 !important;
+      border-color: rgba(255, 255, 255, 0.16) !important;
+    }
+    [data-theme="dark"] .btn-ui, [data-theme="dark"] .apple-btn-secondary,
+    [data-theme="dark"] .city-region-pill, [data-theme="dark"] .top-nav-tab,
+    [data-theme="dark"] .bottom-nav-tab, [data-theme="dark"] .qs-pill,
+    [data-theme="dark"] .quick-filter-pill {
+      background-color: var(--bg-surface-2) !important;
+      color: #F3F4F6 !important;
+      border-color: rgba(255, 255, 255, 0.16) !important;
+    }
+    [data-theme="dark"] .btn-primary {
+      background-color: rgba(0, 122, 61, 0.18) !important;
+      color: #34D399 !important;
+      border-color: rgba(0, 122, 61, 0.55) !important;
+    }
+    [data-theme="dark"] .btn-primary:hover {
+      background-color: #007A3D !important;
+      color: #FFFFFF !important;
+    }
+    [data-theme="dark"] .memorial-badge {
+      background-color: rgba(0, 122, 61, 0.16) !important;
+      color: #34D399 !important;
+      border-color: rgba(0, 122, 61, 0.45) !important;
+    }
+    [data-theme="dark"] .btn-ui:hover, [data-theme="dark"] .city-region-pill:hover, [data-theme="dark"] .quick-filter-pill:hover {
+      background-color: rgba(255, 255, 255, 0.10) !important;
+    }
+    /* إصلاح لوحة الإدارة والنماذج والتبويبات والشارات في الوضع الليلي */
+    [data-theme="dark"] #modal-admin {
+      background-color: #121212 !important;
+    }
+    [data-theme="dark"] #modal-admin label,
+    [data-theme="dark"] #modal-edit label,
+    [data-theme="dark"] #modal-cms-item label,
+    [data-theme="dark"] #modal-submit form label,
+    [data-theme="dark"] #modal-city-edit label,
+    [data-theme="dark"] #modal-admin-auth label,
+    [data-theme="dark"] #modal-change-password label,
+    [data-theme="dark"] #modal-admin h2,
+    [data-theme="dark"] #modal-admin h3,
+    [data-theme="dark"] #modal-edit h3,
+    [data-theme="dark"] #modal-cms-item h3,
+    [data-theme="dark"] #modal-city-edit h3,
+    [data-theme="dark"] #modal-admin-auth h3,
+    [data-theme="dark"] #modal-change-password h3 {
+      color: #F3F4F6 !important;
+    }
+    [data-theme="dark"] #modal-admin p,
+    [data-theme="dark"] #modal-edit p,
+    [data-theme="dark"] #modal-cms-item p,
+    [data-theme="dark"] #modal-submit p,
+    [data-theme="dark"] #modal-city-edit p {
+      color: #D1D5DB !important;
+    }
+    [data-theme="dark"] #modal-admin input, [data-theme="dark"] #modal-admin select, [data-theme="dark"] #modal-admin textarea,
+    [data-theme="dark"] #modal-edit input, [data-theme="dark"] #modal-edit select, [data-theme="dark"] #modal-edit textarea,
+    [data-theme="dark"] #modal-cms-item input, [data-theme="dark"] #modal-cms-item select, [data-theme="dark"] #modal-cms-item textarea,
+    [data-theme="dark"] #modal-submit input, [data-theme="dark"] #modal-submit select, [data-theme="dark"] #modal-submit textarea,
+    [data-theme="dark"] #modal-city-edit input, [data-theme="dark"] #modal-city-edit select, [data-theme="dark"] #modal-city-edit textarea,
+    [data-theme="dark"] #modal-admin-auth input, [data-theme="dark"] #modal-change-password input {
+      background-color: #2A2A2A !important;
+      color: #F3F4F6 !important;
+      border-color: rgba(255, 255, 255, 0.18) !important;
+    }
+    [data-theme="dark"] input::placeholder,
+    [data-theme="dark"] textarea::placeholder {
+      color: #9CA3AF !important;
+      opacity: 1 !important;
+    }
+    [data-theme="dark"] select option {
+      background-color: #1E1E1E !important;
+      color: #F3F4F6 !important;
+    }
+    [data-theme="dark"] .apple-segmented {
+      background-color: #121212 !important;
+      border-color: rgba(255, 255, 255, 0.12) !important;
+    }
+    [data-theme="dark"] .apple-segment-tab {
+      color: #D1D5DB !important;
+    }
+    [data-theme="dark"] .apple-segment-active {
+      background-color: #007A3D !important;
+      color: #FFFFFF !important;
+      border-color: #007A3D !important;
+    }
+    [data-theme="dark"] .bg-gray-200,
+    [data-theme="dark"] .bg-gray-100,
+    [data-theme="dark"] .bg-amber-50,
+    [data-theme="dark"] .bg-amber-50\/50,
+    [data-theme="dark"] .bg-red-50 {
+      background-color: #2A2A2A !important;
+      color: #F3F4F6 !important;
+      border-color: rgba(255, 255, 255, 0.14) !important;
+    }
+    [data-theme="dark"] #modal-admin .bg-\[\#1A1D20\] {
+      background-color: #2A2A2A !important;
+      color: #F3F4F6 !important;
+      border: 1px solid rgba(255, 255, 255, 0.18) !important;
     }
     .print-only {
       display: none;
@@ -422,9 +663,10 @@
   </style>
 </head>
 <body class="min-h-screen flex flex-col">
+  <div id="reading-progress-bar" aria-hidden="true"></div>
 
   <!-- شريط التنقل العلوي المبسط -->
-  <header class="bg-white/95 backdrop-blur-md border-b border-gray-200 sticky top-0 z-40 relative overflow-x-clip">
+  <header class="bg-white/80 backdrop-blur-xl border-b border-black/[0.08] sticky top-0 z-40 relative overflow-x-clip">
     <!-- علامة مائية زخرفية خفيفة (3%) في خلفية الترويسة -->
     <div class="pointer-events-none select-none absolute inset-0 overflow-hidden opacity-[0.03] flex items-center justify-center" aria-hidden="true">
       <svg class="w-56 h-56 -translate-y-2" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -489,24 +731,50 @@
             <button type="button" onclick="openSubmitModal('martyr'); toggleMainDropdown(false)" class="w-full text-right px-4 py-3 text-base font-bold text-[#111827] hover:bg-[#10B981]/5 transition">
               + إرسال بيانات شهيد
             </button>
-            <button type="button" onclick="openSubmitModal('tribute'); toggleMainDropdown(false)" class="w-full text-right px-4 py-3 text-base font-semibold text-[#111827] hover:bg-gray-50 transition">
-              ✎ إرسال رثاء أو ملاحظة
+            <button type="button" onclick="openSubmitModal('tribute'); toggleMainDropdown(false)" class="w-full text-right px-4 py-3 text-base font-semibold text-[#111827] hover:bg-black/[0.04] flex items-center gap-2.5 transition">
+              <svg class="w-4 h-4 shrink-0 text-[#007A3D]" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+              <span>إرسال رثاء أو ملاحظة</span>
             </button>
-            <button type="button" onclick="openSubmitModal('contact'); toggleMainDropdown(false)" class="w-full text-right px-4 py-3 text-base font-semibold text-[#111827] hover:bg-amber-50/70 transition">
-              ✉ اتصل بالإدارة / اعتراض
+            <button type="button" onclick="openSubmitModal('contact'); toggleMainDropdown(false)" class="w-full text-right px-4 py-3 text-base font-semibold text-[#111827] hover:bg-black/[0.04] flex items-center gap-2.5 transition">
+              <svg class="w-4 h-4 shrink-0 text-[#CE1126]" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              <span>اتصل بالإدارة / اعتراض</span>
             </button>
-            <div class="my-1.5 border-t border-gray-100"></div>
-            <button type="button" onclick="reopenPwaInstallPrompt(); toggleMainDropdown(false)" class="w-full text-right px-4 py-3 text-base font-bold text-[#111827] hover:bg-[#10B981]/5 flex items-center justify-between transition">
-              <span>📲 تثبيت التطبيق</span>
-              <span class="text-[13px] px-2.5 py-0.5 rounded-full memorial-badge font-bold">PWA</span>
+            <div class="my-1.5 border-t border-black/[0.06]"></div>
+            <label onclick="event.stopPropagation()" class="w-full px-4 py-3 text-base font-semibold text-[#111827] hover:bg-black/[0.04] flex items-center justify-between gap-2 cursor-pointer transition">
+              <span class="flex items-center gap-2.5">
+                <svg id="dropdown-theme-icon" class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+                <span>المظهر الداكن</span>
+              </span>
+              <span class="apple-toggle">
+                <input type="checkbox" id="dropdown-theme-toggle" onchange="toggleColorTheme()">
+                <span class="apple-toggle-slider"></span>
+              </span>
+            </label>
+            <button type="button" onclick="reopenPwaInstallPrompt(); toggleMainDropdown(false)" class="w-full text-right px-4 py-3 text-base font-bold text-[#111827] hover:bg-black/[0.04] flex items-center justify-between transition">
+              <span class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 shrink-0 text-[#007A3D]" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+                <span>تثبيت التطبيق</span>
+              </span>
+              <span class="text-[12px] px-2.5 py-0.5 rounded-full memorial-badge font-bold">PWA</span>
             </button>
-            <button type="button" id="dropdown-admin-btn" onclick="openAdminModal(); toggleMainDropdown(false)" class="hidden w-full text-right px-4 py-3 text-base font-bold text-[#111827] hover:bg-[#10B981]/5 flex items-center justify-between transition border-t border-gray-100">
-              <span>⚙ إعدادات الإدارة</span>
-              <span class="text-[13px] px-2.5 py-0.5 rounded-full memorial-badge font-bold">إدارة</span>
+            <button type="button" id="dropdown-admin-btn" onclick="openAdminModal(); toggleMainDropdown(false)" class="hidden w-full text-right px-4 py-3 text-base font-bold text-[#111827] hover:bg-black/[0.04] flex items-center justify-between transition border-t border-black/[0.06]">
+              <span class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span>إعدادات الإدارة</span>
+              </span>
+              <span class="text-[12px] px-2.5 py-0.5 rounded-full memorial-badge font-bold">إدارة</span>
             </button>
           </nav>
         </div>
-        <button type="button" onclick="openSubmitModal('martyr')" class="btn-ui btn-primary text-[13px] sm:text-[14px] px-3 sm:px-4 h-[38px] shrink-0">+ توثيق شهيد جديد</button>
+        <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+          <button type="button" onclick="openQuickSearchModal()" aria-label="بحث سريع" title="بحث سريع (Ctrl+K)"
+            class="inline-flex items-center gap-1.5 h-[38px] px-2.5 sm:px-3 rounded-[10px] bg-white border border-black/[0.12] hover:bg-black/[0.04] text-[#1D1D1F] text-[13px] font-bold transition cursor-pointer">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z"/></svg>
+            <span class="hidden sm:inline">بحث</span>
+            <kbd class="hidden md:inline-block text-[10px] px-1.5 py-0.5 rounded border border-black/[0.12] opacity-70 num-std">Ctrl+K</kbd>
+          </button>
+          <button type="button" onclick="openSubmitModal('martyr')" class="btn-ui btn-primary text-[13px] sm:text-[14px] px-2.5 sm:px-4 h-[38px] shrink-0">+ توثيق شهيد</button>
+        </div>
       </div>
 
       <!-- شريط التنقل الأفقي العلوي (للحواسيب) -->
@@ -680,6 +948,13 @@
             </div>
           </div>
         </div>
+        <div id="martyr-quick-pills" class="flex flex-wrap items-center gap-1.5 pt-1">
+          <button type="button" onclick="applyQuickMartyrPill('all')" data-qpill="all" class="quick-filter-pill px-3 py-1 rounded-full text-[12px] font-bold border border-[#007A3D] text-[#007A3D] bg-white transition">الكل</button>
+          <button type="button" onclick="applyQuickMartyrPill('year:2024')" data-qpill="year:2024" class="quick-filter-pill px-3 py-1 rounded-full text-[12px] font-semibold border border-black/[0.12] bg-white transition num-std">2024</button>
+          <button type="button" onclick="applyQuickMartyrPill('year:2023')" data-qpill="year:2023" class="quick-filter-pill px-3 py-1 rounded-full text-[12px] font-semibold border border-black/[0.12] bg-white transition num-std">2023</button>
+          <button type="button" onclick="applyQuickMartyrPill('cat:child')" data-qpill="cat:child" class="quick-filter-pill px-3 py-1 rounded-full text-[12px] font-semibold border border-black/[0.12] bg-white transition">أطفال</button>
+          <button type="button" onclick="applyQuickMartyrPill('cat:elder')" data-qpill="cat:elder" class="quick-filter-pill px-3 py-1 rounded-full text-[12px] font-semibold border border-black/[0.12] bg-white transition">مسنين</button>
+        </div>
       </div>
 
       <div id="martyrs-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
@@ -723,11 +998,18 @@
 
         <div class="bg-white border border-black/[0.08] rounded-3xl shadow-sm relative overflow-hidden">
           <div class="h-1.5 w-full flex"><span class="w-2 bg-red-600 shrink-0"></span><span class="flex-1 bg-neutral-900"></span><span class="flex-1 bg-white"></span><span class="flex-1 bg-emerald-600"></span><span class="w-2 bg-red-600 shrink-0"></span></div>
-          <div class="px-6 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <div>
-              <h2 class="text-[22px] font-extrabold text-[#111827]">مفكرون وأكاديميون وأعلام</h2>
+          <div class="px-6 py-5 space-y-3">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <h2 class="text-[22px] font-extrabold text-[#111827]">مفكرون وأكاديميون وفنانون</h2>
+              </div>
+              <span id="academics-count-badge" class="px-3.5 py-1.5 rounded-full memorial-badge text-[14px] font-bold self-start sm:self-auto"></span>
             </div>
-            <span id="academics-count-badge" class="px-3.5 py-1.5 rounded-full memorial-badge text-[14px] font-bold self-start sm:self-auto"></span>
+            <div class="flex flex-wrap items-center gap-1.5" id="scholars-cat-pills">
+              <button type="button" onclick="setScholarsCategoryFilter('الكل')" data-sch-cat="الكل" class="sch-cat-pill px-3 py-1 rounded-full text-[12px] font-bold border border-[#007A3D] text-[#007A3D] bg-white transition">الكل</button>
+              <button type="button" onclick="setScholarsCategoryFilter('مفكرون وأكاديميون')" data-sch-cat="مفكرون وأكاديميون" class="sch-cat-pill px-3 py-1 rounded-full text-[12px] font-semibold border border-black/[0.12] bg-white transition">مفكرون وأكاديميون</button>
+              <button type="button" onclick="setScholarsCategoryFilter('رسامون وفنانون')" data-sch-cat="رسامون وفنانون" class="sch-cat-pill px-3 py-1 rounded-full text-[12px] font-semibold border border-black/[0.12] bg-white transition">رسامون وفنانون</button>
+            </div>
           </div>
         </div>
 
@@ -795,7 +1077,7 @@
             </button>
 
             <button type="button" onclick="selectSubmitType('tribute')" class="card-surface p-5 text-right hover:border-[#10B981] hover:bg-[#10B981]/[0.03] transition space-y-2 group">
-              <span class="inline-flex items-center justify-center w-10 h-10 rounded-[12px] memorial-badge font-bold text-lg">✎</span>
+              <span class="inline-flex items-center justify-center w-10 h-10 rounded-[12px] memorial-badge"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span>
               <h4 class="text-base font-bold text-[#111827] group-hover:text-[#111827]">إرسال رثاء أو ملاحظة</h4>
               <p class="text-[15px] text-[#111827] leading-relaxed">كتابة خاطرة، كلمة وفاء، أو أبيات شعرية للنشر في دفتر الرثاء.</p>
             </button>
@@ -1011,7 +1293,7 @@
     <div class="bg-white rounded-[14px] max-w-md w-full shadow-2xl flex flex-col border border-gray-200 animate-fade-up">
       <div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between gap-3 bg-[#F8F9FA] rounded-t-[14px]">
         <div class="flex items-center gap-2.5">
-          <span class="w-8 h-8 rounded-lg bg-[#10B981]/15 text-[#10B981] flex items-center justify-center font-bold">🔒</span>
+          <span class="w-8 h-8 rounded-lg memorial-badge flex items-center justify-center"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
           <h3 class="font-bold text-[#111827] text-base sm:text-lg">دخول لوحة المدير</h3>
         </div>
         <button type="button" onclick="closeAdminAuthModal()" aria-label="إغلاق" class="w-8 h-8 rounded-lg flex items-center justify-center text-[#111827] hover:bg-gray-200/70 transition text-lg leading-none">✕</button>
@@ -1040,7 +1322,7 @@
     <div class="bg-white rounded-[14px] max-w-md w-full shadow-2xl flex flex-col border border-gray-200 animate-fade-up">
       <div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between gap-3 bg-[#F8F9FA] rounded-t-[14px]">
         <div class="flex items-center gap-2.5">
-          <span class="w-8 h-8 rounded-lg bg-[#10B981]/15 text-[#10B981] flex items-center justify-center font-bold">🔑</span>
+          <span class="w-8 h-8 rounded-lg memorial-badge flex items-center justify-center"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></svg></span>
           <h3 class="font-bold text-[#111827] text-base sm:text-lg">تغيير كلمة مرور الإدارة</h3>
         </div>
         <button type="button" onclick="closeChangePasswordModal()" aria-label="إغلاق" class="w-8 h-8 rounded-lg flex items-center justify-center text-[#111827] hover:bg-gray-200/70 transition text-lg leading-none">✕</button>
@@ -1140,6 +1422,8 @@
       </div>
       <div id="article-modal-body" class="p-6 space-y-3 text-base text-[#111827] leading-[1.85]"></div>
       <div class="no-print bg-[#F8F9FA] px-6 py-3.5 flex flex-wrap justify-end items-center gap-2.5 border-t border-gray-200 rounded-b-[14px]">
+        <button type="button" onclick="toggleSpeakText(this, (document.getElementById('article-modal-title')?.textContent || '') + '. ' + (document.getElementById('article-modal-body')?.textContent || ''))" class="btn-ui text-[14px]"><svg class="w-4 h-4 inline-block ml-1" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>استماع</button>
+        <button type="button" onclick="openQuoteShareModal(document.getElementById('article-modal-body')?.innerText || '', document.getElementById('article-modal-title')?.textContent || '')" class="btn-ui text-[14px]"><svg class="w-3.5 h-3.5 inline-block ml-1" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg>اقتباس</button>
         <button type="button" onclick="window.print()" class="btn-ui btn-primary text-[15px]">طباعة</button>
         <button type="button" onclick="closeArticleModal()" class="btn-ui apple-btn-secondary text-[15px]">إغلاق</button>
       </div>
@@ -1191,16 +1475,16 @@
         <p class="text-[15px] text-[#111827] mb-2">احفظ نسخة من جميع السجلات والصور على جهازك، أو استعد نسخة سابقة.</p>
 
         <button type="button" onclick="exportBackupJson()" class="btn-ui w-full bg-[#10B981] hover:bg-[#059669] text-white text-[15px] justify-start px-4 transition">
-          <span>⬇ تصدير نسخة احتياطية (JSON)</span>
+          <span class="inline-flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg><span>تصدير نسخة احتياطية (JSON)</span></span>
         </button>
 
         <label class="btn-ui w-full border border-[#10B981] bg-white hover:bg-[#10B981]/5 text-[#111827] !text-[#111827] text-[15px] justify-start px-4 transition">
-          <span>⬆ استيراد نسخة احتياطية</span>
+          <span class="inline-flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg><span>استيراد نسخة احتياطية</span></span>
           <input type="file" accept=".json,application/json" onchange="importBackupJson(this)" class="hidden">
         </label>
 
         <button type="button" onclick="resetAllDemoData()" class="btn-ui w-full border border-red-300 bg-white hover:bg-red-50 text-red-600 text-[15px] justify-start px-4 transition">
-          <span>↺ إعادة ضبط البيانات الافتراضية</span>
+          <span class="inline-flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg><span>إعادة ضبط البيانات الافتراضية</span></span>
         </button>
       </div>
 
@@ -1225,6 +1509,49 @@
 
   <!-- حاوية الإشعارات -->
   <div id="toast-container" class="fixed bottom-4 left-4 right-4 sm:left-6 sm:right-auto sm:w-80 z-[70] space-y-2 pointer-events-none"></div>
+
+  <!-- نافذة البحث الفوري السريع (Ctrl+K) -->
+  <div id="modal-quick-search" onclick="closeQuickSearchModal(event)" class="fixed inset-0 bg-[#1A1D20]/60 backdrop-blur-sm hidden items-start justify-center z-[85] p-4 pt-16 sm:pt-24">
+    <div class="bg-white rounded-[16px] max-w-2xl w-full shadow-2xl border border-black/[0.10] overflow-hidden animate-fade-up">
+      <div class="p-3.5 border-b border-black/[0.08] flex items-center gap-2.5">
+        <svg class="w-5 h-5 text-[#424245] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z"/></svg>
+        <input type="text" id="quick-search-input" oninput="runQuickSearch()" placeholder="ابحث في الشهداء، المدن، المفكرين، المقالات، والرثاء..."
+          class="flex-1 bg-transparent border-none outline-none text-[15px] text-[#1D1D1F] placeholder:text-[#6B7280]">
+        <button type="button" onclick="closeQuickSearchModal()" class="px-2.5 py-1 rounded-[8px] border border-black/[0.12] text-[12px] font-bold">إغلاق</button>
+      </div>
+      <div class="px-3.5 py-2 border-b border-black/[0.06] flex flex-wrap gap-1.5" id="quick-search-pills">
+        <button type="button" onclick="setQuickSearchCat('all')" data-qs-cat="all" class="qs-pill px-3 py-1 rounded-full text-[12px] font-bold border border-black/25 bg-white">الكل</button>
+        <button type="button" onclick="setQuickSearchCat('martyrs')" data-qs-cat="martyrs" class="qs-pill px-3 py-1 rounded-full text-[12px] font-semibold border border-black/[0.12] bg-white">الشهداء</button>
+        <button type="button" onclick="setQuickSearchCat('cities')" data-qs-cat="cities" class="qs-pill px-3 py-1 rounded-full text-[12px] font-semibold border border-black/[0.12] bg-white">المدن</button>
+        <button type="button" onclick="setQuickSearchCat('academics')" data-qs-cat="academics" class="qs-pill px-3 py-1 rounded-full text-[12px] font-semibold border border-black/[0.12] bg-white">المفكرون</button>
+        <button type="button" onclick="setQuickSearchCat('articles')" data-qs-cat="articles" class="qs-pill px-3 py-1 rounded-full text-[12px] font-semibold border border-black/[0.12] bg-white">المقالات</button>
+        <button type="button" onclick="setQuickSearchCat('tributes')" data-qs-cat="tributes" class="qs-pill px-3 py-1 rounded-full text-[12px] font-semibold border border-black/[0.12] bg-white">الرثاء</button>
+      </div>
+      <div id="quick-search-results" class="max-h-[55vh] overflow-y-auto p-3 space-y-1.5"></div>
+    </div>
+  </div>
+
+  <!-- نافذة مشاركة بطاقة اقتباس -->
+  <div id="modal-quote-share" onclick="closeQuoteShareModal(event)" class="fixed inset-0 bg-[#1A1D20]/65 backdrop-blur-sm hidden items-center justify-center z-[88] p-4">
+    <div class="bg-white rounded-[16px] max-w-lg w-full shadow-2xl border border-black/[0.10] overflow-hidden animate-fade-up">
+      <div class="px-5 py-3.5 border-b border-black/[0.08] flex items-center justify-between">
+        <h3 class="text-[16px] font-extrabold text-[#1D1D1F]">بطاقة اقتباس للمشاركة</h3>
+        <button type="button" onclick="closeQuoteShareModal()" class="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-black/[0.05] text-lg">✕</button>
+      </div>
+      <div class="p-5 space-y-4">
+        <canvas id="quote-share-canvas" width="900" height="560" class="w-full rounded-[12px] border border-black/[0.10] shadow-sm"></canvas>
+        <div class="flex flex-wrap gap-2 justify-end">
+          <button type="button" onclick="copyShareQuoteText()" class="btn-ui text-[13px] px-4">نسخ النص</button>
+          <button type="button" onclick="downloadShareQuoteImage()" class="btn-ui btn-primary text-[13px] px-4"><span class="inline-flex items-center gap-1.5"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg><span>تحميل البطاقة (PNG)</span></span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- زر عائم عند تحديد نص للمشاركة كاقتباس -->
+  <button type="button" id="floating-quote-btn" onclick="openSelectedTextQuote()" class="hidden fixed z-[90] px-3 py-1.5 rounded-full bg-[#1D1D1F] text-white text-[12px] font-bold shadow-lg border border-[#B58938]/60 hover:opacity-90 transition">
+    مشاركة كاقتباس
+  </button>
 
   <!-- الفوتر -->
   <footer class="bg-white border-t border-gray-200 pt-3.5 pb-[88px] md:py-4 mt-8 text-center text-[12px] text-[#111827] leading-snug">
@@ -1490,8 +1817,20 @@
           } catch (_) {}
         });
       }
-      if (artRes.data && artRes.data.length) aboutCms.articles = artRes.data;
-      if (acadRes.data && acadRes.data.length) aboutCms.academics = acadRes.data;
+      if (artRes.data && artRes.data.length) {
+        const prevArtMap = new Map((aboutCms.articles || []).map(a => [String(a.id), a]));
+        aboutCms.articles = artRes.data.map(a => {
+          const prev = prevArtMap.get(String(a.id));
+          return { ...a, image_url: a.image_url || (prev && prev.image_url) || null };
+        });
+      }
+      if (acadRes.data && acadRes.data.length) {
+        const prevAcadMap = new Map((aboutCms.academics || []).map(ac => [String(ac.id), ac]));
+        aboutCms.academics = acadRes.data.map(ac => {
+          const prev = prevAcadMap.get(String(ac.id));
+          return { ...ac, image_url: ac.image_url || (prev && prev.image_url) || null, category: ac.category || (prev && prev.category) || 'مفكرون وأكاديميون' };
+        });
+      }
       saveLocalAboutCms();
       if (currentTab === 'about') renderAboutSection();
       if (currentTab === 'articles') renderArticlesPage(1);
@@ -1858,6 +2197,7 @@
     if (tab === 'scholars') renderAcademicsPage(academicsPage);
     if (tab === 'articles') renderArticlesPage(articlesPage);
     if (tab === 'tributes') loadTributes(1);
+    setTimeout(observeRevealElements, 80);
   }
 
   // ==========================================================
@@ -2174,7 +2514,8 @@
             <div class="leading-relaxed text-slate-700 text-base my-4 max-h-[38vh] overflow-y-auto whitespace-pre-line">${escapeHtml(city.history || city.summary || '')}</div>
           </div>
           <div class="pt-4 border-t border-gray-100 flex flex-wrap gap-2.5">
-            <button type="button" onclick="viewCityMartyrs('${escapeHtml(city.name)}')" class="btn-ui btn-primary text-[15px] flex-1">عرض شهداء المدينة</button>
+            <button type="button" onclick="toggleSpeakText(this, '${escapeJsStr(city.name + '. ' + (city.history || city.summary || ''))}')" class="btn-ui text-[14px]"><svg class="w-4 h-4 inline-block ml-1" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>استماع</button>
+            <button type="button" onclick="viewCityMartyrs('${escapeJsStr(city.name)}')" class="btn-ui btn-primary text-[15px] flex-1">عرض شهداء المدينة</button>
           </div>
         </div>
       </div>
@@ -2187,6 +2528,7 @@
 
   function closeCityDetailsModal(e) {
     if (e && e.target && e.target.id !== 'modal-city-details') return;
+    stopSpeaking();
     const modal = document.getElementById('modal-city-details');
     if (modal) {
       modal.classList.add('hidden');
@@ -2289,6 +2631,52 @@
     return arr.sort((a, b) => new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime());
   }
 
+  let activeScholarsCategory = 'الكل';
+
+  function setScholarsCategoryFilter(cat) {
+    activeScholarsCategory = cat || 'الكل';
+    document.querySelectorAll('.sch-cat-pill').forEach(btn => {
+      const active = btn.dataset.schCat === activeScholarsCategory;
+      btn.className = active
+        ? 'sch-cat-pill px-3 py-1 rounded-full text-[12px] font-bold border border-[#007A3D] text-[#007A3D] bg-white transition'
+        : 'sch-cat-pill px-3 py-1 rounded-full text-[12px] font-semibold border border-black/[0.12] bg-white transition';
+    });
+    renderAcademicsPage(1);
+  }
+
+  function getAcademicCategory(ac) {
+    if (ac && ac.category) return ac.category;
+    const text = `${ac?.role || ''} ${ac?.badge || ''}`;
+    if (/رسام|فنان|تشكيلي|لوحات/.test(text)) return 'رسامون وفنانون';
+    return 'مفكرون وأكاديميون';
+  }
+
+  function renderArticleCoverHtml(art) {
+    if (art && art.image_url) {
+      return `<div class="aspect-video w-full rounded-[14px] overflow-hidden border border-black/[0.08] bg-[#F8F9FA] mb-3">
+        <img src="${escapeHtml(art.image_url)}" alt="${escapeHtml(art.title)}" loading="lazy" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'w-full h-full flex items-center justify-center text-[#007A3D]\'><svg class=\'w-10 h-10\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1.5\' viewBox=\'0 0 24 24\'><path d=\'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\'/><polyline points=\'14 2 14 8 20 8\'/><line x1=\'16\' y1=\'13\' x2=\'8\' y2=\'13\'/><line x1=\'16\' y1=\'17\' x2=\'8\' y2=\'17\'/></svg></div>'" class="w-full h-full object-cover">
+      </div>`;
+    }
+    return `<div class="aspect-video w-full rounded-[14px] overflow-hidden border border-black/[0.08] bg-[#F8F9FA] mb-3 flex flex-col items-center justify-center gap-1.5 text-[#007A3D]/70">
+      <svg class="w-9 h-9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+      </svg>
+    </div>`;
+  }
+
+  function renderAcademicAvatarHtml(ac) {
+    if (ac && ac.image_url) {
+      return `<div class="w-16 h-16 rounded-2xl overflow-hidden border-2 border-[#007A3D]/35 bg-[#F8F9FA] shrink-0">
+        <img src="${escapeHtml(ac.image_url)}" alt="${escapeHtml(ac.name)}" loading="lazy" class="w-full h-full object-cover object-top">
+      </div>`;
+    }
+    const isArtist = getAcademicCategory(ac) === 'رسامون وفنانون';
+    const iconSvg = isArtist
+      ? `<svg class="w-7 h-7 text-[#CE1126]" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>`
+      : `<svg class="w-7 h-7 text-[#007A3D]" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>`;
+    return `<div class="w-16 h-16 rounded-2xl border-2 border-[#007A3D]/30 bg-[#F8F9FA] flex items-center justify-center shrink-0">${iconSvg}</div>`;
+  }
+
   function renderArticlesPage(page = 1) {
     const list = sortSectionList(getCombinedArticlesList(), getDefaultSectionSort('articles'), 'article', 'title');
     const pageSize = 9;
@@ -2299,18 +2687,19 @@
     document.getElementById('articles-count-badge').innerHTML = `<span class="num-std">${toEnglishDigits(list.length)}</span> مقال`;
     document.getElementById('about-articles-row').innerHTML = slice.length
       ? slice.map(art => `
-        <article onclick="openArticleModal('article', '${escapeHtml(art.id)}')" class="flex flex-col justify-between h-full p-6 bg-gradient-to-br from-[#ECFDF5] via-[#FBFDFC] to-[#FEFCE8] rounded-3xl border border-emerald-200/60 shadow-sm relative overflow-hidden hover:border-emerald-300/80 hover:shadow-md cursor-pointer transition">
+        <article onclick="openArticleModal('article', '${escapeJsStr(art.id)}')" class="martyr-card-hover flex flex-col justify-between h-full p-5 bg-white rounded-3xl border border-black/[0.08] shadow-sm relative overflow-hidden cursor-pointer transition">
           <div class="absolute top-0 inset-x-0 h-1.5 w-full flex"><span class="w-1.5 bg-red-600 shrink-0"></span><span class="flex-1 bg-neutral-900"></span><span class="flex-1 bg-white"></span><span class="flex-1 bg-emerald-600"></span><span class="w-1.5 bg-red-600 shrink-0"></span></div>
           <div class="flex-1 space-y-2.5 pt-2">
+            ${renderArticleCoverHtml(art)}
             <div>
               <span class="inline-block text-[13px] font-bold px-3 py-0.5 rounded-full memorial-badge">${escapeHtml(art.tag)}</span>
             </div>
-            <h4 class="font-extrabold text-[#111827] text-[19px] leading-snug">${escapeHtml(art.title)}</h4>
-            <p class="text-[15px] text-[#111827] leading-[1.7] line-clamp-3">${escapeHtml(art.summary)}</p>
+            <h4 class="font-extrabold text-[#1D1D1F] text-[18px] leading-snug">${escapeHtml(art.title)}</h4>
+            <p class="text-[14px] text-[#424245] leading-[1.7] line-clamp-3">${escapeHtml(art.summary)}</p>
           </div>
-          <div class="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between gap-3 text-[14px] font-bold text-[#111827]">
-            <span class="inline-flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-red-600 shrink-0"></span><span>${art._source === 'martyr' ? 'توثيق سيرة شهيد' : 'مقال ودراسة'}</span></span>
-            <button type="button" onclick="event.stopPropagation(); openArticleModal('article', '${escapeHtml(art.id)}')" class="btn-ui btn-primary text-[14px] shrink-0">قراءة المزيد ←</button>
+          <div class="pt-4 mt-4 border-t border-black/[0.06] flex items-center justify-between gap-3 text-[13px] font-bold text-[#1D1D1F]">
+            <span class="inline-flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-[#CE1126] shrink-0"></span><span>${art._source === 'martyr' ? 'توثيق سيرة شهيد' : 'مقال ودراسة'}</span></span>
+            <button type="button" onclick="event.stopPropagation(); openArticleModal('article', '${escapeJsStr(art.id)}')" class="btn-ui btn-primary text-[13px] shrink-0">قراءة المزيد ←</button>
           </div>
         </article>
       `).join('')
@@ -2320,7 +2709,11 @@
   }
 
   function renderAcademicsPage(page = 1) {
-    const list = sortSectionList(aboutCms.academics || [], getDefaultSectionSort('academics'), 'academic', 'name');
+    let rawList = aboutCms.academics || [];
+    if (activeScholarsCategory !== 'الكل') {
+      rawList = rawList.filter(ac => getAcademicCategory(ac) === activeScholarsCategory);
+    }
+    const list = sortSectionList(rawList, getDefaultSectionSort('academics'), 'academic', 'name');
     const pageSize = 9;
     const totalPages = Math.max(1, Math.ceil(list.length / pageSize));
     academicsPage = Math.min(Math.max(1, page), totalPages);
@@ -2329,19 +2722,22 @@
     document.getElementById('academics-count-badge').innerHTML = `<span class="num-std">${toEnglishDigits(list.length)}</span> أعلام ومراجع`;
     document.getElementById('academics-grid').innerHTML = slice.length
       ? slice.map(ac => `
-        <article onclick="openArticleModal('academic', '${escapeHtml(ac.id)}')" class="flex flex-col justify-between h-full p-6 bg-gradient-to-br from-[#ECFDF5] via-[#FBFDFC] to-[#FEFCE8] rounded-3xl border border-emerald-200/60 shadow-sm relative overflow-hidden hover:border-emerald-300/80 hover:shadow-md cursor-pointer transition">
+        <article onclick="openArticleModal('academic', '${escapeJsStr(ac.id)}')" class="martyr-card-hover flex flex-col justify-between h-full p-5 bg-white rounded-3xl border border-black/[0.08] shadow-sm relative overflow-hidden cursor-pointer transition">
           <div class="absolute top-0 inset-x-0 h-1.5 w-full flex"><span class="w-1.5 bg-red-600 shrink-0"></span><span class="flex-1 bg-neutral-900"></span><span class="flex-1 bg-white"></span><span class="flex-1 bg-emerald-600"></span><span class="w-1.5 bg-red-600 shrink-0"></span></div>
           <div class="flex-1 space-y-2.5 pt-2">
-            <div>
-              <span class="inline-block text-[13px] font-bold px-3 py-0.5 rounded-full memorial-badge">${escapeHtml(ac.badge || 'مفكر / أكاديمي')}</span>
+            <div class="flex items-center gap-3">
+              ${renderAcademicAvatarHtml(ac)}
+              <div class="min-w-0 flex-1 space-y-1">
+                <span class="inline-block text-[12px] font-bold px-2.5 py-0.5 rounded-full memorial-badge">${escapeHtml(ac.badge || getAcademicCategory(ac))}</span>
+                <h4 class="font-extrabold text-[#1D1D1F] text-[18px] leading-snug truncate">${escapeHtml(ac.name)}</h4>
+              </div>
             </div>
-            <h4 class="font-extrabold text-[#111827] text-[19px] leading-snug">${escapeHtml(ac.name)}</h4>
-            <p class="text-[14px] font-bold text-[#111827] pr-2.5 border-r-2 border-red-600">${escapeHtml(ac.role || '')}</p>
-            <p class="text-[15px] text-[#111827] leading-[1.7] line-clamp-3">${escapeHtml(ac.summary)}</p>
+            <p class="text-[13px] font-bold text-[#1D1D1F] pr-2.5 border-r-2 border-[#CE1126]">${escapeHtml(ac.role || '')}</p>
+            <p class="text-[14px] text-[#424245] leading-[1.7] line-clamp-3">${escapeHtml(ac.summary)}</p>
           </div>
-          <div class="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between gap-3 text-[14px] font-bold text-[#111827]">
-            <span class="inline-flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-red-600 shrink-0"></span><span>سيرة وتوثيق</span></span>
-            <button type="button" onclick="event.stopPropagation(); openArticleModal('academic', '${escapeHtml(ac.id)}')" class="btn-ui btn-primary text-[14px] shrink-0">قراءة المزيد ←</button>
+          <div class="pt-4 mt-4 border-t border-black/[0.06] flex items-center justify-between gap-3 text-[13px] font-bold text-[#1D1D1F]">
+            <span class="inline-flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-[#CE1126] shrink-0"></span><span>${escapeHtml(getAcademicCategory(ac))}</span></span>
+            <button type="button" onclick="event.stopPropagation(); openArticleModal('academic', '${escapeJsStr(ac.id)}')" class="btn-ui btn-primary text-[13px] shrink-0">قراءة المزيد ←</button>
           </div>
         </article>
       `).join('')
@@ -2361,6 +2757,7 @@
         <h2 class="text-xl font-bold text-[#111827]">الخالدون في الذاكرة — سجل التوثيق الرقمي والوفاء (بيت حانون)</h2>
         <p class="text-[15px] text-[#111827] font-bold mt-1">${escapeHtml(item.title || item.name)}</p>
       </div>
+      ${item.image_url ? `<div class="rounded-[14px] overflow-hidden border border-black/[0.08] mb-3 max-h-72 bg-[#F8F9FA] flex items-center justify-center"><img src="${escapeHtml(item.image_url)}" alt="${escapeHtml(item.title || item.name)}" class="w-full max-h-72 object-cover"></div>` : ''}
       ${item.badge ? `<p class="text-[15px] font-bold text-[#111827]">${escapeHtml(item.role)} — ${escapeHtml(item.badge)}</p>` : ''}
       ${item.tag ? `<span class="inline-block text-[14px] font-bold px-3 py-0.5 rounded-full memorial-badge">${escapeHtml(item.tag)}</span>` : ''}
       <p class="leading-[1.85] text-[#111827] whitespace-pre-line">${escapeHtml(item.body)}</p>
@@ -2373,6 +2770,7 @@
 
   function closeArticleModal(e) {
     if (e && e.target && e.target.id !== 'modal-article') return;
+    stopSpeaking();
     const modal = document.getElementById('modal-article');
     modal.classList.add('hidden');
     modal.classList.remove('flex');
@@ -2494,7 +2892,7 @@
                 if (matchedTrib && matchedTrib.content) pullQuote = String(matchedTrib.content).trim();
               }
               return pullQuote
-                ? `<blockquote style="border-right: 3px solid #B58938;" class="pr-3.5 py-1.5 my-3 text-[15px] font-semibold text-[#1D1D1F] bg-[#F8F9FA]/80 rounded-l-[10px]">«${escapeHtml(pullQuote)}»</blockquote>`
+                ? `<blockquote style="border-right: 3px solid #CE1126;" class="pr-3.5 py-1.5 my-3 text-[15px] font-semibold text-[#1D1D1F] bg-[#F8F9FA]/80 rounded-l-[10px]">«${escapeHtml(pullQuote)}»</blockquote>`
                 : '';
             })()}
 
@@ -2503,14 +2901,20 @@
             </div>
           </div>
 
-          <div class="no-print pt-5 border-t border-gray-100 grid grid-cols-3 gap-2">
+          <div class="no-print pt-5 border-t border-gray-100 grid grid-cols-2 sm:grid-cols-5 gap-2">
+            <button type="button" onclick="toggleSpeakText(this, currentViewedMartyr ? (currentViewedMartyr.full_name_ar + '. ' + (currentViewedMartyr.bio || '')) : '')" class="btn-ui py-2.5 px-2 text-xs sm:text-sm whitespace-nowrap justify-center">
+              <svg class="w-4 h-4 inline-block ml-1" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>استماع
+            </button>
+            <button type="button" onclick="openQuoteShareModal(currentViewedMartyr ? (currentViewedMartyr.bio || currentViewedMartyr.full_name_ar) : '', currentViewedMartyr ? currentViewedMartyr.full_name_ar : '')" class="btn-ui py-2.5 px-2 text-xs sm:text-sm whitespace-nowrap justify-center">
+              <svg class="w-3.5 h-3.5 inline-block ml-1" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg>اقتباس
+            </button>
             <button type="button" onclick="addTributeForCurrentMartyr()" class="btn-ui btn-primary py-2.5 px-2 text-xs sm:text-sm whitespace-nowrap justify-center">
               إضافة رثاء
             </button>
-            <button type="button" onclick="requestMartyrObjection()" class="btn-ui border border-gray-300 bg-white text-[#111827] hover:bg-gray-50 py-2.5 px-2 text-xs sm:text-sm whitespace-nowrap justify-center">
+            <button type="button" onclick="requestMartyrObjection()" class="btn-ui py-2.5 px-2 text-xs sm:text-sm whitespace-nowrap justify-center">
               تصحيح
             </button>
-            <button type="button" onclick="printMemorialCard()" class="btn-ui border border-[#10B981] bg-white text-[#111827] hover:bg-[#10B981]/5 py-2.5 px-2 text-xs sm:text-sm whitespace-nowrap justify-center">
+            <button type="button" onclick="printMemorialCard()" class="btn-ui py-2.5 px-2 text-xs sm:text-sm whitespace-nowrap justify-center col-span-2 sm:col-span-1">
               طباعة
             </button>
           </div>
@@ -2537,6 +2941,7 @@
 
   function closeDetailsModal(e) {
     if (e && e.target && e.target.id !== 'modal-details') return;
+    stopSpeaking();
     const modal = document.getElementById('modal-details');
     modal.classList.add('hidden');
     modal.classList.remove('flex');
@@ -2667,17 +3072,17 @@
         <span class="motd-spark w-8 h-8 top-1/2 right-[52%]" style="animation-duration: 8.5s; animation-delay: 2.4s;"></span>
       </div>
       <button type="button" id="motd-play-toggle" onclick="toggleMotdMotion(event)" aria-label="إيقاف أو تشغيل الحركة" title="إيقاف مؤقت للحركة"
-        class="absolute top-3 left-3 z-20 w-8 h-8 rounded-full bg-white/90 hover:bg-black/[0.06] border border-black/[0.10] flex items-center justify-center text-[#111827]/75 text-[12px] shadow-sm transition cursor-pointer">⏸</button>
+        class="absolute top-3 left-3 z-20 w-8 h-8 rounded-full bg-white/90 hover:bg-black/[0.06] border border-black/[0.10] flex items-center justify-center text-[#111827]/75 text-[12px] shadow-sm transition cursor-pointer"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg></button>
       <div class="relative z-10 p-4 sm:p-5 flex flex-col sm:flex-row items-center gap-4 sm:gap-5">
-        <div class="w-full sm:w-36 h-44 sm:h-36 rounded-[14px] overflow-hidden border border-black/[0.08] bg-[#F8F9FA] shrink-0">
+        <div class="motd-photo-frame w-full sm:w-36 h-44 sm:h-36 rounded-[14px] overflow-hidden border border-[#CE1126]/30 bg-[#F8F9FA] shrink-0">
           <img src="${img}" loading="lazy" alt="${escapeHtml(item.full_name_ar)}"
             onerror="handleImageFallback(this, '${escapeJsStr(rawUrl || PLACEHOLDER_IMG)}')"
             class="w-full h-full object-cover object-top ken-burns-photo">
         </div>
         <div class="flex-1 min-w-0 w-full text-right space-y-1.5">
-          <div class="motion-enter-1 flex items-center justify-between gap-2 pl-10">
-            <span class="text-[12px] font-extrabold text-[#B58938] tracking-wide">شهيد اليوم</span>
-            <span class="text-[12px] font-semibold text-[#111827]/65 num-std">${escapeHtml(mDate)} — ${escapeHtml(area)}</span>
+          <div class="flex items-center justify-between gap-2 pl-10">
+            <span class="motion-enter-1 motd-badge-shimmer text-[12px] font-extrabold text-[#CE1126] tracking-wide">شهيد اليوم</span>
+            <span class="motion-enter-3 text-[12px] font-semibold text-[#424245] num-std">${escapeHtml(mDate)} — ${escapeHtml(area)}</span>
           </div>
           <h3 class="motion-enter-2 text-[18px] sm:text-[20px] font-extrabold text-[#1D1D1F] leading-snug truncate">${escapeHtml(item.full_name_ar)}</h3>
           <p class="motion-enter-3 text-[14px] text-[#424245] leading-relaxed line-clamp-2">${escapeHtml(bioText)}</p>
@@ -2693,7 +3098,7 @@
     const btn = document.getElementById('motd-play-toggle');
     if (!wrap || !btn) return;
     const isPaused = wrap.classList.toggle('motd-paused');
-    btn.textContent = isPaused ? '▶' : '⏸';
+    btn.innerHTML = isPaused ? '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"/></svg>' : '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
     btn.title = isPaused ? 'تشغيل الحركة' : 'إيقاف مؤقت للحركة';
   }
 
@@ -2738,7 +3143,7 @@
     if (countEl) countEl.textContent = toEnglishDigits(counts[id]);
     if (flameEl) flameEl.classList.add('candle-flame-lit');
     if (btnEl) {
-      btnEl.classList.add('border-[#B58938]/50');
+      btnEl.classList.add('border-[#CE1126]/50');
       btnEl.setAttribute('aria-pressed', 'true');
     }
     showToast('أُضيئت شمعة وفاء لذكراه العطرة', 'success');
@@ -2781,21 +3186,21 @@
             class="w-12 h-12 sm:w-14 sm:h-14 rounded-[12px] object-cover object-top border border-black/[0.08] bg-[#F8F9FA] shrink-0">
           <div class="min-w-0 flex-1 space-y-0.5">
             <div class="flex items-center gap-2">
-              <span class="text-[11px] font-extrabold text-[#B58938] tracking-wide">ذكرى ووفاء</span>
+              <span class="text-[11px] font-extrabold text-[#CE1126] tracking-wide">ذكرى ووفاء</span>
               <h3 class="text-[15px] sm:text-[16px] font-extrabold text-[#1D1D1F] truncate group-hover:underline">${escapeHtml(item.full_name_ar)}</h3>
             </div>
             <p class="text-[13px] text-[#424245] truncate">«${escapeHtml(quoteText)}»</p>
           </div>
         </div>
         <button type="button" id="spotlight-candle-btn" onclick="lightRemembranceCandle('${escapeJsStr(id)}')" aria-pressed="${isLit ? 'true' : 'false'}"
-          class="inline-flex items-center justify-center gap-2 px-3.5 py-2 rounded-full bg-white border ${isLit ? 'border-[#B58938]/50' : 'border-black/[0.12]'} hover:bg-black/[0.04] text-[#111827] text-[13px] font-bold transition shrink-0 cursor-pointer">
+          class="inline-flex items-center justify-center gap-2 px-3.5 py-2 rounded-full bg-white border ${isLit ? 'border-[#CE1126]/50' : 'border-black/[0.12]'} hover:bg-black/[0.04] text-[#111827] text-[13px] font-bold transition shrink-0 cursor-pointer">
           <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path id="spotlight-candle-flame" class="${isLit ? 'candle-flame-lit' : ''}" d="M12 2.5C14 5.2 14.8 7.5 13.7 9.4C13.2 10.2 12.6 10.7 12 10.9C11.4 10.7 10.8 10.2 10.3 9.4C9.2 7.5 10 5.2 12 2.5Z" fill="#B58938"/>
+            <path id="spotlight-candle-flame" class="${isLit ? 'candle-flame-lit' : ''}" d="M12 2.5C14 5.2 14.8 7.5 13.7 9.4C13.2 10.2 12.6 10.7 12 10.9C11.4 10.7 10.8 10.2 10.3 9.4C9.2 7.5 10 5.2 12 2.5Z" fill="#CE1126"/>
             <rect x="9" y="12" width="6" height="9.5" rx="1.5" fill="#F8FAFC" stroke="#111827" stroke-width="1.4"/>
             <path d="M12 10.8V12" stroke="#111827" stroke-width="1.4" stroke-linecap="round"/>
           </svg>
           <span>إضاءة شمعة وفاء</span>
-          <span id="spotlight-candle-count" class="num-std text-[12px] font-extrabold text-[#B58938]">${toEnglishDigits(countVal)}</span>
+          <span id="spotlight-candle-count" class="num-std text-[12px] font-extrabold text-[#CE1126]">${toEnglishDigits(countVal)}</span>
         </button>
       </div>
     `;
@@ -3401,7 +3806,7 @@
     }
 
     list.innerHTML = data.map(t => `
-      <article class="flex flex-col justify-between h-full p-6 bg-gradient-to-br from-[#ECFDF5] via-[#FBFDFC] to-[#FEFCE8] rounded-3xl border border-emerald-200/60 shadow-sm relative overflow-hidden hover:border-emerald-300/80 hover:shadow-md transition">
+      <article class="group flex flex-col justify-between h-full p-6 bg-white rounded-3xl border border-black/[0.08] shadow-sm relative overflow-hidden hover:border-[#B58938]/40 hover:shadow-md transition">
         <div class="absolute top-0 inset-x-0 h-1.5 w-full flex"><span class="w-1.5 bg-red-600 shrink-0"></span><span class="flex-1 bg-neutral-900"></span><span class="flex-1 bg-white"></span><span class="flex-1 bg-emerald-600"></span><span class="w-1.5 bg-red-600 shrink-0"></span></div>
         <div class="flex-1 space-y-2.5 pt-2">
           <span class="inline-block text-[13px] font-bold px-3 py-0.5 rounded-full memorial-badge">رثاء</span>
@@ -3409,7 +3814,10 @@
         </div>
         <div class="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between gap-2 text-[14px] font-bold text-[#111827]">
           <span class="inline-flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-red-600 shrink-0"></span><span>بقلم: ${escapeHtml(t.author_name)}</span></span>
-          <span class="num-std">${escapeHtml(formatDateDMY(t.created_at))}</span>
+          <div class="flex items-center gap-1.5">
+            <button type="button" onclick="event.stopPropagation(); openQuoteShareModal('${escapeJsStr(t.content)}', '${escapeJsStr(t.author_name)}')" class="card-quick-actions px-2 py-0.5 rounded-full border border-black/[0.12] text-[11px] font-bold hover:bg-black/[0.04]" title="مشاركة كاقتباس"><svg class="w-3.5 h-3.5 inline-block ml-1" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg>اقتباس</button>
+            <span class="num-std">${escapeHtml(formatDateDMY(t.created_at))}</span>
+          </div>
         </div>
       </article>
     `).join('');
@@ -4743,17 +5151,78 @@
   }
 
   let currentCmsEdit = null;
+  let cmsImageState = { currentUrl: null, removed: false, pendingFile: null };
+
+  function handleCmsPhotoSelect(inputEl) {
+    const file = inputEl.files && inputEl.files[0];
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+      showToast('الملف المختار ليس صورة صالحة', 'error');
+      inputEl.value = '';
+      return;
+    }
+    cmsImageState.pendingFile = file;
+    cmsImageState.removed = false;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const img = document.getElementById('ci_img_preview');
+      const remBtn = document.getElementById('ci_remove_photo_btn');
+      if (img) {
+        img.src = ev.target.result;
+        img.classList.remove('hidden');
+      }
+      if (remBtn) remBtn.classList.remove('hidden');
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function removeCmsPhoto() {
+    cmsImageState.pendingFile = null;
+    cmsImageState.currentUrl = null;
+    cmsImageState.removed = true;
+    const inp = document.getElementById('ci_photo_input');
+    const img = document.getElementById('ci_img_preview');
+    const remBtn = document.getElementById('ci_remove_photo_btn');
+    if (inp) inp.value = '';
+    if (img) {
+      img.src = '';
+      img.classList.add('hidden');
+    }
+    if (remBtn) remBtn.classList.add('hidden');
+  }
+
   function openCmsItemModal(kind, id = null) {
     currentCmsEdit = { kind, id };
     const isArticle = kind === 'article';
     const list = isArticle ? (aboutCms.articles || []) : (aboutCms.academics || []);
     const item = id ? list.find(x => String(x.id) === String(id)) : null;
+    const existingImg = item && item.image_url ? item.image_url : null;
+    cmsImageState = { currentUrl: existingImg, removed: false, pendingFile: null };
 
     document.getElementById('cms-item-modal-title').textContent = item
-      ? (isArticle ? 'تعديل مقال' : 'تعديل شخصية / أكاديمي')
-      : (isArticle ? 'إضافة مقال جديد' : 'إضافة مفكر أو أكاديمي');
+      ? (isArticle ? 'تعديل مقال' : 'تعديل شخصية / أكاديمي / فنان')
+      : (isArticle ? 'إضافة مقال جديد' : 'إضافة مفكر أو أكاديمي أو فنان');
+
+    const photoSectionHtml = `
+      <div class="bg-[#F8F9FA] border border-gray-200 rounded-[12px] p-3 space-y-2">
+        <div class="flex items-center justify-between gap-2">
+          <label class="block text-[14px] font-bold text-[#111827]">${isArticle ? 'صورة الغلاف (اختياري)' : 'الصورة الشخصية (اختياري)'}</label>
+          <button type="button" id="ci_remove_photo_btn" onclick="removeCmsPhoto()" class="${existingImg ? '' : 'hidden'} text-[13px] font-bold text-red-600 hover:underline">حذف الصورة</button>
+        </div>
+        <div class="flex items-center gap-3">
+          <img id="ci_img_preview" src="${existingImg ? escapeHtml(existingImg) : ''}" alt="معاينة" class="${existingImg ? '' : 'hidden'} w-16 h-16 rounded-[10px] object-cover border border-black/[0.10] shrink-0">
+          <label class="btn-ui text-[13px] px-3 cursor-pointer">
+            اختر صورة...
+            <input type="file" id="ci_photo_input" accept="image/*" onchange="handleCmsPhotoSelect(this)" class="hidden">
+          </label>
+        </div>
+      </div>
+    `;
+
+    const currentCat = item ? getAcademicCategory(item) : 'مفكرون وأكاديميون';
 
     document.getElementById('cms-item-form').innerHTML = isArticle ? `
+      ${photoSectionHtml}
       <div>
         <label class="block text-[15px] font-bold text-[#111827] mb-1">التصنيف *</label>
         <input type="text" id="ci_tag" required value="${escapeHtml(item ? item.tag : '')}" placeholder="مثال: تاريخ وعمران" class="w-full px-3 py-2 border border-gray-300 rounded-[10px] text-sm">
@@ -4775,14 +5244,24 @@
         <button type="submit" class="btn-primary px-4 py-2 text-[15px] font-bold">حفظ</button>
       </div>
     ` : `
-      <div>
-        <label class="block text-[15px] font-bold text-[#111827] mb-1">الاسم *</label>
-        <input type="text" id="ci_name" required value="${escapeHtml(item ? item.name : '')}" class="w-full px-3 py-2 border border-gray-300 rounded-[10px] text-sm">
+      ${photoSectionHtml}
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label class="block text-[15px] font-bold text-[#111827] mb-1">الاسم *</label>
+          <input type="text" id="ci_name" required value="${escapeHtml(item ? item.name : '')}" class="w-full px-3 py-2 border border-gray-300 rounded-[10px] text-sm">
+        </div>
+        <div>
+          <label class="block text-[15px] font-bold text-[#111827] mb-1">الفئة *</label>
+          <select id="ci_category" class="w-full px-3 py-2 border border-gray-300 rounded-[10px] text-sm bg-white">
+            <option value="مفكرون وأكاديميون" ${currentCat === 'مفكرون وأكاديميون' ? 'selected' : ''}>مفكرون وأكاديميون</option>
+            <option value="رسامون وفنانون" ${currentCat === 'رسامون وفنانون' ? 'selected' : ''}>رسامون وفنانون</option>
+          </select>
+        </div>
       </div>
       <div class="grid grid-cols-2 gap-3">
         <div>
           <label class="block text-[15px] font-bold text-[#111827] mb-1">الصفة / التخصص *</label>
-          <input type="text" id="ci_role" required value="${escapeHtml(item ? item.role : '')}" placeholder="مثال: أكاديمي وباحث" class="w-full px-3 py-2 border border-gray-300 rounded-[10px] text-sm">
+          <input type="text" id="ci_role" required value="${escapeHtml(item ? item.role : '')}" placeholder="مثال: أكاديمي وباحث / فنان تشكيلي" class="w-full px-3 py-2 border border-gray-300 rounded-[10px] text-sm">
         </div>
         <div>
           <label class="block text-[15px] font-bold text-[#111827] mb-1">الوسام / الإنجاز</label>
@@ -4823,22 +5302,29 @@
     const isArticle = kind === 'article';
     const arr = isArticle ? aboutCms.articles : aboutCms.academics;
 
-    const entry = isArticle ? {
-      id: id || ('art-' + Date.now()),
-      tag: document.getElementById('ci_tag').value.trim(),
-      title: document.getElementById('ci_title').value.trim(),
-      summary: document.getElementById('ci_summary').value.trim(),
-      body: document.getElementById('ci_body').value.trim()
-    } : {
-      id: id || ('acad-' + Date.now()),
-      name: document.getElementById('ci_name').value.trim(),
-      role: document.getElementById('ci_role').value.trim(),
-      badge: document.getElementById('ci_badge').value.trim(),
-      summary: document.getElementById('ci_summary').value.trim(),
-      body: document.getElementById('ci_body').value.trim()
-    };
-
     const performSave = async () => {
+      let finalImageUrl = cmsImageState.removed ? null : cmsImageState.currentUrl;
+      if (cmsImageState.pendingFile) {
+        finalImageUrl = await uploadOrConvertImage(cmsImageState.pendingFile, isArticle ? 'article' : 'academic');
+      }
+
+      const entry = isArticle ? {
+        id: id || ('art-' + Date.now()),
+        tag: document.getElementById('ci_tag').value.trim(),
+        title: document.getElementById('ci_title').value.trim(),
+        summary: document.getElementById('ci_summary').value.trim(),
+        body: document.getElementById('ci_body').value.trim(),
+        image_url: finalImageUrl
+      } : {
+        id: id || ('acad-' + Date.now()),
+        name: document.getElementById('ci_name').value.trim(),
+        category: document.getElementById('ci_category')?.value || 'مفكرون وأكاديميون',
+        role: document.getElementById('ci_role').value.trim(),
+        badge: document.getElementById('ci_badge').value.trim(),
+        summary: document.getElementById('ci_summary').value.trim(),
+        body: document.getElementById('ci_body').value.trim(),
+        image_url: finalImageUrl
+      };
       if (id) {
         const idx = arr.findIndex(x => String(x.id) === String(id));
         if (idx !== -1) arr[idx] = entry;
@@ -5646,7 +6132,382 @@
   }
 
   // تهيئة أولية عند اكتمال تحميل الصفحة
+
+  // ==========================================================
+  // شريط تقدم القراءة + حركات التمرير + الوضع الليلي + البحث السريع + الاقتباس + TTS
+  // ==========================================================
+  const THEME_STORAGE_KEY = 'khalidin_theme_v1';
+  let quickSearchCategory = 'all';
+  let currentShareQuote = { text: '', author: '' };
+  let activeTtsBtn = null;
+
+  function initReadingProgressBar() {
+    const bar = document.getElementById('reading-progress-bar');
+    if (!bar) return;
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const scrollTop = window.scrollY || document.documentElement.scrollTop || 0;
+      const docHeight = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      const pct = Math.min(100, Math.max(0, (scrollTop / docHeight) * 100));
+      bar.style.width = pct.toFixed(1) + '%';
+    };
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    }, { passive: true });
+    update();
+  }
+
+  let scrollRevealObserver = null;
+  function observeRevealElements() {
+    const els = document.querySelectorAll('main section > div, #martyrs-grid article, #cities-grid article, #academics-grid article, #about-articles-row article, #tributes-list article');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(el => el.classList.add('is-visible'));
+      return;
+    }
+    if (!scrollRevealObserver) {
+      scrollRevealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            scrollRevealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.06, rootMargin: '0px 0px -20px 0px' });
+    }
+    els.forEach(el => {
+      if (!el.classList.contains('scroll-reveal')) {
+        el.classList.add('scroll-reveal');
+        scrollRevealObserver.observe(el);
+      }
+    });
+  }
+
+  function applyColorTheme(mode) {
+    const isDark = mode === 'dark';
+    document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+    document.documentElement.classList.toggle('dark', isDark);
+    const cb = document.getElementById('dropdown-theme-toggle');
+    if (cb) cb.checked = isDark;
+  }
+
+  function applyQuickMartyrPill(token) {
+    const yearEl = document.getElementById('yearFilter');
+    if (token === 'all') {
+      if (yearEl) yearEl.value = '';
+      setMartyrCategoryFilter('all');
+    } else if (token.startsWith('year:')) {
+      const y = token.split(':')[1];
+      if (yearEl) yearEl.value = y;
+      activeMartyrCategory = 'all';
+      loadMartyrs(1);
+    } else if (token.startsWith('cat:')) {
+      if (yearEl) yearEl.value = '';
+      setMartyrCategoryFilter(token.split(':')[1]);
+    }
+    document.querySelectorAll('.quick-filter-pill').forEach(btn => {
+      const active = btn.dataset.qpill === token;
+      btn.className = active
+        ? 'quick-filter-pill px-3 py-1 rounded-full text-[12px] font-bold border border-[#007A3D] text-[#007A3D] bg-white transition num-std'
+        : 'quick-filter-pill px-3 py-1 rounded-full text-[12px] font-semibold border border-black/[0.12] bg-white transition num-std';
+    });
+  }
+
+  function initColorTheme() {
+    let saved = null;
+    try { saved = localStorage.getItem(THEME_STORAGE_KEY); } catch (_) {}
+    if (saved === 'dark' || saved === 'light') {
+      applyColorTheme(saved);
+    } else {
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      applyColorTheme(prefersDark ? 'dark' : 'light');
+    }
+    if (window.matchMedia) {
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        let userSet = null;
+        try { userSet = localStorage.getItem(THEME_STORAGE_KEY); } catch (_) {}
+        if (!userSet) applyColorTheme(e.matches ? 'dark' : 'light');
+      });
+    }
+  }
+
+  function toggleColorTheme() {
+    const next = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+    try { localStorage.setItem(THEME_STORAGE_KEY, next); } catch (_) {}
+    applyColorTheme(next);
+  }
+
+  function stopSpeaking() {
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      try { window.speechSynthesis.cancel(); } catch (_) {}
+    }
+    if (activeTtsBtn) {
+      activeTtsBtn.textContent = '<svg class="w-4 h-4 inline-block ml-1" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>استماع';
+      activeTtsBtn = null;
+    }
+  }
+
+  function toggleSpeakText(btnEl, rawText) {
+    if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
+      showToast('المتصفح الحالي لا يدعم القراءة الصوتية', 'error');
+      return;
+    }
+    const text = String(rawText || '').trim();
+    if (!text) return;
+    if (activeTtsBtn === btnEl && window.speechSynthesis.speaking) {
+      stopSpeaking();
+      return;
+    }
+    stopSpeaking();
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = 'ar-SA';
+    utter.rate = 0.95;
+    activeTtsBtn = btnEl;
+    if (btnEl) btnEl.textContent = 'إيقاف';
+    utter.onend = () => {
+      if (btnEl) btnEl.textContent = '<svg class="w-4 h-4 inline-block ml-1" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>استماع';
+      if (activeTtsBtn === btnEl) activeTtsBtn = null;
+    };
+    utter.onerror = () => {
+      if (btnEl) btnEl.textContent = '<svg class="w-4 h-4 inline-block ml-1" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>استماع';
+      if (activeTtsBtn === btnEl) activeTtsBtn = null;
+    };
+    window.speechSynthesis.speak(utter);
+  }
+
+  function openQuickSearchModal() {
+    const modal = document.getElementById('modal-quick-search');
+    const inp = document.getElementById('quick-search-input');
+    if (!modal) return;
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    if (inp) {
+      inp.value = '';
+      setTimeout(() => inp.focus(), 50);
+    }
+    runQuickSearch();
+  }
+
+  function closeQuickSearchModal(e) {
+    if (e && e.target && e.target.id !== 'modal-quick-search') return;
+    const modal = document.getElementById('modal-quick-search');
+    if (modal) {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+  }
+
+  function setQuickSearchCat(cat) {
+    quickSearchCategory = cat || 'all';
+    document.querySelectorAll('.qs-pill').forEach(btn => {
+      const active = btn.dataset.qsCat === quickSearchCategory;
+      btn.className = active
+        ? 'qs-pill px-3 py-1 rounded-full text-[12px] font-bold border border-black/25 bg-white'
+        : 'qs-pill px-3 py-1 rounded-full text-[12px] font-semibold border border-black/[0.12] bg-white opacity-75 hover:opacity-100';
+    });
+    runQuickSearch();
+  }
+
+  function runQuickSearch() {
+    const resEl = document.getElementById('quick-search-results');
+    const q = normalizeArabic(document.getElementById('quick-search-input')?.value || '');
+    if (!resEl) return;
+
+    const results = [];
+    if (quickSearchCategory === 'all' || quickSearchCategory === 'martyrs') {
+      const martyrs = IS_CONFIGURED ? [...recordsCache.values()] : (demoStore.records || []).filter(r => r.status === 'approved');
+      martyrs.filter(r => r.status === 'approved').forEach(m => {
+        if (!q || normalizeArabic(m.full_name_ar).includes(q) || normalizeArabic(m.city_area || '').includes(q)) {
+          results.push({ type: 'شهيد', title: m.full_name_ar, sub: m.city_area || 'سجل الشهداء', action: () => { closeQuickSearchModal(); openMartyrModal(m.id); } });
+        }
+      });
+    }
+    if (quickSearchCategory === 'all' || quickSearchCategory === 'cities') {
+      (citiesListCache || []).forEach(c => {
+        if (!q || normalizeArabic(c.name).includes(q) || normalizeArabic(c.region || '').includes(q)) {
+          results.push({ type: 'مدينة', title: c.name, sub: c.region || 'فلسطين', action: () => { closeQuickSearchModal(); openCityDetailsModal(c.id); } });
+        }
+      });
+    }
+    if (quickSearchCategory === 'all' || quickSearchCategory === 'academics') {
+      (aboutCms.academics || []).forEach(ac => {
+        if (!q || normalizeArabic(ac.name).includes(q) || normalizeArabic(ac.role || '').includes(q)) {
+          results.push({ type: 'مفكر', title: ac.name, sub: ac.role || 'أعلام', action: () => { closeQuickSearchModal(); openArticleModal('academic', ac.id); } });
+        }
+      });
+    }
+    if (quickSearchCategory === 'all' || quickSearchCategory === 'articles') {
+      getCombinedArticlesList().forEach(ar => {
+        if (!q || normalizeArabic(ar.title).includes(q) || normalizeArabic(ar.tag || '').includes(q)) {
+          results.push({ type: 'مقال', title: ar.title, sub: ar.tag || 'مقالات', action: () => { closeQuickSearchModal(); openArticleModal('article', ar.id); } });
+        }
+      });
+    }
+    if (quickSearchCategory === 'all' || quickSearchCategory === 'tributes') {
+      const tribs = IS_CONFIGURED ? [...tributesCache.values()] : (demoStore.tributes || []).filter(t => t.status === 'approved');
+      tribs.filter(t => t.status === 'approved' && !(t.author_name || '').startsWith('[تواصل إداري]')).forEach(t => {
+        if (!q || normalizeArabic(t.author_name).includes(q) || normalizeArabic(t.content).includes(q)) {
+          results.push({ type: 'رثاء', title: t.author_name, sub: String(t.content || '').slice(0, 70), action: () => { closeQuickSearchModal(); switchTab('tributes'); } });
+        }
+      });
+    }
+
+    const sliced = results.slice(0, 20);
+    window.__quickSearchActions = sliced.map(r => r.action);
+    resEl.innerHTML = sliced.length
+      ? sliced.map((r, idx) => `
+          <button type="button" onclick="window.__quickSearchActions[${idx}]()" class="w-full text-right px-3.5 py-2.5 rounded-[10px] hover:bg-black/[0.04] flex items-center justify-between gap-3 transition">
+            <div class="min-w-0">
+              <p class="text-[14px] font-bold text-[#1D1D1F] truncate">${escapeHtml(r.title)}</p>
+              <p class="text-[12px] text-[#424245] truncate">${escapeHtml(r.sub)}</p>
+            </div>
+            <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full border border-black/[0.12] shrink-0">${escapeHtml(r.type)}</span>
+          </button>
+        `).join('')
+      : '<p class="text-center text-[13px] text-[#424245] py-8">لا توجد نتائج مطابقة.</p>';
+  }
+
+  function drawQuoteShareCanvas(text, author) {
+    const canvas = document.getElementById('quote-share-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const w = canvas.width, h = canvas.height;
+    ctx.fillStyle = '#FBFDFC';
+    ctx.fillRect(0, 0, w, h);
+
+    // شريط العلم الفلسطيني العلوي + إطار ناعم + شريط قرمزي جانبي
+    ctx.fillStyle = '#0D0D0D'; ctx.fillRect(20, 20, (w - 40) / 3, 6);
+    ctx.fillStyle = '#007A3D'; ctx.fillRect(20 + (w - 40) / 3, 20, (w - 40) / 3, 6);
+    ctx.fillStyle = '#CE1126'; ctx.fillRect(20 + 2 * (w - 40) / 3, 20, (w - 40) / 3, 6);
+    ctx.strokeStyle = 'rgba(0,0,0,0.10)';
+    ctx.lineWidth = 3;
+    ctx.strokeRect(20, 20, w - 40, h - 40);
+    ctx.fillStyle = '#CE1126';
+    ctx.fillRect(w - 56, 70, 6, h - 180);
+
+    // النص الرئيسي
+    ctx.fillStyle = '#1D1D1F';
+    ctx.font = 'bold 30px Cairo, sans-serif';
+    ctx.textAlign = 'right';
+    ctx.direction = 'rtl';
+    const clean = String(text || '').trim().slice(0, 240);
+    const words = clean.split(/\s+/);
+    const lines = [];
+    let curr = '';
+    words.forEach(word => {
+      const test = curr ? curr + ' ' + word : word;
+      if (ctx.measureText(test).width > w - 160) {
+        lines.push(curr);
+        curr = word;
+      } else {
+        curr = test;
+      }
+    });
+    if (curr) lines.push(curr);
+
+    let y = 140;
+    lines.slice(0, 6).forEach(line => {
+      ctx.fillText(line, w - 84, y);
+      y += 48;
+    });
+
+    // التذييل
+    ctx.fillStyle = '#007A3D';
+    ctx.font = 'bold 22px Cairo, sans-serif';
+    ctx.fillText(author ? `— ${author}` : '— الخالدون في الذاكرة', w - 84, h - 105);
+    ctx.fillStyle = '#424245';
+    ctx.font = '600 18px Cairo, sans-serif';
+    ctx.fillText('منصة الخالدون في الذاكرة — سجل التوثيق الرقمي والوفاء', w - 84, h - 62);
+  }
+
+  function openQuoteShareModal(text, author) {
+    currentShareQuote = { text: String(text || '').trim(), author: String(author || '').trim() };
+    const modal = document.getElementById('modal-quote-share');
+    if (!modal) return;
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    drawQuoteShareCanvas(currentShareQuote.text, currentShareQuote.author);
+  }
+
+  function closeQuoteShareModal(e) {
+    if (e && e.target && e.target.id !== 'modal-quote-share') return;
+    const modal = document.getElementById('modal-quote-share');
+    if (modal) {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+  }
+
+  async function copyShareQuoteText() {
+    const txt = `«${currentShareQuote.text}»${currentShareQuote.author ? `
+— ${currentShareQuote.author}` : ''}`;
+    try {
+      await navigator.clipboard.writeText(txt);
+      showToast('تم نسخ الاقتباس إلى الحافظة', 'success');
+    } catch (_) {
+      showToast('تعذر النسخ التلقائي', 'error');
+    }
+  }
+
+  function downloadShareQuoteImage() {
+    const canvas = document.getElementById('quote-share-canvas');
+    if (!canvas) return;
+    const a = document.createElement('a');
+    a.href = canvas.toDataURL('image/png');
+    a.download = 'khalidin-quote.png';
+    a.click();
+    showToast('تم تحميل بطاقة الاقتباس', 'success');
+  }
+
+  let selectedQuoteSnippet = '';
+  function initTextSelectionQuote() {
+    const btn = document.getElementById('floating-quote-btn');
+    if (!btn) return;
+    document.addEventListener('mouseup', () => {
+      setTimeout(() => {
+        const sel = window.getSelection ? window.getSelection() : null;
+        const txt = sel ? sel.toString().trim() : '';
+        if (txt.length >= 12 && txt.length <= 320 && sel.rangeCount > 0) {
+          const rect = sel.getRangeAt(0).getBoundingClientRect();
+          if (rect.width > 0) {
+            selectedQuoteSnippet = txt;
+            btn.style.top = Math.max(12, rect.top - 40) + 'px';
+            btn.style.left = Math.max(12, Math.min(window.innerWidth - 150, rect.left)) + 'px';
+            btn.classList.remove('hidden');
+            return;
+          }
+        }
+        btn.classList.add('hidden');
+      }, 20);
+    });
+  }
+
+  function openSelectedTextQuote() {
+    const btn = document.getElementById('floating-quote-btn');
+    if (btn) btn.classList.add('hidden');
+    if (selectedQuoteSnippet) {
+      openQuoteShareModal(selectedQuoteSnippet, 'مقتبس من الأرشيف');
+    }
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      openQuickSearchModal();
+    } else if (e.key === 'Escape') {
+      closeQuickSearchModal();
+      closeQuoteShareModal();
+    }
+  });
+
   function initMemorialApp() {
+    initColorTheme();
+    initReadingProgressBar();
+    initTextSelectionQuote();
     demoStore = loadDemoStoreFromStorage();
     aboutCms = loadLocalAboutCms();
     const sortEl = document.getElementById('sortSelect');
@@ -5673,6 +6534,7 @@
       }).catch(() => {});
     }
     syncDropdownAdminButton();
+    setTimeout(observeRevealElements, 80);
   }
 
   if (document.readyState === 'loading') {
