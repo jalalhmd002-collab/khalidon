@@ -2,10 +2,8 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta id="meta-theme-color" name="theme-color" content="#FFFFFF">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta id="meta-apple-status-bar" name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="الخالدون في الذاكرة">
   <link id="pwa-manifest-link" rel="manifest" href="./manifest.json">
   <link id="apple-touch-icon-link" rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
@@ -19,7 +17,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-page: #F8F9FA;
+      color-scheme: light;
+      --bg-page: #FFFFFF;
       --bg-surface: #FFFFFF;
       --bg-surface-2: #F3F4F6;
       --text-heading: #111827;
@@ -1395,6 +1394,17 @@
             <svg id="admin-chime-icon" class="w-4 h-4 text-[#007A3D]" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
             <span id="admin-chime-label">صوت الإشعارات: مفعّل</span>
           </button>
+          <button type="button" onclick="testAdminNotification()" class="btn-ui border border-gray-300 bg-white text-[14px] text-[#111827] hover:bg-gray-100 transition" title="إرسال إشعار تجريبي">
+            <svg class="w-4 h-4 text-[#CE1126]" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+            <span>تجربة الإشعار</span>
+          </button>
+          <div class="flex flex-wrap items-center gap-1.5 px-2.5 py-1 rounded-[12px] border border-black/[0.12] bg-white">
+            <span class="text-[12px] font-bold text-[#111827] whitespace-nowrap">إشعارات الهاتف المغلق (ntfy):</span>
+            <input type="text" id="admin-ntfy-topic" dir="ltr" value="jalalhmd002_alkhaldon" placeholder="jalalhmd002_alkhaldon"
+              class="h-[34px] w-40 sm:w-44 px-2.5 rounded-[8px] border border-black/[0.14] text-[13px] font-semibold bg-white text-[#111827] focus:outline-none focus:border-[#007A3D]">
+            <button type="button" onclick="saveNtfyTopicSetting()" class="btn-ui h-[34px] px-2.5 text-[12px] btn-primary">حفظ القناة</button>
+            <button type="button" onclick="testNtfyPhonePush()" class="btn-ui h-[34px] px-2.5 text-[12px]">تجربة الهاتف</button>
+          </div>
           <button type="button" onclick="openBackupModal()"  class="btn-ui border border-gray-300 bg-white text-[14px] text-[#111827] hover:bg-gray-100 transition">
             <svg class="w-4 h-4 text-[#10B981]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/></svg>
             <span>النسخ الاحتياطي</span>
@@ -1939,6 +1949,7 @@
             if (row.key === 'default_articles_sort' && val) localStorage.setItem('khalidin_default_articles_sort_v1', val);
             if (row.key === 'default_academics_sort' && val) localStorage.setItem('khalidin_default_academics_sort_v1', val);
             if (row.key === 'martyr_article_ids' && Array.isArray(val)) localStorage.setItem(MARTYR_ARTICLE_IDS_KEY, JSON.stringify(val));
+            if (row.key === 'ntfy_topic' && typeof val === 'string' && val.trim()) { localStorage.setItem(NTFY_TOPIC_KEY, val.trim()); syncNtfyInputUi(); }
             if (row.key === 'candle_counts' && val && typeof val === 'object') {
               const localCounts = getCandleCountsMap();
               const merged = { ...localCounts };
@@ -4220,6 +4231,7 @@
         if (error) throw error;
         submittedId = insData && insData.id ? insData.id : null;
         if (submittedId && publishAsArticle) setMartyrPublishAsArticle(submittedId, true);
+        if (adminSessionActive) { if (lastKnownPendingCount !== null) lastKnownPendingCount++; triggerAdminNewItemAlert(`طلب توثيق شهيد جديد: ${nameAr}`); }
       } else {
         submittedId = ++demoStore.nextId;
         demoStore.records.unshift({ ...payload, publishAsArticle, id: submittedId, created_at: new Date().toISOString() });
@@ -4227,6 +4239,7 @@
         if (adminSessionActive) triggerAdminNewItemAlert(`طلب توثيق شهيد جديد: ${nameAr}`);
       }
       if (submittedId) saveMySubmission({ id: submittedId, type: 'martyr', title: nameAr });
+      sendNtfyAdminPush('سجل شهيد', nameAr);
 
       recordSubmitRateLimit();
       document.getElementById('m_name_dup_warn')?.classList.add('hidden');
@@ -4268,6 +4281,7 @@
         const { data: tIns, error } = await db.from('khalidin_tributes').insert([payload]).select('id').single();
         if (error) throw error;
         submittedTributeId = tIns && tIns.id ? tIns.id : null;
+        if (adminSessionActive) { if (lastKnownPendingCount !== null) lastKnownPendingCount++; triggerAdminNewItemAlert(`رسالة رثاء جديدة من: ${payload.author_name}`); }
       } else {
         submittedTributeId = ++demoStore.nextId;
         demoStore.tributes.unshift({ ...payload, id: submittedTributeId, created_at: new Date().toISOString() });
@@ -4275,6 +4289,7 @@
         if (adminSessionActive) triggerAdminNewItemAlert(`رسالة رثاء جديدة من: ${payload.author_name}`);
       }
       if (submittedTributeId) saveMySubmission({ id: submittedTributeId, type: 'tribute', title: payload.author_name });
+      sendNtfyAdminPush('رسالة رثاء أو ملاحظة', payload.author_name);
 
       recordSubmitRateLimit();
       e.target.reset();
@@ -4326,6 +4341,7 @@
         const { data: rIns, error } = await db.from('khalidin_requests').insert([reqPayload]).select('id').single();
         if (error) throw error;
         submittedReqId = rIns && rIns.id ? rIns.id : null;
+        if (adminSessionActive) { if (lastKnownPendingCount !== null) lastKnownPendingCount++; triggerAdminNewItemAlert(`طلب تعديل / اعتراض جديد: ${martyrName}`); }
       } else {
         submittedReqId = ++demoStore.nextId;
         demoStore.tributes.unshift({ ...payload, id: submittedReqId, created_at: new Date().toISOString() });
@@ -4333,6 +4349,7 @@
         if (adminSessionActive) triggerAdminNewItemAlert(`طلب تعديل / اعتراض جديد: ${martyrName}`);
       }
       if (submittedReqId) saveMySubmission({ id: submittedReqId, type: 'request', title: martyrName });
+      sendNtfyAdminPush(reqType || 'طلب تواصل إداري', martyrName);
 
       recordSubmitRateLimit();
       e.target.reset();
@@ -6330,10 +6347,6 @@
     const isDark = mode === 'dark';
     document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
     document.documentElement.classList.toggle('dark', isDark);
-    const metaTheme = document.getElementById('meta-theme-color');
-    if (metaTheme) metaTheme.setAttribute('content', isDark ? '#121212' : '#FFFFFF');
-    const appleStatus = document.getElementById('meta-apple-status-bar');
-    if (appleStatus) appleStatus.setAttribute('content', isDark ? 'black-translucent' : 'default');
     const cb = document.getElementById('dropdown-theme-toggle');
     if (cb) cb.checked = isDark;
   }
@@ -6641,6 +6654,7 @@
     const next = !isAdminChimeMuted();
     try { localStorage.setItem(ADMIN_CHIME_MUTE_KEY, next ? 'true' : 'false'); } catch (_) {}
     syncAdminChimeToggleUi();
+    syncNtfyInputUi();
     if (!next) playAdminChime();
   }
 
@@ -6714,13 +6728,18 @@
       renotify: true
     };
     try {
-      if ('serviceWorker' in navigator) {
-        const reg = await navigator.serviceWorker.getRegistration();
+      if ('serviceWorker' in navigator && navigator.serviceWorker.ready) {
+        const reg = await Promise.race([
+          navigator.serviceWorker.ready,
+          new Promise(resolve => setTimeout(() => resolve(null), 1200))
+        ]);
         if (reg && reg.showNotification) {
           await reg.showNotification(title, options);
           return;
         }
       }
+    } catch (_) {}
+    try {
       const n = new Notification(title, options);
       n.onclick = () => {
         try { window.focus(); } catch (_) {}
@@ -6728,6 +6747,18 @@
         n.close();
       };
     } catch (_) {}
+  }
+
+  async function testAdminNotification() {
+    if (typeof window !== 'undefined' && 'Notification' in window) {
+      if (Notification.permission === 'default') {
+        try { await Notification.requestPermission(); } catch (_) {}
+      }
+      if (Notification.permission === 'denied') {
+        showToast('إشعارات المتصفح محظورة في إعدادات الجهاز، سيتم عرض التنبيه داخل التطبيق فقط', 'info');
+      }
+    }
+    triggerAdminNewItemAlert('إشعار تجريبي: نظام تنبيهات الإدارة يعمل بنجاح');
   }
 
   function triggerAdminNewItemAlert(summaryText) {
@@ -6763,6 +6794,69 @@
     } catch (_) {}
   }
 
+  const NTFY_TOPIC_KEY = 'khalidin_ntfy_topic_v1';
+  const DEFAULT_NTFY_TOPIC = 'jalalhmd002_alkhaldon';
+
+  function getNtfyTopic() {
+    try {
+      const saved = localStorage.getItem(NTFY_TOPIC_KEY);
+      if (saved && saved.trim()) return saved.trim();
+    } catch (_) {}
+    return DEFAULT_NTFY_TOPIC;
+  }
+
+  function syncNtfyInputUi() {
+    const inp = document.getElementById('admin-ntfy-topic');
+    if (inp) inp.value = getNtfyTopic();
+  }
+
+  function saveNtfyTopicSetting() {
+    const inp = document.getElementById('admin-ntfy-topic');
+    const val = (inp ? inp.value : '').trim() || DEFAULT_NTFY_TOPIC;
+    if (inp) inp.value = val;
+    try { localStorage.setItem(NTFY_TOPIC_KEY, val); } catch (_) {}
+    saveSettingToCloud('ntfy_topic', val);
+    showToast('تم حفظ قناة ntfy لإشعارات الهاتف بنجاح', 'success');
+  }
+
+  function sendNtfyAdminPush(reqTypeLabel, submittedName) {
+    const topic = getNtfyTopic();
+    if (!topic) return;
+    const bodyText = `طلب جديد في الخالدون في الذاكرة:\nالنوع: ${reqTypeLabel || 'طلب جديد'}\nالاسم: ${submittedName || 'غير محدد'}`;
+    try {
+      fetch('https://ntfy.sh/' + encodeURIComponent(topic), {
+        method: 'POST',
+        headers: {
+          'Title': 'Khalidon Archive - New Request',
+          'Priority': 'high',
+          'Tags': 'bell',
+          'Click': window.location.origin + window.location.pathname
+        },
+        body: bodyText
+      }).catch(() => {});
+    } catch (_) {}
+  }
+
+  async function testNtfyPhonePush() {
+    const topic = (document.getElementById('admin-ntfy-topic')?.value || '').trim() || getNtfyTopic();
+    try {
+      const res = await fetch('https://ntfy.sh/' + encodeURIComponent(topic), {
+        method: 'POST',
+        headers: {
+          'Title': 'Khalidon Archive - Test Notification',
+          'Priority': 'high',
+          'Tags': 'bell',
+          'Click': window.location.origin + window.location.pathname
+        },
+        body: 'إشعار تجريبي من منصة الخالدون في الذاكرة: قناة الهاتف المغلق تعمل بنجاح.'
+      });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      showToast('تم إرسال إشعار تجريبي إلى الهاتف عبر ntfy.sh', 'success');
+    } catch (err) {
+      showToast('تعذر إرسال إشعار ntfy: ' + err.message, 'error');
+    }
+  }
+
   function startAdminNotificationWatcher() {
     if (!adminSessionActive) return;
     syncAdminChimeToggleUi();
@@ -6771,6 +6865,14 @@
 
     if (adminPollTimer) clearInterval(adminPollTimer);
     adminPollTimer = setInterval(pollAdminPendingCounts, 20000);
+    if (!window.__adminVisibilityBound) {
+      window.__adminVisibilityBound = true;
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible' && adminSessionActive) {
+          pollAdminPendingCounts();
+        }
+      });
+    }
 
     if (IS_CONFIGURED && db && db.channel && !adminRealtimeChannel) {
       try {
