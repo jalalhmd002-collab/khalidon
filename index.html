@@ -356,14 +356,34 @@
 <body class="min-h-screen flex flex-col">
 
   <!-- شريط التنقل العلوي المبسط -->
-  <header class="bg-white/95 backdrop-blur-md border-b border-gray-200 sticky top-0 z-40">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+  <header class="bg-white/95 backdrop-blur-md border-b border-gray-200 sticky top-0 z-40 relative overflow-hidden">
+    <!-- علامة مائية زخرفية خفيفة (3%) -->
+    <svg aria-hidden="true" viewBox="0 0 64 64" class="pointer-events-none select-none absolute left-6 -top-6 w-40 h-40 opacity-[0.03] text-[#10B981]">
+      <polygon points="32,36 37,43 45,43 39,49 42,57 32,52 22,57 25,49 19,43 27,43" fill="currentColor"/>
+      <path d="M32 6C23 16 22 27 32 36C42 27 41 16 32 6Z" fill="currentColor"/>
+    </svg>
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
       <div class="flex items-center justify-start h-16">
-        <!-- اليمين: زر القائمة الموحد (الشعار الدائري + العنوان) -->
+        <!-- اليمين: زر القائمة الموحد (الشعار + العنوان) -->
         <div class="relative shrink-0" id="main-dropdown-wrapper">
           <button type="button" id="mainMenuBtn" onclick="toggleMainDropdown()" aria-expanded="false" aria-haspopup="true"
             class="flex items-center gap-3 text-right py-1.5 pl-3 pr-0 rounded-[12px] hover:bg-gray-100/80 cursor-pointer focus:outline-none transition group">
-            <img src="./icon-192.png" alt="شعار الخالدون في الذاكرة" class="w-11 h-11 rounded-full object-contain shrink-0 cursor-pointer select-none shadow-sm transition-transform duration-200 hover:scale-105 group-hover:scale-105">
+            <span class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#ECFDF5] to-[#FEFCE8] border border-emerald-200/70 flex items-center justify-center shrink-0 shadow-sm transition-transform duration-200 hover:scale-105 group-hover:scale-105">
+              <svg width="28" height="28" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="شعار الخالدون في الذاكرة">
+                <defs>
+                  <linearGradient id="oliveFlameGrad" x1="32" y1="6" x2="32" y2="38" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#F59E0B"/>
+                    <stop offset="55%" stop-color="#10B981"/>
+                    <stop offset="100%" stop-color="#047857"/>
+                  </linearGradient>
+                </defs>
+                <!-- نجمة تطريز هندسية -->
+                <polygon points="32,36 36.5,43 44.5,43 38.5,48.5 41,56.5 32,51.5 23,56.5 25.5,48.5 19.5,43 27.5,43" fill="#065F46" fill-opacity="0.18" stroke="#B8860B" stroke-width="2" stroke-linejoin="round"/>
+                <!-- شعلة على هيئة ورقة زيتون -->
+                <path d="M32 7C22.5 17 21.5 28 32 37C42.5 28 41.5 17 32 7Z" fill="url(#oliveFlameGrad)"/>
+                <path d="M32 14V34" stroke="#FEFCE8" stroke-width="2" stroke-linecap="round" stroke-opacity="0.85"/>
+              </svg>
+            </span>
             <div>
               <h1 id="secretAdminLogo" onclick="handleSecretAdminLogoClick(event)" class="text-lg sm:text-xl font-extrabold text-[#111827] leading-tight select-none">الخالدون في الذاكرة</h1>
               <p class="text-[15px] text-[#111827] leading-tight">سجل التوثيق الرقمي والوفاء للشهداء</p>
@@ -443,6 +463,9 @@
           <button type="button" onclick="openSubmitModal('martyr')" class="btn-ui btn-primary text-[15px]">+ توثيق شهيد جديد</button>
         </div>
       </div>
+
+      <!-- شريط ذكرى ووفاء اليومي -->
+      <div id="home-daily-spotlight" class="hidden"></div>
 
       <!-- شبكة Bento متوازنة من صفّين -->
       <div class="space-y-5">
@@ -2301,14 +2324,8 @@
   // ==========================================================
   function renderMartyrCard(item) {
     recordsCache.set(String(item.id), item);
-    const age = calculateAge(item.birth_date, item.martyrdom_date);
     const rawUrl = item.image_url || '';
-    const imgPos = getImagePosition(item.id, item);
     const nameAr = escapeHtml(item.full_name_ar);
-    const nameEn = escapeHtml(item.full_name_en);
-    const area = escapeHtml(item.city_area || 'بيت حانون');
-    const mDate = item.martyrdom_date ? formatDateStd(item.martyrdom_date) : 'غير محدد';
-    const bioExcerpt = item.bio ? escapeHtml(item.bio) : 'سيرة توثيقية محفوظة في أرشيف شهداء بيت حانون.';
 
     const portraitHtml = rawUrl
       ? `<img src="${escapeHtml(rawUrl)}" alt="${nameAr}" loading="lazy" onerror="handleImageFallback(this, '${escapeHtml(rawUrl)}')" class="w-full h-full object-contain transition duration-300">`
@@ -2326,23 +2343,8 @@
             ${portraitHtml}
           </div>
         </div>
-        <div class="p-4 flex-1 flex flex-col justify-between space-y-2.5">
-          <div>
-            <h4 class="font-bold text-[#111827] text-[19px] leading-snug">${nameAr}</h4>
-            ${nameEn ? `<p class="text-sm text-[#111827] mt-0.5 truncate" dir="ltr">${nameEn}</p>` : ''}
-          </div>
-
-          <div class="flex flex-wrap gap-1.5 text-[13px] font-semibold">
-            <span class="px-2.5 py-0.5 rounded-full memorial-badge num-std">${escapeHtml(mDate)}</span>
-            ${age ? `<span class="px-2.5 py-0.5 rounded-full bg-[#10B981]/10 text-[#111827] num-std">${escapeHtml(age)}</span>` : ''}
-            <span class="px-2.5 py-0.5 rounded-full bg-[#F8F9FA] border border-gray-300 text-[#111827] truncate max-w-full">${area}</span>
-          </div>
-
-          <p class="text-[15px] text-[#111827] leading-[1.65] line-clamp-2">${bioExcerpt}</p>
-
-          <button type="button" class="btn-ui btn-primary w-full text-[15px] font-bold">
-            قراءة السيرة كاملة
-          </button>
+        <div class="px-3 py-3 text-center">
+          <h4 class="font-bold text-[#111827] text-[18px] leading-snug">${nameAr}</h4>
         </div>
       </article>
     `;
@@ -2611,6 +2613,75 @@
     }
   }
 
+  const CANDLES_STORAGE_KEY = 'khalidin_candles_v1';
+  let spotlightMartyrId = null;
+
+  function loadCandlesMap() {
+    try {
+      const raw = localStorage.getItem(CANDLES_STORAGE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed && typeof parsed === 'object') return parsed;
+      }
+    } catch (_) {}
+    return {};
+  }
+
+  function lightRemembranceCandle(martyrId) {
+    const key = String(martyrId);
+    const map = loadCandlesMap();
+    map[key] = (Number(map[key]) || 0) + 1;
+    try { localStorage.setItem(CANDLES_STORAGE_KEY, JSON.stringify(map)); } catch (_) {}
+    const countEl = document.getElementById('spotlight-candle-count');
+    const btnEl = document.getElementById('spotlight-candle-btn');
+    if (countEl) countEl.textContent = toEnglishDigits(map[key]);
+    if (btnEl) {
+      btnEl.classList.add('shadow-[0_0_18px_rgba(245,158,11,0.55)]', 'bg-amber-100', 'border-amber-400');
+      const iconEl = document.getElementById('spotlight-candle-icon');
+      if (iconEl) iconEl.classList.add('animate-pulse');
+    }
+    showToast('أُضيئت شمعة وفاء في ذكرى الشهيد', 'success');
+  }
+
+  function renderDailySpotlight(approvedRecords = [], approvedTributes = []) {
+    const el = document.getElementById('home-daily-spotlight');
+    if (!el) return;
+    if (!approvedRecords.length) {
+      el.classList.add('hidden');
+      return;
+    }
+    let item = spotlightMartyrId ? approvedRecords.find(r => String(r.id) === String(spotlightMartyrId)) : null;
+    if (!item) {
+      item = approvedRecords[Math.floor(Math.random() * approvedRecords.length)];
+      spotlightMartyrId = item.id;
+    }
+    recordsCache.set(String(item.id), item);
+    const img = item.image_url ? escapeHtml(item.image_url) : PLACEHOLDER_IMG;
+    const quote = (approvedTributes[0] && approvedTributes[0].content)
+      ? approvedTributes[0].content
+      : (item.bio || 'باقون في الذاكرة والوجدان ما حيينا.');
+    const candles = Number(loadCandlesMap()[String(item.id)]) || 0;
+
+    el.className = 'bg-gradient-to-l from-[#ECFDF5] via-white to-[#FEFCE8] border border-emerald-200/70 rounded-2xl px-4 py-3.5 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3';
+    el.innerHTML = `
+      <div onclick="openMartyrModal('${escapeHtml(item.id)}')" class="flex items-center gap-3.5 min-w-0 cursor-pointer group">
+        <img src="${img}" onerror="handleImageFallback(this, '${img}')" alt="${escapeHtml(item.full_name_ar)}" class="w-14 h-14 rounded-2xl object-cover bg-slate-100 border border-amber-300/60 shrink-0 shadow-sm group-hover:scale-105 transition">
+        <div class="min-w-0 space-y-0.5">
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="px-2.5 py-0.5 rounded-full memorial-badge text-[12px] font-bold">ذكرى ووفاء</span>
+            <h4 class="text-[16px] font-extrabold text-[#111827] truncate">${escapeHtml(item.full_name_ar)}</h4>
+          </div>
+          <p class="text-[14px] text-slate-700 truncate">«${escapeHtml(quote)}»</p>
+        </div>
+      </div>
+      <button type="button" id="spotlight-candle-btn" onclick="event.stopPropagation(); lightRemembranceCandle('${escapeHtml(item.id)}')" class="shrink-0 inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl border border-amber-300/80 bg-amber-50/90 hover:bg-amber-100 text-[#111827] text-[14px] font-bold transition ${candles > 0 ? 'shadow-[0_0_16px_rgba(245,158,11,0.4)]' : ''}">
+        <span id="spotlight-candle-icon" class="${candles > 0 ? 'animate-pulse' : ''}">🕯️</span>
+        <span>إضاءة شمعة وفاء</span>
+        <span id="spotlight-candle-count" class="px-2 py-0.5 rounded-full bg-white/90 border border-amber-200 text-[13px] num-std">${toEnglishDigits(candles)}</span>
+      </button>
+    `;
+  }
+
   async function loadHome() {
     const container = document.getElementById('latest-cards');
     const statTotalEl = document.getElementById('stat-total');
@@ -2629,6 +2700,7 @@
       if (htBadge) htBadge.textContent = `${toEnglishDigits(approvedTributes.length)} رسائل`;
       if (hsBadge) hsBadge.textContent = `${toEnglishDigits((aboutCms.academics || []).length)} شخصية`;
       if (haBadge) haBadge.textContent = `${toEnglishDigits(getCombinedArticlesList().length)} مقال`;
+      renderDailySpotlight(approvedRecords, approvedTributes);
       renderHomeCardPreviews(approvedRecords, approvedTributes);
       const latest = [...approvedRecords].sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).slice(0, 4);
       if (container) {
@@ -2663,6 +2735,7 @@
       if (haBadge) haBadge.textContent = `${toEnglishDigits(getCombinedArticlesList().length)} مقال`;
 
       const data = latestRes.data || [];
+      renderDailySpotlight(data, latestTribRes.data || []);
       renderHomeCardPreviews(data, latestTribRes.data || []);
       if (container) {
         container.innerHTML = data.length
