@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta id="meta-theme-color" name="theme-color" content="#FFFFFF">
+  <meta id="meta-theme-color" name="theme-color" content="#F8F9FA">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta id="meta-apple-status-bar" name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="الخالدون في الذاكرة">
@@ -20,7 +20,7 @@
   <style>
     :root {
       color-scheme: light;
-      --bg-page: #FFFFFF;
+      --bg-page: #F8F9FA;
       --bg-surface: #FFFFFF;
       --bg-surface-2: #F3F4F6;
       --text-heading: #111827;
@@ -6353,7 +6353,7 @@
     document.documentElement.classList.toggle('dark', isDark);
     document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';
     const metaTheme = document.getElementById('meta-theme-color');
-    if (metaTheme) metaTheme.setAttribute('content', isDark ? '#121212' : '#FFFFFF');
+    if (metaTheme) metaTheme.setAttribute('content', isDark ? '#121212' : '#F8F9FA');
     const appleStatus = document.getElementById('meta-apple-status-bar');
     if (appleStatus) appleStatus.setAttribute('content', isDark ? 'black-translucent' : 'default');
     const cb = document.getElementById('dropdown-theme-toggle');
