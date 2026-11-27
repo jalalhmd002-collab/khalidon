@@ -2,10 +2,10 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#10B981">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta id="meta-theme-color" name="theme-color" content="#FFFFFF">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta id="meta-apple-status-bar" name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="الخالدون في الذاكرة">
   <link id="pwa-manifest-link" rel="manifest" href="./manifest.json">
   <link id="apple-touch-icon-link" rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
@@ -70,6 +70,11 @@
       font-size: 16px;
       overflow-y: auto;
       scroll-behavior: smooth;
+      background-color: var(--bg-page);
+    }
+    [data-theme="dark"] {
+      background-color: #121212;
+      color-scheme: dark;
     }
     body {
       font-size: 16px;
@@ -609,6 +614,33 @@
       color: #F3F4F6 !important;
       border: 1px solid rgba(255, 255, 255, 0.18) !important;
     }
+    /* شريط إشعارات المدير المنزلق من الأعلى */
+    #admin-notify-banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 9999;
+      transform: translateY(-115%);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.42s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.28s ease;
+    }
+    #admin-notify-banner.admin-banner-show {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+    [data-theme="dark"] #admin-notify-banner > div {
+      background-color: #1E1E1E !important;
+      border-color: rgba(255, 255, 255, 0.14) !important;
+      color: #F3F4F6 !important;
+    }
+    #secretAdminLogo, #mainMenuBtn, #mainMenuBtn * {
+      cursor: default !important;
+      user-select: none;
+      -webkit-user-select: none;
+    }
     .print-only {
       display: none;
     }
@@ -665,6 +697,27 @@
 <body class="min-h-screen flex flex-col">
   <div id="reading-progress-bar" aria-hidden="true"></div>
 
+  <!-- شريط إشعارات المدير المنزلق (Admin Shade) -->
+  <div id="admin-notify-banner" class="p-3 sm:p-4 flex justify-center" role="alert" aria-live="polite">
+    <div class="w-full max-w-2xl bg-white/95 backdrop-blur-xl border border-black/[0.10] rounded-[16px] shadow-[0_12px_32px_rgba(0,0,0,0.14)] px-4 py-3 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-3 min-w-0">
+        <span class="w-9 h-9 rounded-full bg-[#CE1126]/10 border border-[#CE1126]/30 flex items-center justify-center text-[#CE1126] shrink-0">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+        </span>
+        <div class="min-w-0">
+          <p class="text-[12px] font-extrabold text-[#CE1126]">إشعار للمدير</p>
+          <p id="admin-notify-text" class="text-[13px] sm:text-[14px] font-bold text-[#111827] truncate">يوجد إضافة أو تعديل جديد بانتظار المراجعة</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-1.5 shrink-0">
+        <button type="button" onclick="openAdminPendingFromNotification()" class="btn-ui btn-primary text-[12px] sm:text-[13px] h-[34px] px-3">مراجعة الآن</button>
+        <button type="button" onclick="hideAdminNotificationBanner()" aria-label="إغلاق الإشعار" class="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-black/[0.06] transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- شريط التنقل العلوي المبسط -->
   <header class="bg-white/80 backdrop-blur-xl border-b border-black/[0.08] sticky top-0 z-40 relative overflow-x-clip">
     <!-- علامة مائية زخرفية خفيفة (3%) في خلفية الترويسة -->
@@ -676,13 +729,13 @@
       </svg>
     </div>
     <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
-      <div class="flex items-center justify-between gap-3 h-16">
+      <div class="flex items-center justify-between gap-2 sm:gap-3 h-16">
         <!-- اليمين: زر القائمة الموحد (الشعار + العنوان) -->
-        <div class="relative shrink-0" id="main-dropdown-wrapper">
+        <div class="relative min-w-0 flex-1" id="main-dropdown-wrapper">
           <button type="button" id="mainMenuBtn" onclick="toggleMainDropdown()" aria-expanded="false" aria-haspopup="true"
-            class="flex items-center gap-3 text-right py-1.5 pl-3 pr-0 rounded-[12px] hover:bg-gray-100/80 cursor-pointer focus:outline-none transition group">
+            class="flex items-center gap-2 sm:gap-3 text-right py-1.5 pl-1 sm:pl-3 pr-0 max-w-full min-w-0 rounded-[12px] hover:bg-black/[0.04] cursor-default select-none focus:outline-none transition group">
             <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="شعار الخالدون في الذاكرة"
-              class="w-10 h-10 shrink-0 cursor-pointer select-none transition-transform duration-200 hover:scale-105 group-hover:scale-105">
+              class="w-9 h-9 sm:w-10 sm:h-10 shrink-0 cursor-default select-none transition-transform duration-200 hover:scale-105 group-hover:scale-105">
               <defs>
                 <linearGradient id="oliveFlameGrad" x1="20" y1="5" x2="20" y2="27" gradientUnits="userSpaceOnUse">
                   <stop offset="0%" stop-color="#D4A017"/>
@@ -699,9 +752,9 @@
               <path d="M20 9.5C20 14.2 20 19.8 20 24.5" stroke="#FEF3C7" stroke-width="1.25" stroke-linecap="round"/>
               <path d="M20 15.5L22.3 13.4M20 19L17.7 16.9" stroke="#FEF3C7" stroke-width="1.1" stroke-linecap="round"/>
             </svg>
-            <div>
-              <h1 id="secretAdminLogo" onclick="handleSecretAdminLogoClick(event)" class="text-lg sm:text-xl font-extrabold text-[#111827] leading-tight select-none">الخالدون في الذاكرة</h1>
-              <p class="text-[15px] text-[#111827] leading-tight">سجل التوثيق الرقمي والوفاء للشهداء</p>
+            <div class="min-w-0">
+              <h1 id="secretAdminLogo" onclick="handleSecretAdminLogoClick(event)" class="text-[15px] sm:text-xl font-extrabold text-[#111827] leading-tight select-none whitespace-nowrap truncate">الخالدون في الذاكرة</h1>
+              <p class="text-[11px] sm:text-[14px] text-[#424245] leading-tight whitespace-nowrap truncate">سجل التوثيق الرقمي والوفاء للشهداء</p>
             </div>
           </button>
 
@@ -768,12 +821,12 @@
         </div>
         <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
           <button type="button" onclick="openQuickSearchModal()" aria-label="بحث سريع" title="بحث سريع (Ctrl+K)"
-            class="inline-flex items-center gap-1.5 h-[38px] px-2.5 sm:px-3 rounded-[10px] bg-white border border-black/[0.12] hover:bg-black/[0.04] text-[#1D1D1F] text-[13px] font-bold transition cursor-pointer">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z"/></svg>
+            class="inline-flex items-center justify-center gap-1.5 w-[34px] sm:w-auto h-[34px] sm:h-[38px] px-0 sm:px-3 rounded-[10px] bg-white border border-black/[0.12] hover:bg-black/[0.04] text-[#1D1D1F] text-[13px] font-bold whitespace-nowrap transition cursor-pointer">
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z"/></svg>
             <span class="hidden sm:inline">بحث</span>
             <kbd class="hidden md:inline-block text-[10px] px-1.5 py-0.5 rounded border border-black/[0.12] opacity-70 num-std">Ctrl+K</kbd>
           </button>
-          <button type="button" onclick="openSubmitModal('martyr')" class="btn-ui btn-primary text-[13px] sm:text-[14px] px-2.5 sm:px-4 h-[38px] shrink-0">+ توثيق شهيد</button>
+          <button type="button" onclick="openSubmitModal('martyr')" class="btn-ui btn-primary text-[12px] sm:text-[14px] px-2.5 sm:px-4 h-[34px] sm:h-[38px] shrink-0 whitespace-nowrap"><span class="sm:hidden">+ توثيق</span><span class="hidden sm:inline">+ توثيق شهيد</span></button>
         </div>
       </div>
 
@@ -1263,7 +1316,11 @@
           <p class="text-[14px] text-[#111827]">إدارة طلبات الشهداء والرثاء والمحتوى</p>
         </div>
         <div class="flex flex-wrap items-center gap-2">
-          <button type="button" onclick="openBackupModal()" class="btn-ui border border-gray-300 bg-white text-[14px] text-[#111827] hover:bg-gray-100 transition">
+          <button type="button" id="admin-chime-toggle-btn" onclick="toggleAdminChimeMute()" class="btn-ui border border-gray-300 bg-white text-[14px] text-[#111827] hover:bg-gray-100 transition" title="كتم أو تفعيل صوت الإشعارات">
+            <svg id="admin-chime-icon" class="w-4 h-4 text-[#007A3D]" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+            <span id="admin-chime-label">صوت الإشعارات: مفعّل</span>
+          </button>
+          <button type="button" onclick="openBackupModal()"  class="btn-ui border border-gray-300 bg-white text-[14px] text-[#111827] hover:bg-gray-100 transition">
             <svg class="w-4 h-4 text-[#10B981]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/></svg>
             <span>النسخ الاحتياطي</span>
           </button>
@@ -1422,7 +1479,6 @@
       </div>
       <div id="article-modal-body" class="p-6 space-y-3 text-base text-[#111827] leading-[1.85]"></div>
       <div class="no-print bg-[#F8F9FA] px-6 py-3.5 flex flex-wrap justify-end items-center gap-2.5 border-t border-gray-200 rounded-b-[14px]">
-        <button type="button" onclick="toggleSpeakText(this, (document.getElementById('article-modal-title')?.textContent || '') + '. ' + (document.getElementById('article-modal-body')?.textContent || ''))" class="btn-ui text-[14px]"><svg class="w-4 h-4 inline-block ml-1" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>استماع</button>
         <button type="button" onclick="openQuoteShareModal(document.getElementById('article-modal-body')?.innerText || '', document.getElementById('article-modal-title')?.textContent || '')" class="btn-ui text-[14px]"><svg class="w-3.5 h-3.5 inline-block ml-1" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg>اقتباس</button>
         <button type="button" onclick="window.print()" class="btn-ui btn-primary text-[15px]">طباعة</button>
         <button type="button" onclick="closeArticleModal()" class="btn-ui apple-btn-secondary text-[15px]">إغلاق</button>
@@ -2514,7 +2570,6 @@
             <div class="leading-relaxed text-slate-700 text-base my-4 max-h-[38vh] overflow-y-auto whitespace-pre-line">${escapeHtml(city.history || city.summary || '')}</div>
           </div>
           <div class="pt-4 border-t border-gray-100 flex flex-wrap gap-2.5">
-            <button type="button" onclick="toggleSpeakText(this, '${escapeJsStr(city.name + '. ' + (city.history || city.summary || ''))}')" class="btn-ui text-[14px]"><svg class="w-4 h-4 inline-block ml-1" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>استماع</button>
             <button type="button" onclick="viewCityMartyrs('${escapeJsStr(city.name)}')" class="btn-ui btn-primary text-[15px] flex-1">عرض شهداء المدينة</button>
           </div>
         </div>
@@ -2528,7 +2583,6 @@
 
   function closeCityDetailsModal(e) {
     if (e && e.target && e.target.id !== 'modal-city-details') return;
-    stopSpeaking();
     const modal = document.getElementById('modal-city-details');
     if (modal) {
       modal.classList.add('hidden');
@@ -2770,7 +2824,6 @@
 
   function closeArticleModal(e) {
     if (e && e.target && e.target.id !== 'modal-article') return;
-    stopSpeaking();
     const modal = document.getElementById('modal-article');
     modal.classList.add('hidden');
     modal.classList.remove('flex');
@@ -2901,10 +2954,7 @@
             </div>
           </div>
 
-          <div class="no-print pt-5 border-t border-gray-100 grid grid-cols-2 sm:grid-cols-5 gap-2">
-            <button type="button" onclick="toggleSpeakText(this, currentViewedMartyr ? (currentViewedMartyr.full_name_ar + '. ' + (currentViewedMartyr.bio || '')) : '')" class="btn-ui py-2.5 px-2 text-xs sm:text-sm whitespace-nowrap justify-center">
-              <svg class="w-4 h-4 inline-block ml-1" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>استماع
-            </button>
+          <div class="no-print pt-5 border-t border-gray-100 grid grid-cols-2 sm:grid-cols-4 gap-2">
             <button type="button" onclick="openQuoteShareModal(currentViewedMartyr ? (currentViewedMartyr.bio || currentViewedMartyr.full_name_ar) : '', currentViewedMartyr ? currentViewedMartyr.full_name_ar : '')" class="btn-ui py-2.5 px-2 text-xs sm:text-sm whitespace-nowrap justify-center">
               <svg class="w-3.5 h-3.5 inline-block ml-1" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg>اقتباس
             </button>
@@ -2914,7 +2964,7 @@
             <button type="button" onclick="requestMartyrObjection()" class="btn-ui py-2.5 px-2 text-xs sm:text-sm whitespace-nowrap justify-center">
               تصحيح
             </button>
-            <button type="button" onclick="printMemorialCard()" class="btn-ui py-2.5 px-2 text-xs sm:text-sm whitespace-nowrap justify-center col-span-2 sm:col-span-1">
+            <button type="button" onclick="printMemorialCard()" class="btn-ui py-2.5 px-2 text-xs sm:text-sm whitespace-nowrap justify-center">
               طباعة
             </button>
           </div>
@@ -2941,7 +2991,6 @@
 
   function closeDetailsModal(e) {
     if (e && e.target && e.target.id !== 'modal-details') return;
-    stopSpeaking();
     const modal = document.getElementById('modal-details');
     modal.classList.add('hidden');
     modal.classList.remove('flex');
@@ -4097,6 +4146,7 @@
       } else {
         demoStore.records.unshift({ ...payload, publishAsArticle, id: ++demoStore.nextId, created_at: new Date().toISOString() });
         saveDemoStoreToStorage();
+        if (adminSessionActive) triggerAdminNewItemAlert(`طلب توثيق شهيد جديد: ${nameAr}`);
       }
 
       recordSubmitRateLimit();
@@ -4140,6 +4190,7 @@
       } else {
         demoStore.tributes.unshift({ ...payload, id: ++demoStore.nextId, created_at: new Date().toISOString() });
         saveDemoStoreToStorage();
+        if (adminSessionActive) triggerAdminNewItemAlert(`رسالة رثاء جديدة من: ${payload.author_name}`);
       }
 
       recordSubmitRateLimit();
@@ -4193,6 +4244,7 @@
       } else {
         demoStore.tributes.unshift({ ...payload, id: ++demoStore.nextId, created_at: new Date().toISOString() });
         saveDemoStoreToStorage();
+        if (adminSessionActive) triggerAdminNewItemAlert(`طلب تعديل / اعتراض جديد: ${martyrName}`);
       }
 
       recordSubmitRateLimit();
@@ -4492,6 +4544,7 @@
     if (!IS_CONFIGURED) demoStore.loggedIn = true;
     closeAdminAuthModal();
     showAdminModalView();
+    startAdminNotificationWatcher();
     showToast('تم التحقق بنجاح والدخول إلى لوحة المدير', 'success');
   }
 
@@ -4624,6 +4677,7 @@
 
   async function adminLogout() {
     adminSessionActive = false;
+    stopAdminNotificationWatcher();
     try {
       sessionStorage.removeItem('khalidin_admin_authenticated');
       localStorage.removeItem('khalidin_admin_authenticated');
@@ -6139,7 +6193,6 @@
   const THEME_STORAGE_KEY = 'khalidin_theme_v1';
   let quickSearchCategory = 'all';
   let currentShareQuote = { text: '', author: '' };
-  let activeTtsBtn = null;
 
   function initReadingProgressBar() {
     const bar = document.getElementById('reading-progress-bar');
@@ -6190,6 +6243,10 @@
     const isDark = mode === 'dark';
     document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
     document.documentElement.classList.toggle('dark', isDark);
+    const metaTheme = document.getElementById('meta-theme-color');
+    if (metaTheme) metaTheme.setAttribute('content', isDark ? '#121212' : '#FFFFFF');
+    const appleStatus = document.getElementById('meta-apple-status-bar');
+    if (appleStatus) appleStatus.setAttribute('content', isDark ? 'black-translucent' : 'default');
     const cb = document.getElementById('dropdown-theme-toggle');
     if (cb) cb.checked = isDark;
   }
@@ -6240,43 +6297,6 @@
     applyColorTheme(next);
   }
 
-  function stopSpeaking() {
-    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-      try { window.speechSynthesis.cancel(); } catch (_) {}
-    }
-    if (activeTtsBtn) {
-      activeTtsBtn.textContent = '<svg class="w-4 h-4 inline-block ml-1" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>استماع';
-      activeTtsBtn = null;
-    }
-  }
-
-  function toggleSpeakText(btnEl, rawText) {
-    if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
-      showToast('المتصفح الحالي لا يدعم القراءة الصوتية', 'error');
-      return;
-    }
-    const text = String(rawText || '').trim();
-    if (!text) return;
-    if (activeTtsBtn === btnEl && window.speechSynthesis.speaking) {
-      stopSpeaking();
-      return;
-    }
-    stopSpeaking();
-    const utter = new SpeechSynthesisUtterance(text);
-    utter.lang = 'ar-SA';
-    utter.rate = 0.95;
-    activeTtsBtn = btnEl;
-    if (btnEl) btnEl.textContent = 'إيقاف';
-    utter.onend = () => {
-      if (btnEl) btnEl.textContent = '<svg class="w-4 h-4 inline-block ml-1" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>استماع';
-      if (activeTtsBtn === btnEl) activeTtsBtn = null;
-    };
-    utter.onerror = () => {
-      if (btnEl) btnEl.textContent = '<svg class="w-4 h-4 inline-block ml-1" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>استماع';
-      if (activeTtsBtn === btnEl) activeTtsBtn = null;
-    };
-    window.speechSynthesis.speak(utter);
-  }
 
   function openQuickSearchModal() {
     const modal = document.getElementById('modal-quick-search');
@@ -6504,6 +6524,199 @@
     }
   });
 
+
+  // ==========================================================
+  // نظام إشعارات المدير الفوري (صوت Web Audio + إشعار النظام + شريط منزلق)
+  // ==========================================================
+  const ADMIN_CHIME_MUTE_KEY = 'khalidin_admin_chime_muted_v1';
+  let adminPollTimer = null;
+  let adminRealtimeChannel = null;
+  let lastKnownPendingCount = null;
+  let adminBannerAutoHideTimer = null;
+
+  function isAdminChimeMuted() {
+    try { return localStorage.getItem(ADMIN_CHIME_MUTE_KEY) === 'true'; } catch (_) { return false; }
+  }
+
+  function syncAdminChimeToggleUi() {
+    const muted = isAdminChimeMuted();
+    const label = document.getElementById('admin-chime-label');
+    const icon = document.getElementById('admin-chime-icon');
+    if (label) label.textContent = muted ? 'صوت الإشعارات: مكتوم' : 'صوت الإشعارات: مفعّل';
+    if (icon) {
+      icon.innerHTML = muted
+        ? '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="22" x2="16" y1="9" y2="15"/><line x1="16" x2="22" y1="9" y2="15"/>'
+        : '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>';
+    }
+  }
+
+  function toggleAdminChimeMute() {
+    const next = !isAdminChimeMuted();
+    try { localStorage.setItem(ADMIN_CHIME_MUTE_KEY, next ? 'true' : 'false'); } catch (_) {}
+    syncAdminChimeToggleUi();
+    if (!next) playAdminChime();
+  }
+
+  function playAdminChime() {
+    if (isAdminChimeMuted()) return;
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = new AudioCtx();
+      if (ctx.state === 'suspended') ctx.resume().catch(() => {});
+
+      const playTone = (freq, startOffset, duration) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, ctx.currentTime + startOffset);
+        gain.gain.setValueAtTime(0.001, ctx.currentTime + startOffset);
+        gain.gain.exponentialRampToValueAtTime(0.11, ctx.currentTime + startOffset + 0.03);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + startOffset + duration);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(ctx.currentTime + startOffset);
+        osc.stop(ctx.currentTime + startOffset + duration + 0.02);
+      };
+
+      playTone(659.25, 0, 0.22);
+      playTone(880.0, 0.14, 0.30);
+    } catch (_) {}
+  }
+
+  function showAdminNotificationBanner(summaryText) {
+    const banner = document.getElementById('admin-notify-banner');
+    const textEl = document.getElementById('admin-notify-text');
+    if (!banner) return;
+    if (textEl) textEl.textContent = summaryText || 'يوجد إضافة أو تعديل جديد بانتظار المراجعة';
+    banner.classList.add('admin-banner-show');
+    clearTimeout(adminBannerAutoHideTimer);
+    adminBannerAutoHideTimer = setTimeout(hideAdminNotificationBanner, 9000);
+  }
+
+  function hideAdminNotificationBanner() {
+    const banner = document.getElementById('admin-notify-banner');
+    if (banner) banner.classList.remove('admin-banner-show');
+  }
+
+  function openAdminPendingFromNotification() {
+    hideAdminNotificationBanner();
+    openAdminModal();
+    setTimeout(() => {
+      if (typeof switchAdminTab === 'function') switchAdminTab('pending');
+      if (typeof loadAdminData === 'function') loadAdminData();
+    }, 80);
+  }
+
+  async function requestAdminNotificationPermission() {
+    if (typeof window === 'undefined' || !('Notification' in window)) return;
+    if (Notification.permission === 'default') {
+      try { await Notification.requestPermission(); } catch (_) {}
+    }
+  }
+
+  async function showAdminSystemNotification(bodyText) {
+    if (typeof window === 'undefined' || !('Notification' in window)) return;
+    if (Notification.permission !== 'granted') return;
+    const title = 'الخالدون في الذاكرة — طلب جديد';
+    const options = {
+      body: bodyText || 'يوجد إضافة أو تعديل جديد بانتظار المراجعة',
+      icon: './icon-192.png',
+      badge: './icon-192.png',
+      tag: 'khalidin-admin-pending',
+      renotify: true
+    };
+    try {
+      if ('serviceWorker' in navigator) {
+        const reg = await navigator.serviceWorker.getRegistration();
+        if (reg && reg.showNotification) {
+          await reg.showNotification(title, options);
+          return;
+        }
+      }
+      const n = new Notification(title, options);
+      n.onclick = () => {
+        try { window.focus(); } catch (_) {}
+        openAdminPendingFromNotification();
+        n.close();
+      };
+    } catch (_) {}
+  }
+
+  function triggerAdminNewItemAlert(summaryText) {
+    if (!adminSessionActive) return;
+    playAdminChime();
+    showAdminNotificationBanner(summaryText);
+    showAdminSystemNotification(summaryText);
+    if (document.getElementById('admin-dashboard')) {
+      loadAdminData();
+    }
+  }
+
+  async function pollAdminPendingCounts() {
+    if (!adminSessionActive) return;
+    try {
+      let currentCount = 0;
+      if (!IS_CONFIGURED) {
+        const pm = (demoStore.records || []).filter(r => r.status === 'pending').length;
+        const pt = (demoStore.tributes || []).filter(t => t.status === 'pending').length;
+        currentCount = pm + pt;
+      } else if (db) {
+        const [pm, pt, pr] = await Promise.all([
+          db.from('khalidin_martyrs').select('*', { count: 'exact', head: true }).eq('status', 'pending'),
+          db.from('khalidin_tributes').select('*', { count: 'exact', head: true }).eq('status', 'pending').neq('author_name', ABOUT_CONFIG_AUTHOR),
+          db.from('khalidin_requests').select('*', { count: 'exact', head: true }).eq('status', 'pending')
+        ]);
+        currentCount = (pm.count || 0) + (pt.count || 0) + (pr.count || 0);
+      }
+      if (lastKnownPendingCount !== null && currentCount > lastKnownPendingCount) {
+        triggerAdminNewItemAlert(`يوجد ${toEnglishDigits(currentCount)} طلبات معلقة بانتظار المراجعة`);
+      }
+      lastKnownPendingCount = currentCount;
+    } catch (_) {}
+  }
+
+  function startAdminNotificationWatcher() {
+    if (!adminSessionActive) return;
+    syncAdminChimeToggleUi();
+    requestAdminNotificationPermission();
+    pollAdminPendingCounts();
+
+    if (adminPollTimer) clearInterval(adminPollTimer);
+    adminPollTimer = setInterval(pollAdminPendingCounts, 20000);
+
+    if (IS_CONFIGURED && db && db.channel && !adminRealtimeChannel) {
+      try {
+        adminRealtimeChannel = db.channel('khalidin-admin-watch')
+          .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'khalidin_martyrs' }, (payload) => {
+            if (payload?.new?.status === 'pending') {
+              triggerAdminNewItemAlert(`طلب توثيق شهيد جديد: ${payload.new.full_name_ar || ''}`);
+            }
+          })
+          .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'khalidin_tributes' }, (payload) => {
+            if (payload?.new?.status === 'pending' && payload.new.author_name !== ABOUT_CONFIG_AUTHOR) {
+              triggerAdminNewItemAlert(`رسالة رثاء جديدة من: ${payload.new.author_name || 'زائر'}`);
+            }
+          })
+          .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'khalidin_requests' }, (payload) => {
+            if (payload?.new?.status === 'pending') {
+              triggerAdminNewItemAlert(`طلب تعديل / تواصل إداري جديد: ${payload.new.martyr_name || ''}`);
+            }
+          })
+          .subscribe();
+      } catch (_) {}
+    }
+  }
+
+  function stopAdminNotificationWatcher() {
+    if (adminPollTimer) { clearInterval(adminPollTimer); adminPollTimer = null; }
+    lastKnownPendingCount = null;
+    if (adminRealtimeChannel && db && db.removeChannel) {
+      try { db.removeChannel(adminRealtimeChannel); } catch (_) {}
+      adminRealtimeChannel = null;
+    }
+  }
+
   function initMemorialApp() {
     initColorTheme();
     initReadingProgressBar();
@@ -6534,6 +6747,7 @@
       }).catch(() => {});
     }
     syncDropdownAdminButton();
+    if (adminSessionActive) startAdminNotificationWatcher();
     setTimeout(observeRevealElements, 80);
   }
 
