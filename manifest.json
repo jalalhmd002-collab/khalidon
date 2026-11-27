@@ -9,7 +9,7 @@
   "dir": "rtl",
   "lang": "ar",
   "background_color": "#F8F9FA",
-  "theme_color": "#10B981",
+  "theme_color": "#F8F9FA",
   "icons": [
     {
       "src": "./icon-192.png",
